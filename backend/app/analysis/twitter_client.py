@@ -61,7 +61,7 @@ class TwitterClient(object):
       API call to get tweets based on query keyword(s)
     """
 
-    query = 'Donald Trump'
+    query = 'Elon Musk'
 
     try:
       tweets = self.client.search_recent_tweets(query=query, max_results=10, user_auth=True)
