@@ -17,8 +17,8 @@ import requests, os
 
 
 
-@app.route('/api/v1/analyzeSentiment', methods=['POST'])
-def analyzeSentiment():
+# @app.route('/api/v1/analyzeSentiment', methods=['POST'])
+# def analyzeSentiment():
     # classifier = TextClassifier.load('sentiment')
     # if not request.json or not 'message' in request.json:
     #     abort(400)

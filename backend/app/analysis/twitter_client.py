@@ -26,16 +26,16 @@ class TwitterClient(object):
     # api = tweepy.API(auth)
     # return api
 
-    try: 
-      self.client = tweepy.Client(
-      consumer_key=API_KEY,
-      consumer_secret=API_KEY_SECRET,
-      access_token=ACCESS_TOKEN,
-      access_token_secret=ACCESS_TOKEN_SECRET)
+    # try: 
+    self.client = tweepy.Client(
+    consumer_key=API_KEY,
+    consumer_secret=API_KEY_SECRET,
+    access_token=ACCESS_TOKEN,
+    access_token_secret=ACCESS_TOKEN_SECRET)
 
-    except tweepy.TweepError as e:
-      # print error (if any)
-      print("Error : " + str(e))
+    # except tweepy.TweepError as e:
+    #   # print error (if any)
+    #   print("Error : " + str(e))
 
   def read_config(self):
       """
@@ -43,12 +43,14 @@ class TwitterClient(object):
       """
 
       config = configparser.ConfigParser()
-      config.read('../config.ini')
+      config.read('../../config.ini')
 
       global API_KEY
       global API_KEY_SECRET
       global ACCESS_TOKEN
       global ACCESS_TOKEN_SECRET
+
+      print(config['twitter'])
       
       API_KEY = config['twitter']['api_key']
       API_KEY_SECRET = config['twitter']['api_key_secret']
@@ -63,14 +65,14 @@ class TwitterClient(object):
 
     query = 'Elon Musk'
 
-    try:
-      tweets = self.client.search_recent_tweets(query=query, max_results=10, user_auth=True)
-      print(tweets)
-      for tweet in tweets:
-        print(tweet)
-    except tweepy.TweepError as e:
-        # print error (if any)
-        print("Error : " + str(e))
+    # try:
+    tweets = self.client.search_recent_tweets(query=query, max_results=10, user_auth=True)
+    print(tweets)
+    for tweet in tweets:
+      print(tweet)
+    # except tweepy.TweepError as e:
+    #     # print error (if any)
+    #     print("Error : " + str(e))
 
 if __name__ == '__main__':
   ### ONLY AVAILABLE FOR ELEVATED ACCESS ###
