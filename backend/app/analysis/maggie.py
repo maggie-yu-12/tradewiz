@@ -113,11 +113,7 @@ def get_twitter_top_tweets_(stock_name):
             r = mid + 1
             left_valid = True
             right_valid = True
-<<<<<<< HEAD
-        while (left_valid or right_valid) and len(neut) < 5:
-=======
             while (left_valid or right_valid) and len(neut) < 5:
->>>>>>> 3069c31784cb7cab545fb5bf5d459f4ba5a93e1d
                 if l >= 0 and tweets_arr[l][-1] > -0.3:
                     neut.append(tweets_arr[l][0:7])
                     l -= 1
@@ -135,10 +131,4 @@ def get_twitter_top_tweets_(stock_name):
 pos, neg, neut = get_twitter_top_tweets_("TSLA")
 
 print(pos)
-<<<<<<< HEAD
 print(neg)
-
-
-=======
-print(neg)
->>>>>>> 3069c31784cb7cab545fb5bf5d459f4ba5a93e1d
