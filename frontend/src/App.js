@@ -1,13 +1,12 @@
-import { useState } from 'react'
+import { useState } from "react";
 import axios from "axios";
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 
 export function App() {
-
   // new line start
-  const [profileData, setProfileData] = useState(null)
-  axios.defaults.baseURL = 'http://localhost:8000';
+  const [profileData, setProfileData] = useState(null);
+  axios.defaults.baseURL = "http://localhost:8000";
 
   function getData() {
     axios({
@@ -15,20 +14,21 @@ export function App() {
       url: "/profile",
     })
       .then((response) => {
-        const res = response.data
-        setProfileData(({
+        const res = response.data;
+        setProfileData({
           profile_name: res.name,
-          about_me: res.about
-        }))
-      }).catch((error) => {
-        if (error.response) {
-          console.log(error.response)
-          console.log(error.response.status)
-          console.log(error.response.headers)
-        }
+          about_me: res.about,
+        });
       })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
   }
-  //end of new line 
+  //end of new line
 
   return (
     <div className="App">
@@ -47,12 +47,14 @@ export function App() {
         </a>
 
         {/* new line start*/}
-        <p>To get your profile details: </p><button onClick={getData}>Click me</button>
-        {profileData && <div>
-          <p>Profile name: {profileData.profile_name}</p>
-          <p>About me: {profileData.about_me}</p>
-        </div>
-        }
+        <p>To get your profile details: </p>
+        <button onClick={getData}>Click me</button>
+        {profileData && (
+          <div>
+            <p>Profile name: {profileData.profile_name}</p>
+            <p>About me: {profileData.about_me}</p>
+          </div>
+        )}
         {/* end of new line */}
       </header>
     </div>
