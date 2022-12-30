@@ -1,9 +1,10 @@
-import { useState } from "react";
 import axios from "axios";
-import logo from "./logo.svg";
+import { useState } from "react";
 import "./App.css";
+import logo from "./logo.svg";
 
 export function App() {
+
   // new line start
   const [profileData, setProfileData] = useState(null);
   axios.defaults.baseURL = "http://localhost:8000";

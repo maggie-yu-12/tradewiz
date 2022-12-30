@@ -14,9 +14,10 @@ requests.get(
     'https://api.twitter.com/1.1/search/tweets.json?q=tesla',
     params=params,
     headers={
-        'authorization': 'Bearer '+AAAAAAAAAAAAAAAAAAAAAGJTjQEAAAAAFVA2HcOK%2FcR%2Fc2FPcKcfGdCvos8%3DqJ0x4Lafh439mFUHO9Sgez6Q2iFou3B1IqEvCNBSEGnEwz87DR
+        'authorization': 'Bearer '+AAAAAAAAAAAAAAAAAAAAAGJTjQEAAAAAFVA2HcOK % 2FcR % 2Fc2FPcKcfGdCvos8 % 3DqJ0x4Lafh439mFUHO9Sgez6Q2iFou3B1IqEvCNBSEGnEwz87DR
 
-})
+    })
+
 
 def get_data(tweet):
     data = {
@@ -35,5 +36,3 @@ for tweet in response.json()['statuses']:
 
 sentence = flair.data.Sentence(TEXT)
 sentiment_model.predict(sentence)
-
-
