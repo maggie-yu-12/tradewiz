@@ -6,7 +6,7 @@
   },
   "extends": [
     "airbnb",
-    "eslint-config-prettier"
+    "prettier"
   ],
   "plugins": [
     "eslint-plugin-prettier"
