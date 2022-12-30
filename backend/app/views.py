@@ -4,6 +4,7 @@
 
 from main import app
 
+from flask_cors import cross_origin
 
 from flask import abort, Flask, jsonify, request
 from flair.models import TextClassifier
@@ -32,11 +33,11 @@ import requests, os
 
 # example
 @app.route('/profile')
+@cross_origin(origin='*') 
 def index():
     response_body = {
         "name": "Nagato",
         "about" :"Hello! I'm a full stack developer that loves python and javascript"
     }
-
     return response_body
 

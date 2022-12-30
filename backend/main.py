@@ -1,16 +1,14 @@
 
 from flask import Flask, render_template
+from flask_cors import CORS
+
 app = Flask(__name__)
+cors = CORS(app, origins=[
+  'http://localhost:1234',
+])
+app.config['CORS_HEADERS'] = 'Content-Type'
 
-# @app.route('/profile')
-# def index():
-#     response_body = {
-#         "name": "Nagato",
-#         "about" :"Hello! I'm a full stack developer that loves python and javascript"
-#     }
-
-#     return response_body
-
-    # return render_template('index.html')
+if __name__ == '__main__':
+    app.run(host="localhost", port=8000, debug=True)
 
 from app import views

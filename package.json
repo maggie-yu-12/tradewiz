@@ -2,12 +2,12 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.1",
+    "concurrently": "^7.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
@@ -15,8 +15,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-backend": "cd ../backend && flask run --no-debugger",
-    "build": "react-scripts build",
+    "server": "cd backend && flask run -h localhost -p 8000 --no-debugger",
+    "dev": "concurrently --kill-others \"npm run server\" \"npm run build\"",
+    "build": "parcel frontend/src/index.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -37,5 +38,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "buffer": "^5.7.1",
+    "parcel": "^2.8.2",
+    "process": "^0.11.10"
   }
 }
