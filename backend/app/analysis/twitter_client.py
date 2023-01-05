@@ -6,6 +6,8 @@ Referenced tutorials to set up authentication here:
 
 """
 
+# pylint: disable=E1136
+
 import configparser
 import json
 import re
