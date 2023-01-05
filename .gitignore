@@ -2,7 +2,7 @@
 .parcel-cache
 node_modules
 dist
-venv1
+venv
 
 # dependencies
 frontend/.pnp
