@@ -1,0 +1,23 @@
+[
+  {
+    "company": "Tesla",
+    "symbol": "TSLA",
+    "week": -15,
+    "month": -5,
+    "sentiment": "negative"
+  },
+  {
+    "company": "Apple",
+    "symbol": "AAPL",
+    "week": -10,
+    "month": 1,
+    "sentiment": "positive"
+  },
+  {
+    "company": "Nvidia",
+    "symbol": "NVDA",
+    "week": 3,
+    "month": 7,
+    "sentiment": "positive"
+  }
+]
