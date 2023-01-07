@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 
 import {
-  Box
+  Box,
+  CircularProgress, Fade, Paper, TableContainer
 } from '@mui/material';
 import MaterialReactTable from 'material-react-table';
 
@@ -32,8 +33,8 @@ export const RecommendedLongTable = ({ data }) => {
                 theme.palette.warning.dark,
             borderRadius: '0.25rem',
             color: '#fff',
-            maxWidth: '9ch',
             textAlign: 'center',
+            maxWidth: '50%',
             p: '0.25rem',
           })}
         >
@@ -64,21 +65,30 @@ export const RecommendedLongTable = ({ data }) => {
 
 const RecommendedTable = ({ columns, data }) => {
   return (
-    <div className='home-container'>
-      <MaterialReactTable
-        columns={columns}
-        data={data}
-        // enableRowSelection //enable some features
-        enableColumnOrdering
-        enableGlobalFilter={false} //turn off a feature
-        enableRowNumbers
-        enableRowActions
-        muiSearchTextFieldProps={{
-          placeholder: 'Search Stock',
-          sx: { minWidth: '18rem' },
-          variant: 'outlined',
-        }}
-      />
-    </div>
+    <>
+      {data.length == 0 ? <CircularProgress /> :
+        <Fade in={true} timeout={1000}>
+          <TableContainer component={Paper} sx={{ maxHeight: "50vh", maxWidth: "80vw" }}>
+            <div className='home-container'>
+              <MaterialReactTable
+                style={{ width: 100 }}
+                columns={columns}
+                data={data}
+                // enableRowSelection //enable some features
+                enableColumnOrdering
+                enableGlobalFilter={false} //turn off a feature
+                enableRowNumbers
+                enableRowActions
+                muiSearchTextFieldProps={{
+                  placeholder: 'Search Stock',
+                  sx: { minWidth: '18rem' },
+                  variant: 'outlined',
+                }}
+              />
+            </div>
+          </TableContainer>
+        </Fade>
+      }
+    </>
   )
 }
