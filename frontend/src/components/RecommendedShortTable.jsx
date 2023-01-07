@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { COLUMN_NAMES, RecommendedTable, SentimentBackground } from './RecommendedTable'
+import { COLUMN_NAMES, getColumnAccessor, RecommendedTable, SentimentBackground } from './RecommendedTable'
 
 /**
  * Component for Recommended Short Table on Home page. 
@@ -21,19 +21,6 @@ const RecommendedShortTable = ({ data }) => {
       }))
     }
   )
-
-  const getColumnAccessor = (originalRow, key) => {
-    switch (key) {
-      case "COMPANY":
-        return (originalRow.company).concat(" (", originalRow.symbol, ")")
-      case "WEEK":
-        return originalRow.week
-      case "MONTH":
-        return originalRow.month
-      case "SENTIMENT":
-        return originalRow.sentiment
-    }
-  }
 
   const props = { columns: columns, data: data }
   return <RecommendedTable {...props} />

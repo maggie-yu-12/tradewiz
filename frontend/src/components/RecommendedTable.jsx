@@ -19,6 +19,19 @@ export const COLUMN_NAMES = Object.freeze({
   SENTIMENT: "Sentiment"
 });
 
+export const getColumnAccessor = (originalRow, key) => {
+  switch (key) {
+    case "COMPANY":
+      return (originalRow.company).concat(" (", originalRow.symbol, ")")
+    case "WEEK":
+      return originalRow.week
+    case "MONTH":
+      return originalRow.month
+    case "SENTIMENT":
+      return originalRow.sentiment
+  }
+}
+
 /**
  * Background for sentiment arrows: light green for positive, light red for negative
  */
