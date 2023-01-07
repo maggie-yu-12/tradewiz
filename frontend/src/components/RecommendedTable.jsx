@@ -5,12 +5,7 @@ import {
 } from '@mui/material';
 import MaterialReactTable from 'material-react-table';
 
-import sample_data from '../../model/sample_data.json';
-
-import '../../styles/home.css';
-
-const Home = () => {
-  const data = useMemo(() => sample_data, [])
+export const RecommendedLongTable = ({ data }) => {
   const column_headers = useMemo(() => ["company", "symbol", "week", "month", "sentiment"])
   const Sentiment = Object.freeze({
     POSITIVE: Symbol("positive"),
@@ -63,6 +58,11 @@ const Home = () => {
     }
   }
 
+  const props = { columns: columns, data: data }
+  return <RecommendedTable {...props} />
+}
+
+const RecommendedTable = ({ columns, data }) => {
   return (
     <div className='home-container'>
       <MaterialReactTable
@@ -82,5 +82,3 @@ const Home = () => {
     </div>
   )
 }
-
-export default Home
