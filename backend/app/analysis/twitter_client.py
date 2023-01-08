@@ -19,14 +19,14 @@ from flair.models import SequenceTagger, TextClassifier
 
 
 class TwitterClient(object):
-    """
+    '''
       Twitter client class for sentiment analysis
-    """
+    '''
 
     def __init__(self):
-        """
+        '''
           Set up authentication and initialize client
-        """
+        '''
         self.read_config()
 
         ### ONLY AVAILABLE FOR ELEVATED ACCESS ###
@@ -48,9 +48,9 @@ class TwitterClient(object):
         #   print("Error : " + str(e))
 
     def read_config(self):
-        """
+        '''
           Retrieve authentication keys from config file and initialize
-        """
+        '''
 
         config = configparser.ConfigParser()
         config.read('../../config.ini')
@@ -74,9 +74,9 @@ class TwitterClient(object):
         # self.BEARER_TOKEN = config['twitter-essential']['bearer_token']
 
     def get_tweets(self):
-        """
+        '''
           API call to get tweets based on query keyword(s)
-        """
+        '''
 
         query = '#gme'
 
@@ -87,9 +87,6 @@ class TwitterClient(object):
         # except tweepy.TweepError as e:
         #     # print error (if any)
         #     print("Error : " + str(e))
-
-    def f(self, x):
-        return x*x
 
     def get_old_tweets(self, search_words, date_since, date_until):
         '''
@@ -102,10 +99,11 @@ class TwitterClient(object):
 
             Returns: None
         '''
+        # Create a name for file that we will be writing tweets to
         filename = "past_tweets_" + date_since + "_" + date_until + ".txt"
 
         # UNCOMMENT TO RUN THE QUERIES
-        # NOTE: WE NEED TO BE CAREFUL THO BC WE CAN run AT MAX 50 QUERIES PER MONTH :((
+        # !! NOTE: WE NEED TO BE CAREFUL THO BC WE CAN run AT MAX 50 QUERIES PER MONTH :((
         # tweets = tweepy.Cursor(self.api.search_full_archive,
         #                        query=search_words,
         #                        label="fullArchiveEnviron",
@@ -115,19 +113,18 @@ class TwitterClient(object):
 
         with open(filename, "w") as file:
             for elem in tweets:
+                # Turn Status (`elem` data type) object into a JSON format to make writable to a file
                 s = json.dumps(elem._json)
                 file.write(s)
                 file.write("\n")
 
 
-'''
-  For a tweet, return get sentiment score through Flair API
-  Input: tweet str
-  Return: score float
-'''
-
-
 def get_sentiment(tweet):
+    '''
+        For a tweet, return get sentiment score through Flair API
+        Input: tweet str
+        Return: score float
+    '''
     # > Referenced: https://towardsdatascience.com/text-classification-with-state-of-the-art-nlp-library-flair-b541d7add21f?gi=3675966b8dff
     classifier = TextClassifier.load('en-sentiment')
     sentence = Sentence(tweet)
@@ -149,7 +146,7 @@ def get_sentiment(tweet):
 
 
 def clean(raw):
-    """ Remove hyperlinks and markup """
+    ''' Remove hyperlinks and markup '''
     result = re.sub("<[a][^>]*>(.+?)</[a]>", 'Link.', raw)
     result = re.sub('&gt;', "", result)
     result = re.sub('&#x27;', "'", result)
@@ -178,7 +175,7 @@ if __name__ == '__main__':
     date_since_arr = ["201610310000", "201611050000"]
     date_until_arr = ["201611020000", "201611060000"]
 
-    # Run concurrently
+    # Retrieve past tweets in parallel
     with Pool(5) as p:
         p.starmap(client.get_old_tweets, zip(
             repeat(search_words), date_since_arr, date_until_arr))
