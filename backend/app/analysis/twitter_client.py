@@ -170,15 +170,25 @@ if __name__ == '__main__':
     #   print(public_tweets[i].text)
     #   print(clean(public_tweets[i].text))
     #   get_sentiment(public_tweets[i].text)
+
     search_words = "#tesla OR #stock"
 
     date_since_arr = ["201610310000", "201611050000"]
     date_until_arr = ["201611020000", "201611060000"]
 
     # Retrieve past tweets in parallel
-    with Pool(5) as p:
-        p.starmap(client.get_old_tweets, zip(
-            repeat(search_words), date_since_arr, date_until_arr))
+    # with Pool(5) as p:
+    #     p.starmap(client.get_old_tweets, zip(
+    #         repeat(search_words), date_since_arr, date_until_arr))
+
+    queried_tweets = []
+    with open('past_tweets_201610310000_201611020000.txt', 'r') as file:
+        for line in file:
+            obj = json.loads(line)
+            queried_tweets.append(obj['text'])
+
+    for tweet in queried_tweets:
+        get_sentiment(tweet)
 
     # for i in range(2):
     #   print("sentiment score: ", get_sentiment(public_tweets[i]), public_tweets[i])
