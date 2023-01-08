@@ -9,6 +9,8 @@ Referenced tutorials to set up authentication here:
 import configparser
 import json
 import re
+from itertools import repeat
+from multiprocessing import Pool
 
 import requests
 import tweepy
@@ -65,7 +67,8 @@ class TwitterClient(object):
             'api_key': config['twitter-elevated']['api_key'],
             'api_key_secret': config['twitter-elevated']['api_key_secret'],
             'api_access_token': config['twitter-elevated']['access_token'],
-            'api_access_token_secret': config['twitter-elevated']['access_token_secret']
+            'api_access_token_secret': config['twitter-elevated']['access_token_secret'],
+            'api_bearer_token': config['twitter-elevated']['bearer_token'],
         }
 
         # self.BEARER_TOKEN = config['twitter-essential']['bearer_token']
@@ -85,17 +88,36 @@ class TwitterClient(object):
         #     # print error (if any)
         #     print("Error : " + str(e))
 
-    def get_old_tweets(self):
-        endpoint = "https://api.twitter.com/1.1/tweets/search/30day/dev.json"
+    def f(self, x):
+        return x*x
 
-        headers = {"Authorization": {
-            self.ESSENTIAL_KEYS['api_bearer_token']}, "Content-Type": "application/json"}
+    def get_old_tweets(self, search_words, date_since, date_until):
+        '''
+            Queries past tweets based on provided query and date range
 
-        data = '{"query":"(snow OR sleet OR hail OR (freezing rain)) has:images", "fromDate": "201802020000", "toDate": "201802240000"}'
+            Args:
+                search_words (string): Query
+                date_since (string): Start date from which we want to query the tweets from
+                date_until (string): End date to which we want to query the tweets until
 
-        response = requests.post(endpoint, data=data, headers=headers).json()
+            Returns: None
+        '''
+        filename = "past_tweets_" + date_since + "_" + date_until + ".txt"
 
-        print(json.dumps(response, indent=2))
+        # UNCOMMENT TO RUN THE QUERIES
+        # NOTE: WE NEED TO BE CAREFUL THO BC WE CAN run AT MAX 50 QUERIES PER MONTH :((
+        tweets = tweepy.Cursor(self.api.search_full_archive,
+                               query=search_words,
+                               label="fullArchiveEnviron",
+                               fromDate=date_since,
+                               toDate=date_until
+                               ).items(limit=10)
+
+        with open(filename, "w") as file:
+            for elem in tweets:
+                s = json.dumps(elem._json)
+                file.write(s)
+                file.write("\n")
 
 
 '''
@@ -143,16 +165,23 @@ def clean(raw):
 
 if __name__ == '__main__':
     client = TwitterClient()
-    public_tweets = client.get_tweets()
-    print(len(public_tweets))
+    # public_tweets = client.get_tweets()
+    # print(len(public_tweets))
     # get_sentiment("I am happy")
 
     # for i in range(2):
     #   print(public_tweets[i].text)
     #   print(clean(public_tweets[i].text))
     #   get_sentiment(public_tweets[i].text)
+    search_words = "#tesla OR #stock"
 
-    client.get_old_tweets()
+    date_since_arr = ["201610310000", "201611050000"]
+    date_until_arr = ["201611020000", "201611060000"]
+
+    # Run concurrently
+    with Pool(5) as p:
+        p.starmap(client.get_old_tweets, zip(
+            repeat(search_words), date_since_arr, date_until_arr))
 
     # for i in range(2):
     #   print("sentiment score: ", get_sentiment(public_tweets[i]), public_tweets[i])
