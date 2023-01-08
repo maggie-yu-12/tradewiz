@@ -93,7 +93,7 @@ class TwitterClient(object):
 
     def get_old_tweets(self, search_words, date_since, date_until):
         '''
-            Queries past tweets based on provided query and date range
+            Queries past tweets based on provided query and date range and writes them to local files based on date range
 
             Args:
                 search_words (string): Query
@@ -106,12 +106,12 @@ class TwitterClient(object):
 
         # UNCOMMENT TO RUN THE QUERIES
         # NOTE: WE NEED TO BE CAREFUL THO BC WE CAN run AT MAX 50 QUERIES PER MONTH :((
-        tweets = tweepy.Cursor(self.api.search_full_archive,
-                               query=search_words,
-                               label="fullArchiveEnviron",
-                               fromDate=date_since,
-                               toDate=date_until
-                               ).items(limit=10)
+        # tweets = tweepy.Cursor(self.api.search_full_archive,
+        #                        query=search_words,
+        #                        label="fullArchiveEnviron",
+        #                        fromDate=date_since,
+        #                        toDate=date_until
+        #                        ).items(limit=10)
 
         with open(filename, "w") as file:
             for elem in tweets:
