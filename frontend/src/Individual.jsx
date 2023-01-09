@@ -6,7 +6,13 @@ import logo from './tradewiz-logo.png';
 export function Individual() {
 
   // new line start
+  // TODO: Get stock abbreviation from search enter.
+  const stockAbbreviation = "MSFT"
   const [profileData, setProfileData] = useState(null)
+  const [stockData, setStockData] = useState({
+    name: "hi",
+    description: "ho",
+  });
   axios.defaults.baseURL = "http://localhost:8000";
 
   function getData() {
@@ -29,59 +35,19 @@ export function Individual() {
       })
   }
 
-  const [currentTime, setCurrentTime] = useState(0);
-
-  useEffect(() => {
-    // fetch('http://localhost:8000/time').then(res => res.json()).then(data => {
-    //   setCurrentTime(data.time)
-    // });
-    axios.get('/time').then(res => res.data).then(data => {
-      setCurrentTime(data.time);
-    });
-  }, []);
-
   // Using useEffect for single rendering
   useEffect(() => {
     // Using fetch to fetch the api from 
     // flask server it will be redirected to proxy
-    fetch('/stockname').then((res) =>
-      res.json().then((data) => {
-        // Setting a data from api
-        setStockData({
-          name: data.name,
-          description: data.about,
-        });
-      })
-    );
+    axios.get('/stockname').then(res => res.data).then(data => {
+      // Setting a data from api
+      setStockData({
+        name: data.name,
+        description: data.about,
+      });
+    })
   }, []);
 
-  const [count, setCount] = useState(0);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setCount((count) => count + 1);
-  //   }, 1000);
-  // });
-
-  // function getStockInfo() {
-  //   axios({
-  //     method: "GET",
-  //     url: "/stock-name",
-  //   })
-  //     .then((response) => {
-  //       const res = response.data
-  //       setStockData(({
-  //         name: res.name,
-  //         description: res.about
-  //       }))
-  //     }).catch((error) => {
-  //       if (error.response) {
-  //         console.log(error.response)
-  //         console.log(error.response.status)
-  //         console.log(error.response.headers)
-  //       }
-  //     })
-  // }
   //end of new line 
 
   return (
@@ -103,9 +69,11 @@ export function Individual() {
       </header>
 
       <body>
-        {/* <p>Time is: {stockData.name}</p> */}
-        <h1>I've rendered {currentTime} times!</h1>
-        {/* <p>Stock description: {stockData.description}</p> */}
+        <div class="Stock-data-frame">
+          <div id="Stock-name">Stock name is: {stockData.name}</div>
+          <div id="Stock-description">Stock description: {stockData.description}</div>
+        </div>
+
         <p>NASDAQ # # #</p>
         <div className="Sentiment-score-frame">
           Twitter Reddit Bloomberg Overall

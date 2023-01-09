@@ -41,15 +41,15 @@ def index():
     }
     return response_body
 
-
-# @app.route('/stockname')
-# @cross_origin(origin='*') 
-# def get_name():
-#     response_body = {
-#         "name": "Microsoft",
-#         "about" :"A company based in Redmond, Washington",
-#     }
-#     return response_body
+# TODO: Search up using the company stock name
+@app.route('/stockname')
+@cross_origin(origin='*') 
+def get_name():
+    response_body = {
+        "name": "Microsoft",
+        "about": "A company based in Redmond, Washington",
+    }
+    return response_body
 
 @app.route('/time')
 @cross_origin(origin='*')

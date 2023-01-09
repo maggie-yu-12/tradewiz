@@ -1,28 +1,40 @@
 .Individual {
     text-align: center;
 }
-  
+
 .Individual-logo {
-height: 4vmin;
-pointer-events: none;
+    height: 4vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-.Individual-logo {
-    animation: Individual-logo-spin infinite 20s linear;
-}
+    .Individual-logo {
+        animation: Individual-logo-spin infinite 20s linear;
+    }
 }
 
 .Individual-header {
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-font-size: calc(10px + 2vmin);
-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .Individual-link {
-color: #61dafb;
+    color: #61dafb;
 }
-  
+
+.Stock-data-frame {
+    padding-left: 30%;
+    padding-right: 30%;
+}
+
+#Stock-name {
+    text-align: left;
+}
+
+#Stock-description {
+    text-align: left;
+}
