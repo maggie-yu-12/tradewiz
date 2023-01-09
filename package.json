@@ -4,15 +4,26 @@
   "private": true,
   "dependencies": {
     "@babel/eslint-parser": "^7.5.4",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.1",
+    "bootstrap": "^5.2.3",
     "concurrently": "^7.6.0",
     "eslint": "^7.5.0",
     "eslint-config-airbnb": "^18.2.0",
+    "material-react-table": "^1.5.4",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.7.1",
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -44,14 +55,18 @@
   },
   "devDependencies": {
     "@parcel/transformer-typescript-tsc": "^2.0.0-nightly.1223",
+    "assert": "^2.0.0",
     "buffer": "^5.7.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-jsx-a11y": "^6.3.0",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4 || ^3 || ^2.3.0 || ^1.7.0",
+    "os-browserify": "^0.3.0",
     "parcel": "^2.8.2",
+    "path-browserify": "^1.0.1",
     "prettier": "2.8.1",
-    "process": "^0.11.10"
+    "process": "^0.11.10",
+    "util": "^0.12.5"
   }
 }
