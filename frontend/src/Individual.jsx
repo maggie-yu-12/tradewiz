@@ -32,7 +32,10 @@ export function Individual() {
   const [currentTime, setCurrentTime] = useState(0);
 
   useEffect(() => {
-    axios.get('/time').then(res => res.json()).then(data => {
+    // fetch('http://localhost:8000/time').then(res => res.json()).then(data => {
+    //   setCurrentTime(data.time)
+    // });
+    axios.get('/time').then(res => res.data).then(data => {
       setCurrentTime(data.time);
     });
   }, []);
