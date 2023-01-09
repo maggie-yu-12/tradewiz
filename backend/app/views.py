@@ -2,15 +2,15 @@
   Route definitions
 """
 
+import os
+
+import requests
+from flair.data import Sentence
+from flair.models import TextClassifier
+from flask import Flask, abort, jsonify, request
+from flask_cors import cross_origin
 from main import app
 
-from flask_cors import cross_origin
-
-from flask import abort, Flask, jsonify, request
-from flair.models import TextClassifier
-from flair.data import Sentence
-
-import requests, os
 # session = requests.Session()
 # session.verify = False
 # session.trust_env = False
@@ -41,3 +41,20 @@ def index():
     }
     return response_body
 
+
+# @app.route('/stockname')
+# @cross_origin(origin='*') 
+# def get_name():
+#     response_body = {
+#         "name": "Microsoft",
+#         "about" :"A company based in Redmond, Washington",
+#     }
+#     return response_body
+
+@app.route('/time')
+@cross_origin(origin='*')
+def get_current_time():
+    response_body = {
+        "time": 2,
+    }
+    return response_body
