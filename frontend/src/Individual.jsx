@@ -39,7 +39,7 @@ export function Individual() {
   useEffect(() => {
     // Using fetch to fetch the api from 
     // flask server it will be redirected to proxy
-    axios.get('/stockname').then(res => res.data).then(data => {
+    axios.get('/stockdata').then(res => res.data).then(data => {
       // Setting a data from api
       setStockData({
         name: data.name,

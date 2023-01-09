@@ -42,11 +42,17 @@ def index():
     return response_body
 
 # TODO: Search up using the company stock name
-@app.route('/stockname')
+@app.route('/stockdata', methods = ['GET'])
 @cross_origin(origin='*') 
-def get_name():
+def get_stock_data():
+    print(request.base_url)
+    # replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
+    url = 'https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=KZQ08TK5X6QQQDOB'
+    r = requests.get(url)
+    response_body = r.json()
+
     response_body = {
-        "name": "Microsoft",
+        "name": request.path,
         "about": "A company based in Redmond, Washington",
     }
     return response_body
