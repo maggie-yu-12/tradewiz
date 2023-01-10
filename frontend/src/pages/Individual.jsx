@@ -1,13 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import './Individual.css';
-import logo from './tradewiz-logo.png';
+import { useNavigate } from "react-router-dom";
+import '../styles/Individual.css';
+import logo from '../tradewiz-logo.png';
 
 export function Individual() {
 
   // new line start
   // TODO: Get stock abbreviation from search enter.
+
   const stockAbbreviation = "MSFT"
+  const navigate = useNavigate();
   const [profileData, setProfileData] = useState(null)
   const [stockData, setStockData] = useState({
     name: "hi",
@@ -90,12 +93,12 @@ export function Individual() {
           <div className="Comments-frame-child">Comments</div>
         </div>
         {/* new line start*/}
-        <p>To get your profile details: </p><button onClick={getData}>Click me</button>
+        {/* <p>To get your profile details: </p><button onClick={getData}>Click me</button>
         {profileData && <div>
           <p>Profile name: {profileData.profile_name}</p>
           <p>About me this is: {profileData.about_me}</p>
         </div>
-        }
+        } */}
         {/* end of new line */}
       </body>
     </div>
