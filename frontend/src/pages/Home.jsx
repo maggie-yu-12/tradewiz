@@ -1,6 +1,7 @@
 import { lazy, Suspense, useMemo } from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 import { useNavigate } from "react-router-dom";
+import { Search } from './Search';
 // import { Route, Routes } from "react-router-dom";
 const RecommendedLongTable = lazy(() => import('../components/RecommendedLongTable'))
 const RecommendedShortTable = lazy(() => import('../components/RecommendedShortTable'))
@@ -36,7 +37,7 @@ export function Home() {
         </div>
       </Suspense>
 
-      <button onClick={() => navigate("/MSFT")}>Second page (search button dummy)</button>
+      <Search>Search bar</Search>
     </div>
   )
 }

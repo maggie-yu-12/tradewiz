@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import { Search } from './Search';
+
 import '../styles/Individual.css';
 import logo from '../tradewiz-logo.png';
 
@@ -9,14 +11,22 @@ export function Individual() {
   // new line start
   // TODO: Get stock abbreviation from search enter.
 
-  const stockAbbreviation = "MSFT"
-  const navigate = useNavigate();
+  // search result as a stock abbreviation
+  const stockAbbreviation = useLocation();
   const [profileData, setProfileData] = useState(null)
   const [stockData, setStockData] = useState({
     name: "hi",
     description: "ho",
   });
   axios.defaults.baseURL = "http://localhost:8000";
+  axios.interceptors.request.use(request => {
+    console.log('Starting Request', JSON.stringify(request, null, 2))
+    return request
+  })
+  axios.interceptors.response.use(response => {
+    console.log('Response:', JSON.stringify(response, null, 2))
+    return response
+  })
 
   function getData() {
     axios({
@@ -38,17 +48,19 @@ export function Individual() {
       })
   }
 
-  // Using useEffect for single rendering
+  // Get stock information from Alpha Vantage API
   useEffect(() => {
-    // Using fetch to fetch the api from 
-    // flask server it will be redirected to proxy
-    axios.get('/stockdata').then(res => res.data).then(data => {
-      // Setting a data from api
-      setStockData({
-        name: data.name,
-        description: data.about,
-      });
+    axios({
+      method: "GET",
+      url: "/stockdata",
+      data: { symbol: stockAbbreviation }
     })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
   //end of new line 
@@ -57,22 +69,15 @@ export function Individual() {
     <div className="Individual">
       <header className="Individual-header">
 
-
-
         <img src={logo} className="Individual-logo" alt="logo" />
-        <a
-          className="Individual-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Search Bar goes here
-        </a>
+
+        <Search></Search>
 
       </header>
 
       <body>
         <div class="Stock-data-frame">
+          <div>input from other {location.state}</div>
           <div id="Stock-name">Stock name is: {stockData.name}</div>
           <div id="Stock-description">Stock description: {stockData.description}</div>
         </div>
