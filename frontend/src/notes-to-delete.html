@@ -15,4 +15,21 @@ Maggie's AlphaVantage API Key: KZQ08TK5X6QQQDOB
 good guide on routing
 https://www.freecodecamp.org/news/how-to-use-react-router-version-6/#:~:text=To%20install%20React%20Router%2C%20all,%2Drouter%2Ddom%406%20.
 
-nnpm install cors
+routing regex
+https://stackoverflow.com/questions/48723370/react-router-4-regex-paths-match-doesnt-find-parameters
+
+
+
+
+
+
+PROGRESS
+---------------------------------------------------------------------------------------------------------
+commit 06e4a7bdc8da77d8070ba0903dbe5fd24145d474 retrieve company data from search engine
+Date: Wed Jan 11 22:17:45 2023 -0800
+
+- added cors 2.8.5 as a package
+- If you search a stock correctly from Home.jsx such as MSFT, the company info will pop up.
+- TODO: add the company abbreviation to pathname. Currently only /stockname but would ideally want it to be
+/stockdata/{name}
+- TODO: Doesn't work when you try to search from the search bar on /stockname. Thus need to change the path

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { Search } from './Search';
 
 import '../styles/Individual.css';
@@ -13,6 +13,9 @@ export function Individual() {
 
   // search result as a stock abbreviation
   const stockAbbreviation = useLocation();
+  const [searchParams] = useSearchParams();
+
+  console.log(searchParams.get('symbol'))
   const [profileData, setProfileData] = useState(null)
   const [stockData, setStockData] = useState({
     name: "hi",
@@ -29,32 +32,12 @@ export function Individual() {
     return response
   })
 
-  function getData() {
+  function getStockData() {
+    console.log(window.location.pathname)
     axios({
       method: "GET",
-      url: "/profile",
-    })
-      .then((response) => {
-        const res = response.data
-        setProfileData(({
-          profile_name: res.name,
-          about_me: res.about
-        }))
-      }).catch((error) => {
-        if (error.response) {
-          console.log(error.response)
-          console.log(error.response.status)
-          console.log(error.response.headers)
-        }
-      })
-  }
-
-  // Get stock information from Alpha Vantage API
-  useEffect(() => {
-    axios({
-      method: "POST",
-      url: "/stockdata",
-      data: stockAbbreviation,
+      url: window.location.pathname,
+      params: { symbol: searchParams.get('symbol') },
     })
       .then(function (response) {
         const res = response.data
@@ -68,7 +51,12 @@ export function Individual() {
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  }
+
+  // Get stock information from Alpha Vantage API, third line makes it update with search query
+  useEffect(() => {
+    getStockData();
+  }, [searchParams]);
 
   //end of new line 
 

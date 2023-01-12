@@ -42,10 +42,12 @@ def index():
     return response_body
 
 # Retrieves company information based on stock abbreviation (ex. MSFT)
-@app.route('/stockdata', methods=['POST'])
+@app.route('/stockdata', methods=['GET'])
 @cross_origin(origin='*') 
 def get_stock_data():
-    stock_abbreviation = request.json.get('state')
+    
+    print("AAAAA", request.args.get('symbol'))
+    stock_abbreviation = request.args.get('symbol')
     url = f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={stock_abbreviation}&apikey=KZQ08TK5X6QQQDOB'
     r = requests.get(url)
     response_body = r.json()

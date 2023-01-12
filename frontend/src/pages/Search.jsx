@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import '../styles/Individual.css';
 
 
 export function Search() {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
+  // const [searchParams, setSearchParams] = useSearchParams();
 
   const inputHandler = (e) => {
     e.preventDefault();
@@ -14,7 +15,12 @@ export function Search() {
 
   onSubmitHandler = (e) => {
     e.preventDefault();
-    navigate('/stockdata', { state: searchInput })
+    navigate({
+      pathname: '/stockdata',
+      search: createSearchParams({
+        symbol: searchInput,
+      }).toString()
+    });
   }
   // TODO: Code below is a Stackoverflow incorrect snippet of autocomplete
 
