@@ -81,11 +81,30 @@ export function Individual() {
         <br></br>
 
         <div class='Sentiment-score-frame'>
-          Twitter Reddit Bloomberg Overall
+          <div class='Sentiment-score-frame-component' id='Twitter-component'>
+            <div class='Sentiment-score-frame-component-name'>Twitter</div>
+            <div class='Sentiment-score-frame-component-score'>10.0</div>
+          </div>
+          <div class='Sentiment-score-frame-component' id='Reddit-component'>
+            <div class='Sentiment-score-frame-component-name'>Reddit</div>
+            <div class='Sentiment-score-frame-component-score'>10.0</div>
+          </div>
+          <div class='Sentiment-score-frame-component' id='Bloomberg-component'>
+            <div class='Sentiment-score-frame-component-name'>Bloomberg</div>
+            <div class='Sentiment-score-frame-component-score'>10.0</div>
+          </div>
+          <div class='Sentiment-score-frame-component' id='Overall-component'>
+            <div class='Sentiment-score-frame-component-name'>Overall</div>
+            <div class='Sentiment-score-frame-component-score'>10.0</div>
+          </div>
         </div>
 
-        <div class='Graph'>
-          Graph
+        <br></br>
+
+        <div class='Graph-frame'>
+          <div class='Graph-component'>
+            Graph
+          </div>
         </div>
 
         <br></br>
@@ -94,14 +113,6 @@ export function Individual() {
           <div class='Comments-frame-child'>Trending on...</div>
           <div class='Comments-frame-child'>Comments</div>
         </div>
-        {/* new line start*/}
-        {/* <p>To get your profile details: </p><button onClick={getData}>Click me</button>
-        {profileData && <div>
-          <p>Profile name: {profileData.profile_name}</p>
-          <p>About me this is: {profileData.about_me}</p>
-        </div>
-        } */}
-        {/* end of new line */}
       </body>
     </div>
   );
