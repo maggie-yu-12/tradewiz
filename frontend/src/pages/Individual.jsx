@@ -17,6 +17,7 @@ export function Individual() {
   const [stockData, setStockData] = useState({
     name: "hi",
     description: "ho",
+    symbol: "he",
   });
   axios.defaults.baseURL = "http://localhost:8000";
   axios.interceptors.request.use(request => {
@@ -51,11 +52,17 @@ export function Individual() {
   // Get stock information from Alpha Vantage API
   useEffect(() => {
     axios({
-      method: "GET",
+      method: "POST",
       url: "/stockdata",
-      data: { symbol: stockAbbreviation }
+      data: stockAbbreviation,
     })
       .then(function (response) {
+        const res = response.data
+        setStockData(({
+          name: res.Name,
+          description: res.Description,
+          symbol: res.Symbol,
+        }))
         console.log(response);
       })
       .catch(function (error) {
@@ -77,9 +84,8 @@ export function Individual() {
 
       <body>
         <div class="Stock-data-frame">
-          <div>input from other {location.state}</div>
-          <div id="Stock-name">Stock name is: {stockData.name}</div>
-          <div id="Stock-description">Stock description: {stockData.description}</div>
+          <h3 id="Stock-name">{stockData.name} ({stockData.symbol})</h3>
+          <div id="Stock-description">{stockData.description}</div>
         </div>
 
         <p>NASDAQ # # #</p>
