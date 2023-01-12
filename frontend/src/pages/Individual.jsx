@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { Search } from './Search';
@@ -14,15 +14,14 @@ export function Individual() {
   // search result as a stock abbreviation
   const stockAbbreviation = useLocation();
   const [searchParams] = useSearchParams();
-
-  console.log(searchParams.get('symbol'))
-  const [profileData, setProfileData] = useState(null)
   const [stockData, setStockData] = useState({
-    name: "hi",
-    description: "ho",
-    symbol: "he",
+    name: 'hi',
+    description: 'ho',
+    symbol: 'he',
+    quote: 'hu',
   });
-  axios.defaults.baseURL = "http://localhost:8000";
+
+  axios.defaults.baseURL = 'http://localhost:8000';
   axios.interceptors.request.use(request => {
     console.log('Starting Request', JSON.stringify(request, null, 2))
     return request
@@ -35,16 +34,17 @@ export function Individual() {
   function getStockData() {
     console.log(window.location.pathname)
     axios({
-      method: "GET",
+      method: 'GET',
       url: window.location.pathname,
       params: { symbol: searchParams.get('symbol') },
     })
       .then(function (response) {
         const res = response.data
         setStockData(({
-          name: res.Name,
-          description: res.Description,
-          symbol: res.Symbol,
+          name: res.stock_overview.Name,
+          description: res.stock_overview.Description,
+          symbol: res.stock_overview.Symbol,
+          quote: res.stock_quote['Global Quote']['05. price']
         }))
         console.log(response);
       })
@@ -61,35 +61,38 @@ export function Individual() {
   //end of new line 
 
   return (
-    <div className="Individual">
-      <header className="Individual-header">
+    <div class='Individual'>
+      <header class='Individual-header'>
 
-        <img src={logo} className="Individual-logo" alt="logo" />
+        <img src={logo} class='Individual-logo' alt='logo' />
 
         <Search></Search>
 
       </header>
 
       <body>
-        <div class="Stock-data-frame">
-          <h3 id="Stock-name">{stockData.name} ({stockData.symbol})</h3>
-          <div id="Stock-description">{stockData.description}</div>
+        <div class='Stock-data-frame'>
+          <h3 id='Stock-name'>{stockData.name} ({stockData.symbol})</h3>
+          <div id='Stock-description'>{stockData.description}</div>
+          <br></br>
+          <h3 id='Stock-quote'>NASDAQ: {stockData.quote} (Other params here)</h3>
         </div>
 
-        <p>NASDAQ # # #</p>
-        <div className="Sentiment-score-frame">
+        <br></br>
+
+        <div class='Sentiment-score-frame'>
           Twitter Reddit Bloomberg Overall
         </div>
 
-        <div className="Graph">
+        <div class='Graph'>
           Graph
         </div>
 
         <br></br>
 
-        <div className="Comments-frame">
-          <div className="Comments-frame-child">Trending on...</div>
-          <div className="Comments-frame-child">Comments</div>
+        <div class='Comments-frame'>
+          <div class='Comments-frame-child'>Trending on...</div>
+          <div class='Comments-frame-child'>Comments</div>
         </div>
         {/* new line start*/}
         {/* <p>To get your profile details: </p><button onClick={getData}>Click me</button>

@@ -45,14 +45,20 @@ def index():
 @app.route('/stockdata', methods=['GET'])
 @cross_origin(origin='*') 
 def get_stock_data():
-    
-    print("AAAAA", request.args.get('symbol'))
+    d = dict()
     stock_abbreviation = request.args.get('symbol')
     url = f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={stock_abbreviation}&apikey=KZQ08TK5X6QQQDOB'
     r = requests.get(url)
-    response_body = r.json()
+    response_body_overview = r.json()
 
-    return response_body
+    url = f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={stock_abbreviation}&apikey=KZQ08TK5X6QQQDOB'
+    r = requests.get(url)
+    response_body_quote = r.json()
+
+    return {
+    "stock_overview": response_body_overview,
+    "stock_quote": response_body_quote,
+    }
 
 @app.route('/time')
 @cross_origin(origin='*')
