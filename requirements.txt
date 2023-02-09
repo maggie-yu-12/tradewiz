@@ -39,7 +39,9 @@ matplotlib==3.6.2
 mccabe==0.7.0
 more-itertools==9.0.0
 mpld3==0.3
+multiprocess==0.70.14
 networkx==2.8.8
+nltk==3.8.1
 numpy==1.23.5
 oauthlib==3.2.2
 overrides==3.1.0
