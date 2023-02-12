@@ -1,0 +1,16 @@
+.nav-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #28BC00;
+  font-weight: 500;
+  padding: 10px;
+}
+
+#features-tab,
+#pricing-tab,
+#community-tab,
+#support-tab {
+  margin-left: 30px;
+  margin-right: 30px;
+}

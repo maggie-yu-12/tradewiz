@@ -1,0 +1,11 @@
+#table-header {
+  font-weight: 400;
+  font-size: 2em;
+}
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
