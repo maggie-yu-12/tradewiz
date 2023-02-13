@@ -15,10 +15,10 @@ export function Individual() {
   const stockAbbreviation = useLocation();
   const [searchParams] = useSearchParams();
   const [stockData, setStockData] = useState({
-    name: 'hi',
-    description: 'ho',
-    symbol: 'he',
-    quote: 'hu',
+    name: 'Loading...',
+    description: 'Loading...',
+    symbol: 'Loading...',
+    quote: 'Loading...',
   });
 
   axios.defaults.baseURL = 'http://localhost:8000';
