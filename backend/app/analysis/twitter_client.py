@@ -82,9 +82,6 @@ class TwitterClient(Client):
         public_tweets = [status for status in tweepy.Cursor(
             self.api.search_tweets, q=query).items(100)]
         return public_tweets
-        # except tweepy.TweepError as e:
-        #     # print error (if any)
-        #     print("Error : " + str(e))
 
     def get_old_tweets(self):
         endpoint = "https://api.twitter.com/1.1/tweets/search/30day/dev.json"

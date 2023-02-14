@@ -11,6 +11,10 @@ from flask import Flask, abort, jsonify, request
 from flask_cors import CORS, cross_origin
 from main import app
 
+import sys
+sys.path.append("analysis/reddit_client.py")
+import RedditClient
+
 # session = requests.Session()
 # session.verify = False
 # session.trust_env = False
@@ -59,6 +63,14 @@ def get_stock_data():
     "stock_overview": response_body_overview,
     "stock_quote": response_body_quote,
     }
+
+@app.route('/stockdata', methods=['GET'])
+@cross_origin(origin='*') 
+def get_stock_comments():
+    d = dict()
+    stock_abbreviation = request.args.get('symbol')
+    url = 'hi'
+
 
 @app.route('/time')
 @cross_origin(origin='*')
