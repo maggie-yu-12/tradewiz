@@ -5,6 +5,9 @@ import {
 } from '@mui/material';
 import MaterialReactTable from 'material-react-table';
 
+import { BsQuestionCircle } from 'react-icons/bs';
+import { Popup } from 'semantic-ui-react';
+
 // Enums
 
 export const SENTIMENT = Object.freeze({
@@ -23,7 +26,7 @@ export const COLUMN_NAMES = Object.freeze({
 export const getColumnAccessor = (originalRow, key) => {
   switch (key) {
     case "COMPANY":
-      return (originalRow.company).concat(" (", originalRow.symbol, ")")
+      return originalRow.company
     case "WEEK":
       return originalRow.week
     case "MONTH":
@@ -71,8 +74,19 @@ export const RecommendedTable = ({ columns, data, title }) => {
       {data.length == 0 ? <CircularProgress /> :
         <Fade in={true} timeout={1000}>
           <div>
-            <p id="table-header">{title}</p>
-            <TableContainer component={Paper} elevation={3} sx={{ maxHeight: '70vh', maxWidth: '80vw' }}>
+            <div className="header-container">
+              <p id="table-header">{title}</p>
+              <div id="question-popup">
+                <Popup
+                  content='This table is currently based on Tweets. 1-week sentiment score shows the averaged sentiment score of tweets about the company past 7 days, similarly for 1-moonth sentiment score. Sentiment shows the change in sentiment compared to the previous week. Activity shows the number of tweets past 24 hours.'
+                  on='click'
+                  pinned
+                  trigger={<BsQuestionCircle />}
+
+                />
+              </div>
+            </div>
+            <TableContainer component={Paper} elevation={3} sx={{ maxHeight: '80vh', maxWidth: '80vw' }}>
               <MaterialReactTable
                 columns={columns}
                 data={data}
@@ -94,6 +108,7 @@ export const RecommendedTable = ({ columns, data, title }) => {
                     margin: 'auto',
                     backgroundColor: 'white',
                     textAlign: 'center',
+                    fontSize: '1.1rem',
                   },
                 }}
                 muiTableBodyCellProps={{
@@ -103,10 +118,10 @@ export const RecommendedTable = ({ columns, data, title }) => {
                     },
                     paddingLeft: '15px',
                     paddingRght: '10px',
-                    paddingTop: '5px',
-                    paddingBottom: '5px',
+                    paddingTop: '8px',
+                    paddingBottom: '8px',
                     backgroundColor: 'white',
-                    fontSize: '0.9rem',
+                    fontSize: '1rem',
                   },
                 }}
                 // enableRowSelection //enable some features

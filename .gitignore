@@ -34,3 +34,6 @@ backend/env
 
 # remove config - for security issues
 backend/config.ini
+
+# don't include past tweets
+*/*/*/past_tweets*

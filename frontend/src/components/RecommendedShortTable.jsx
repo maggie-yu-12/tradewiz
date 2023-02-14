@@ -6,6 +6,7 @@ import { COLUMN_NAMES, getColumnAccessor, RecommendedTable, SENTIMENT, Sentiment
  */
 const RecommendedShortTable = ({ data }) => {
   // Sorting by biggest changes (considering absolute value of the change regardless of positive or negative)
+  console.log(data)
   data.sort((a, b) => {
     aAbs = Math.abs(parseFloat(a.sentiment));
     bAbs = Math.abs(parseFloat(b.sentiment));
