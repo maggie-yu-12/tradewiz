@@ -36,6 +36,7 @@
   font-weight: 500;
 }
 
+
 #login-btn {
   padding-top: 5px;
   padding-bottom: 5px;
@@ -46,9 +47,13 @@
   justify-content: center;
   align-items: center;
 
+  width: 130px;
+
   color: #28BC00;
-  border: 1px solid #28BC00;
+  border: 1px solid #28BC00 !important;
   font-weight: 500;
+
+  background-color: white;
 }
 
 #login-btn:hover {

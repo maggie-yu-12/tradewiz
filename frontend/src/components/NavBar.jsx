@@ -7,7 +7,7 @@ import logo from '../assets/img/logo.png';
 /**
  * Component for Navigation Bar.
  */
-const NavBar = ({ loginPage }) => {
+const NavBar = ({ loginPage, showModal, setShowModal }) => {
   return (
     <div className="nav-container">
       <div className="nav-left">
@@ -28,9 +28,17 @@ const NavBar = ({ loginPage }) => {
         </Link>
       </div>
       <div className="nav-right">
-        {!loginPage && <Link to="/login">
+        {/* {!loginPage && <Link to="/login">
           <div id="login-btn">Login</div>
-        </Link>}
+        </Link>} */}
+
+        <button
+          type="button"
+          id="login-btn"
+          onClick={() => setShowModal(true)}
+        >
+          Log In
+        </button>
       </div>
     </div>
   )

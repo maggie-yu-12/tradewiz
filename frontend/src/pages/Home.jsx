@@ -17,11 +17,13 @@ import '../styles/login.css';
 import '../styles/navbar.css';
 import '../styles/searchbar.css';
 import '../styles/table.css';
+import { Login } from './Login';
 
 
 const Home = () => {
   // const data = useMemo(() => getData(), [])
   const [data, setData] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -84,7 +86,8 @@ const Home = () => {
 
   return (
     <div className='home-outer-container'>
-      <NavBar />
+      <NavBar show={showModal} setShowModal={setShowModal} />
+      {showModal && <Login showModal={showModal} setShowModal={setShowModal} />}
       <HomeSearch />
       <div className='home-container'>
         {/* <Suspense>

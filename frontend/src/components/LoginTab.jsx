@@ -1,18 +1,17 @@
-import { Link } from 'react-router-dom';
 
-export const LoginTab = ({ login }) => {
+export const LoginTab = ({ login, setLogin }) => {
   return (
     <div className="tab-container">
-      <Link to="/login">
+      <button onClick={() => setLogin(true)}>
         <div id={login ? "login-tab-light" : "login-tab-dark"}>
           Log In
         </div>
-      </Link>
-      <Link to="/register">
+      </button>
+      <button onClick={() => setLogin(false)}>
         <div id={!login ? "login-tab-light" : "login-tab-dark"}>
           Sign Up
         </div>
-      </Link>
+      </button>
     </div>
   )
 }
