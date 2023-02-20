@@ -1,0 +1,6 @@
+[  
+  {    "date": "2022-01-01",    "sentimentScore": -5,    "pricePercentageChange": 2.5,    "volatility": 3.2  },  
+  {    "date": "2022-01-02",    "sentimentScore": -3,    "pricePercentageChange": 1.8,    "volatility": 2.5  },  
+  {    "date": "2022-01-03",    "sentimentScore": -2,    "pricePercentageChange": 0.5,    "volatility": 1.7  },  
+  {    "date": "2022-01-04",    "sentimentScore": 1,    "pricePercentageChange": 3.2,    "volatility": 4.3  },  
+  {    "date": "2022-01-05",    "sentimentScore": 5,    "pricePercentageChange": 5.1,    "volatility": 5.6  }]
