@@ -62,7 +62,7 @@ const Home = () => {
                 "company": company_name,
                 "week": weekly_res[key]['sentiment'],
                 "month": monthly_res[key]['sentiment'],
-                "activity": activity_res[key]['day_tweets'],
+                "activity": activity_res[key]['week_tweets'],
                 "sentiment": weekly_res[key]['sentiment_change']
               }
               final_res.push(obj);

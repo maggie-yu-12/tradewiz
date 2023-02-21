@@ -70,10 +70,16 @@ def get_week():
         prev_reader = csv.reader(prev_file, delimiter=",")
         curr_reader = csv.reader(curr_file, delimiter=",")
         for row1, row2 in zip_longest(prev_reader, curr_reader):
-            sentiment_change = float(row2[3]) - float(row1[3]) / float(row1[3])
+            num2 = float(row2[3])
+            num1 = float(row1[3])
+            sentiment_change = (num2 - num1) / num1
+            print(sentiment_change)
             res[row1[2]] = {
-                "sentiment_change": round(sentiment_change * 100),
-                "sentiment": round(float(row2[3]) * 100),
+                "sentiment_change": {
+                    "change": round(sentiment_change * 100),
+                    "prev": round(float(row1[3]) * 100, 2),
+                },
+                "sentiment": round(float(row2[3]) * 100, 2),
             }
 
     return res
@@ -83,17 +89,11 @@ def get_week():
 @cross_origin(origin="*")
 def get_month():
     res = {}
-    zip_longest = itertools.zip_longest
-    with open("app/analysis/prev_week.csv") as prev_file, open(
-        "app/analysis/curr_week.csv"
-    ) as curr_file:
-        prev_reader = csv.reader(prev_file, delimiter=",")
+    with open("app/analysis/prev_month.csv") as curr_file:
         curr_reader = csv.reader(curr_file, delimiter=",")
-        for row1, row2 in zip_longest(prev_reader, curr_reader):
-            sentiment_change = float(row2[3]) - float(row1[3]) / float(row1[3])
+        for row1 in curr_reader:
             res[row1[2]] = {
-                "sentiment_change": round(sentiment_change * 100),
-                "sentiment": round(float(row2[3]) * 100),
+                "sentiment": round(float(row1[3]) * 100, 2),
             }
 
     return res

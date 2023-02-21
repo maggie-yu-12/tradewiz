@@ -96,10 +96,12 @@ export function Search() {
   // }
 
   return (
-    <div className="search">
+    <div>
       <form onSubmit={onSubmitHandler} className="search-form">
-        <input id="home-search-input" type="text" value={searchInput} onChange={inputHandler} placeholder='Search for news, symbols, or companies...' />
-        <button id="home-search-button" type="submit"><BiSearchAlt /></button>
+        <div className="search">
+          <input id="home-search-input" type="text" value={searchInput} onChange={inputHandler} placeholder='Search for news, symbols, or companies...' />
+          <button id="home-search-button" type="submit"><BiSearchAlt /></button>
+        </div>
       </form>
     </div>
 

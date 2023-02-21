@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { COLUMN_NAMES, getColumnAccessor, SENTIMENT, SentimentBackground, SentimentTable } from './SentimentTable';
 
 /**
@@ -7,8 +8,8 @@ import { COLUMN_NAMES, getColumnAccessor, SENTIMENT, SentimentBackground, Sentim
 const BiggestSentimentMoversTable = ({ data }) => {
   // Sorting by biggest changes (considering absolute value of the change regardless of positive or negative)
   data.sort((a, b) => {
-    aAbs = Math.abs(parseFloat(a.sentiment));
-    bAbs = Math.abs(parseFloat(b.sentiment));
+    aAbs = Math.abs(parseFloat(a.sentiment.change));
+    bAbs = Math.abs(parseFloat(b.sentiment.change));
 
     if (aAbs == bAbs) {
       // Sort by acsending company names to resolve ties
@@ -25,13 +26,17 @@ const BiggestSentimentMoversTable = ({ data }) => {
       return (Object.entries(COLUMN_NAMES)).map(([header_key, header_value]) => ({
         accessorKey: getColumnAccessor(header_key),
         id: header_value,
-        Header: <b style={{ color: 'black', fontSize: '0.9rem' }}>{header_value}</b>,
+        Header: <b style={{ color: 'black', fontSize: '1.05rem', wordBreak: 'normal', whiteSpace: 'normal' }}>{header_value}</b>,
         Cell: ({ cell }) => {
-          const isPositive = cell.getValue() > 0;
-          const symbol = isPositive ? SENTIMENT.POSITIVE : SENTIMENT.NEGATIVE
-          return header_value === "Sentiment" ?
-            <SentimentBackground change={cell.getValue()} symbol={symbol} isPositive={isPositive} />
-            : <div>{cell.getValue()}</div>
+          if (header_value === "Δ in Sentiment by Week") {
+            const res_obj = cell.getValue()
+            const isPositive = res_obj.change > 0;
+            const symbol = isPositive ? SENTIMENT.POSITIVE : SENTIMENT.NEGATIVE
+            return (
+              <SentimentBackground change={res_obj.change} symbol={symbol} isPositive={isPositive} prev={res_obj.prev} />);
+          } else if (header_value === "Company") {
+            return (<Link to="/stockdata" query={{ symbol: cell.getValue() }}>{cell.getValue()} </Link>)
+          } else return (<div>{cell.getValue()}</div>);
         }
       }))
     }

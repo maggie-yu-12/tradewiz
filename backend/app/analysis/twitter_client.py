@@ -10,20 +10,25 @@ import csv
 import json
 import re
 import string
+from datetime import date
 from itertools import repeat
 from multiprocessing import Pool
 
 import nltk
 import requests
 import tweepy
-import yfinance as yf
+
+# import yfinance as yf
+from dateutil.relativedelta import relativedelta
 from flair.data import Sentence
 from flair.models import SequenceTagger, TextClassifier
 from nltk.corpus import stopwords
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.stem import PorterStemmer
 from nltk.tokenize import TweetTokenizer
 
 nltk.download("stopwords")
+nltk.download("vader_lexicon")
 
 
 class TwitterClient(object):
@@ -34,6 +39,7 @@ class TwitterClient(object):
     ## CLASS VARIABLES ##
     # instantiate classifier
     classifier = TextClassifier.load("en-sentiment")
+    sent_analyzer = SentimentIntensityAnalyzer()
 
     def __init__(self):
         TwitterClient.setup_config()
@@ -67,7 +73,7 @@ class TwitterClient(object):
             "api_bearer_token": config["twitter-elevated"]["bearer_token"],
         }
 
-        self.BEARER_TOKEN = config["twitter-essential"]["bearer_token"]
+        # cls.BEARER_TOKEN = config["twitter-essential"]["bearer_token"]
 
     @classmethod
     def setup_config(cls):
@@ -116,14 +122,14 @@ class TwitterClient(object):
         # UNCOMMENT TO RUN THE QUERIES
         # !! NOTE: WE NEED TO BE CAREFUL BC WE CAN run AT MAX 50 QUERIES PER MONTH :((
         tweets = tweepy.Cursor(
-            cls.api.search_full_archive,
+            cls.api.search_30_day,
             query=search_string,
-            label="fullArchiveEnviron",
+            label="thirtyDayEnv",
             fromDate=date_since,
             toDate=date_until,
-        ).items(limit=10)
+        ).items(limit=100)
 
-        filepath = "queried_data/" + filename
+        filepath = "temp_queried_data/" + filename
         with open(filepath, "w") as file:
             for elem in tweets:
                 # Turn Status (`elem` data type) object into a JSON format to make writable to a file
@@ -147,12 +153,13 @@ class TwitterClient(object):
 
         sentiments = []
         for tweet in queried_tweets:
-            sentiments.append(cls.get_sentiment(cls.clean(tweet))[1])
+            res = cls.get_sentiment(cls.clean(tweet))
+            sentiments.append(res)
 
         mean_sentiment = sum(sentiments) / len(sentiments)
 
         # filename_no_txt = filename.rsplit(".", 1)[0]
-        csv_filename = "prev_week.csv" if prev_week else "curr_week.csv"
+        csv_filename = "prev_week.csv" if prev_week else "prev_month.csv"
         with open(csv_filename, "a", newline="") as csvfile:
             fieldnames = ["date_since", "date_until", "company", "sentiment_score"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -179,18 +186,17 @@ class TwitterClient(object):
 
         """
         # > Referenced: https://towardsdatascience.com/text-classification-with-state-of-the-art-nlp-library-flair-b541d7add21f?gi=3675966b8dff
-        sentence = Sentence(tweet)
-        cls.classifier.predict(sentence)
+        # sentence = Sentence(tweet)
+        sentence = " ".join(tweet)
+        sent_dict = cls.sent_analyzer.polarity_scores(sentence)
 
-        return (
-            sentence.labels[0].to_dict()["value"],
-            sentence.labels[0].to_dict()["confidence"],
-        )
+        return sent_dict["compound"]
 
     @classmethod
-    def get_activity(cls, company):
+    def get_activity(cls, *company):
+        search_string = " OR ".join(company)
         client = tweepy.Client(cls.ELEVATED_KEYS["api_bearer_token"])
-        counts = client.get_recent_tweets_count(query=company, granularity="day")
+        counts = client.get_recent_tweets_count(query=search_string)
         most_recent_day_count = counts.data[-1]["tweet_count"]
         most_recent_week_count = counts.meta["total_tweet_count"]
 
@@ -253,54 +259,87 @@ class TwitterClient(object):
         return tweets_clean
 
 
+def aggregate_all_tweets(client, company, start_dates, end_dates):
+    # first is six months ago, second is last week
+    metadata = [False, True]
+    for i in range(0, len(start_dates)):
+        client.get_old_tweets(start_dates[i], end_dates[i], metadata[i], *company)
+
+
 if __name__ == "__main__":
     client = TwitterClient()
-    # public_tweets = client.get_tweets()
-    # print(len(public_tweets))
-    # get_sentiment("I am happy")
 
-    sentiments = []
-    for tweet in queried_tweets:
-        sentiments.append(client.get_sentiment(client.clean(tweet)))
+    # calculate 6 months ago from today
+    today = date.today() + relativedelta(
+        days=-1
+    )  # subtracting one as we are going from 2/19/23 instead of 2/20/23 to keep it consistent for this week
+    six_months = today + relativedelta(months=-6)
+    six_months_formatted = six_months.strftime("%Y%m%d%H%M")
+    six_months_formatted_start_date = (six_months + relativedelta(weeks=-1)).strftime(
+        "%Y%m%d%H%M"
+    )
 
-    print(sentiments)
+    # calculate last week and the week before if needed
+    today_formatted = today.strftime("%Y%m%d%H%M")
+    last_week_formatted = (today + relativedelta(weeks=-1)).strftime("%Y%m%d%H%M")
+    two_weeks_formatted = (today + relativedelta(weeks=-2)).strftime("%Y%m%d%H%M")
 
-    search_words = ["#meta", "#stock"]
+    # calculate last month
+    last_month_start_date = today + relativedelta(weeks=-4)
+    last_month_start_date_formatted = last_month_start_date.strftime("%Y%m%d%H%M")
+    last_month_end_date = last_month_start_date + relativedelta(weeks=1)
+    last_month_end_date_formatted = last_month_end_date.strftime("%Y%m%d%H%M")
 
-    date_since_arr = ["202301290000", "202302050000"]
-    date_until_arr = ["202302040000", "202302110000"]
-    metadata = [True, False]
+    # Including cashtags - cashtags aren't available for sandbox/premium twitter dev access.
+    search_words = [
+        ["#amc"],
+        ["#mullen", "#muln"],
+        ["#microsoft", "#msft"],
+        ["#SPDR", "#spy"],
+        ["#disney", "#dis"],
+        ["#metamaterials", "#mmat"],
+        ["#gamestop", "#gme"],
+        ["#nvidia", "#nvda"],
+        ["#amazon", "#amzn"],
+        ["#c3ai", "#ai"],
+        ["#bedbathandbeyond", "#bbby"],
+        ["#invesco", "#qqq"],
+        ["#google", "#googl", "#alphabet"],
+        ["#lyft"],
+        ["#dteenergy", "#dte"],
+        ["#meta"],
+        ["#tesla", "#tsla"],
+        ["#apple", "#aapl"],
+        ["#netflix", "#nflx"],
+    ]
 
-    # for company in [
-    #     "#amc",
-    #     "#mullen",
-    #     "#microsoft",
-    #     "#SPDR",
-    #     "#disney",
-    #     "#metamaterials",
-    #     "#apple",
-    #     "#netflix",
-    #     "#gamestop",
-    #     "#nvidia",
-    #     "#amazon",
-    #     "#c3ai",
-    #     "#bedbathandbeyond",
-    #     "#invesco",
-    #     "#google",
-    #     "#lyft",
-    #     "#dteenergy",
-    # ]:
-    #     client.get_activity(company)
+    date_since_arr = [last_month_start_date_formatted, last_week_formatted]
+    date_until_arr = [last_month_end_date_formatted, today_formatted]
+    # date_since_arr = [two_weeks_formatted]
+    # date_until_arr = [last_week_formatted]
+    metadata = [True]
 
+    # GET ALL ACTIVITY FOR THE COMPANIES
+    # for company in search_words:
+    #     client.get_activity(*company)
+
+    # BELOW IS FOR ERROR TRACKING WHEN QUERYING
+    # aggregate_all_tweets(
+    #     client,
+    #     ["$googl", "#google", "#googl", "#alphabet"],
+    #     date_since_arr,
+    #     date_until_arr,
+    # )
+
+    # QUERY PAST TWEETS FOR ALL COMPANIES IN PARALLEL DECREASE RUNTIME AND INCREASE EFFICIENCY
     # Retrieve past tweets in parallel
-    # with Pool(5) as p:
-    #     p.starmap(
-    #         client.get_old_tweets,
-    #         zip(
-    #             date_since_arr,
-    #             date_until_arr,
-    #             metadata,
-    #             repeat(search_words[0]),
-    #             repeat(search_words[1]),
-    #         ),
-    #     )
+    with Pool(5) as p:
+        p.starmap(
+            aggregate_all_tweets,
+            zip(
+                repeat(client),
+                search_words,
+                repeat(date_since_arr),
+                repeat(date_until_arr),
+            ),
+        )
