@@ -1,11 +1,10 @@
-
-
+import React from 'react';
 import logo from '../assets/img/logo.png';
 
 /**
  * Component for Navigation Bar.
  */
-const NavBar = () => {
+export function NavBar() {
   return (
     <div className="nav-container">
       <img src={logo} alt="site-logo" />
@@ -16,5 +15,3 @@ const NavBar = () => {
     </div>
   )
 }
-
-export default NavBar;

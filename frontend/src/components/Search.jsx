@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createSearchParams, useNavigate } from "react-router-dom";
-import '../styles/Individual.css';
+import search from '../assets/img/search.png';
+import '../styles/Search.css';
 
 
 export function Search() {
@@ -22,6 +23,20 @@ export function Search() {
       }).toString()
     });
   }
+
+  return (
+    <div class="search-frame">
+      <form onSubmit={onSubmitHandler} class="search-form">
+        <input class="text" value={searchInput} onChange={inputHandler} placeholder='Enter Stock Symbol (GOOG, MSFT)' />
+        <button class="submit">
+          <img src={search} id="search-icon" />
+        </button>
+      </form>
+    </div>
+
+  )
+}
+
   // TODO: Code below is a Stackoverflow incorrect snippet of autocomplete
 
   // const textInput = "hi";
@@ -93,15 +108,3 @@ export function Search() {
   //   // setWeeklyPrices([]);
   //   // setIntraPrices([]);
   // }
-
-  return (
-    <div className="Search">
-      <h1>Search Stock Abbreviation Below</h1>
-      <form onSubmit={onSubmitHandler} className="search-form">
-        <input type="text" value={searchInput} onChange={inputHandler} placeholder='Enter Stock Symbol (GOOG, MSFT)' />
-        <button type="submit">Search</button>
-      </form>
-    </div>
-
-  )
-}

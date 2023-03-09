@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Routes } from "react-router-dom";
+import { Search } from '../components/Search';
 import { Home } from './Home';
 import { Individual } from './Individual';
-import { Search } from './Search';
 
 export function App() {
   return (

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { Search } from './Search';
+import { Search } from '../components/Search';
 
 import '../styles/Individual.css';
 import logo from '../tradewiz-logo.png';
