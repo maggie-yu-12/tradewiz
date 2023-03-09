@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import { NavBar } from '../components/NavBar';
 import { Search } from '../components/Search';
 
 import '../styles/Individual.css';
-import logo from '../tradewiz-logo.png';
 
 export function Individual() {
 
@@ -84,86 +84,80 @@ export function Individual() {
   //end of new line 
 
   return (
-    <div class='Individual'>
-      <header class='Individual-header'>
+    <div class='Individual-outer-container'>
+      <NavBar />
+      <br></br>
+      <div class='Search-frame'><Search /></div>
+      <br></br>
+      <br></br>
+      <h3 id='Stock-name'>{stockData.name} ({stockData.symbol})</h3>
+      <div id='Stock-description'>{stockData.description}</div>
 
-        <img src={logo} class='Individual-logo' alt='logo' />
+      <br></br>
 
-        <Search></Search>
-
-      </header>
-
-      <body>
-        <br></br>
-        <h3 id='Stock-name'>{stockData.name} ({stockData.symbol})</h3>
-        <div id='Stock-description'>{stockData.description}</div>
-
-        <br></br>
-
-        <div class='Stock-data-frame'>
-          <div class='Stock-data-border'>
-            <div class='Stock-data-frame-component' id='Twitter-component'>
-              <div class='Stock-data-frame-component-name'>Total Sentiment Score</div>
-              <div class='Stock-data-frame-component-score'>6.8</div>
-              <br></br>
-              <div class='Stock-data-company-header'>Twitter Score</div>
-              <div class='Stock-data-company-score'>5.7</div>
-              <div class='Stock-data-company-header'>Reddit Score</div>
-              <div class='Stock-data-company-score'>8.9</div>
-              <div class='Stock-data-company-header'>Bloomberg Score</div>
-              <div class='Stock-data-company-score'>2.3</div>
-              <br></br>
-            </div>
-            <div class='Stock-data-frame-component' id='Reddit-component'>
-              <div class='Stock-data-frame-component-name'>Total Activity</div>
-              <div class='Stock-data-frame-component-score'>3.4</div>
-              <br></br>
-              <div class='Stock-data-company-header'>Twitter Activity</div>
-              <div class='Stock-data-company-score'>5.7</div>
-              <div class='Stock-data-company-header'>Reddit Activity</div>
-              <div class='Stock-data-company-score'>8.9</div>
-              <div class='Stock-data-company-header'>Bloomberg Activity</div>
-              <div class='Stock-data-company-score'>2.3</div>
-              <br></br>
-            </div>
-            <div class='Stock-data-frame-component' id='Bloomberg-component'>
-              <div class='Stock-data-frame-component-name'>Last Price</div>
-              <div class='Stock-data-frame-component-score'>{stockData.quote}</div>
-              <br></br>
-              <div class='Stock-data-company-header'>Price Momentum</div>
-              <div class='Stock-data-company-score'>5.7</div>
-              <div class='Stock-data-company-header'>Price Change %</div>
-              <div class='Stock-data-company-score'>8.9</div>
-              <div class='Stock-data-company-header'>Trade Volume</div>
-              <div class='Stock-data-company-score'>2.3</div>
-              <br></br>
-            </div>
+      <div class='Stock-data-frame'>
+        <div class='Stock-data-border'>
+          <div class='Stock-data-frame-component' id='Twitter-component'>
+            <div class='Stock-data-frame-component-name'>Total Sentiment Score</div>
+            <div class='Stock-data-frame-component-score'>6.8</div>
+            <br></br>
+            <div class='Stock-data-company-header'>Twitter Score</div>
+            <div class='Stock-data-company-score'>5.7</div>
+            <div class='Stock-data-company-header'>Reddit Score</div>
+            <div class='Stock-data-company-score'>8.9</div>
+            <div class='Stock-data-company-header'>Bloomberg Score</div>
+            <div class='Stock-data-company-score'>2.3</div>
+            <br></br>
+          </div>
+          <div class='Stock-data-frame-component' id='Reddit-component'>
+            <div class='Stock-data-frame-component-name'>Total Activity</div>
+            <div class='Stock-data-frame-component-score'>3.4</div>
+            <br></br>
+            <div class='Stock-data-company-header'>Twitter Activity</div>
+            <div class='Stock-data-company-score'>5.7</div>
+            <div class='Stock-data-company-header'>Reddit Activity</div>
+            <div class='Stock-data-company-score'>8.9</div>
+            <div class='Stock-data-company-header'>Bloomberg Activity</div>
+            <div class='Stock-data-company-score'>2.3</div>
+            <br></br>
+          </div>
+          <div class='Stock-data-frame-component' id='Bloomberg-component'>
+            <div class='Stock-data-frame-component-name'>Last Price</div>
+            <div class='Stock-data-frame-component-score'>{stockData.quote}</div>
+            <br></br>
+            <div class='Stock-data-company-header'>Price Momentum</div>
+            <div class='Stock-data-company-score'>5.7</div>
+            <div class='Stock-data-company-header'>Price Change %</div>
+            <div class='Stock-data-company-score'>8.9</div>
+            <div class='Stock-data-company-header'>Trade Volume</div>
+            <div class='Stock-data-company-score'>2.3</div>
+            <br></br>
           </div>
         </div>
+      </div>
 
 
-        <br></br>
+      <br></br>
 
-        <div class='Graph-frame'>
-          <div class='Graph-component'>
-            Graph
-          </div>
+      <div class='Graph-frame'>
+        <div class='Graph-component'>
+          Graph
         </div>
+      </div>
 
-        <br></br>
+      <br></br>
 
-        <div class='News-frame'>
-          <div class='News-frame-header'>News Aggregation</div>
-          <div class='News-frame-comments'>Comments go here</div>
-        </div>
+      <div class='News-frame'>
+        <div class='News-frame-header'>News Aggregation</div>
+        <div class='News-frame-comments'>Comments go here</div>
+      </div>
 
-        <br></br>
+      <br></br>
 
-        <div class='Comments-frame'>
-          <div class='Comments-frame-header'>News Aggregation</div>
-          <div class='Comments-frame-comments'>Comments</div>
-        </div>
-      </body>
+      <div class='Comments-frame'>
+        <div class='Comments-frame-header'>News Aggregation</div>
+        <div class='Comments-frame-comments'>Comments</div>
+      </div>
     </div>
   );
 }

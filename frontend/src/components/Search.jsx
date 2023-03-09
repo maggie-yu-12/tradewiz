@@ -29,7 +29,7 @@ export function Search() {
       <form onSubmit={onSubmitHandler} class="search-form">
         <input class="text" value={searchInput} onChange={inputHandler} placeholder='Enter Stock Symbol (GOOG, MSFT)' />
         <button class="submit">
-          <img src={search} id="search-icon" />
+          <img src={search} id="search-icon" alt="search-icon" />
         </button>
       </form>
     </div>
