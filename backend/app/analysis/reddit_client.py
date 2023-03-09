@@ -31,20 +31,20 @@ class RedditClient(Client):
     '''
       API call to get tweets based on query keyword(s)
     '''
-    def get_posts(self):
-      query = "GME"
+    def get_posts(self, stock_abbreviation):
+      query = stock_abbreviation
       response = []
+      i = 0
       for submission in self.reddit_read_only.subreddit("all").search(query, sort='top', time_filter='week'):
-        print(submission.selftext)
+        if i > 2:
+          break
         response.append(submission.title + submission.selftext)
+        i += 1
       
       return response
 
 if __name__ == '__main__':
     client = RedditClient()
-    posts = client.get_posts()
+    posts = client.get_posts("GME")
     for i in range(2):
       print("sentiment score: ", client.get_sentiment(posts[i]), posts[i])
-
-
-    
