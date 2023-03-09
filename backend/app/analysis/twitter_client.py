@@ -17,6 +17,8 @@ from multiprocessing import Pool
 
 import nltk
 import requests
+from client import Client
+
 import tweepy
 from flair.data import Sentence
 from flair.models import SequenceTagger, TextClassifier
@@ -266,7 +268,6 @@ if __name__ == "__main__":
     #   get_sentiment(public_tweets[i].text)
 
     search_words = ["#meta", "#stock"]
-
     date_since_arr = ["202301290000", "202302050000"]
     date_until_arr = ["202302040000", "202302110000"]
     metadata = [True, False]
