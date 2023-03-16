@@ -1,9 +1,9 @@
 import configparser
 import json
 import re
-from client import Client
 
 import praw
+from client import Client
 from flair.data import Sentence
 from flair.models import SequenceTagger, TextClassifier
 
@@ -35,10 +35,10 @@ class RedditClient(Client):
       query = stock_abbreviation
       response = []
       i = 0
-      for submission in self.reddit_read_only.subreddit("all").search(query, sort='top', time_filter='week'):
-        if i > 2:
+      for submission in self.reddit_read_only.subreddit("wallstreetbets").search(query, sort='top', time_filter='week'):
+        if i > 20:
           break
-        response.append(submission.title + submission.selftext)
+        response.append("'" + submission.title + "''" + " ---- \n")
         i += 1
       
       return response

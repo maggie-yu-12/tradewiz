@@ -19,6 +19,7 @@ export function Individual() {
     description: 'Loading...',
     symbol: 'Loading...',
     quote: 'Loading...',
+    news: 'Loading...',
   });
 
   axios.defaults.baseURL = 'http://localhost:8000';
@@ -44,7 +45,8 @@ export function Individual() {
           name: res.stock_overview.Name,
           description: res.stock_overview.Description,
           symbol: res.stock_overview.Symbol,
-          quote: res.stock_quote['Global Quote']['05. price']
+          quote: res.stock_quote['Global Quote']['05. price'],
+          news: res.stock_news,
         }))
         console.log(response);
       })
@@ -66,7 +68,8 @@ export function Individual() {
           name: res.stock_overview.Name,
           description: res.stock_overview.Description,
           symbol: res.stock_overview.Symbol,
-          quote: res.stock_quote['Global Quote']['05. price']
+          quote: res.stock_quote['Global Quote']['05. price'],
+          news: res.stock_news,
         }))
         console.log(response);
       })
@@ -99,26 +102,26 @@ export function Individual() {
         <div class='Stock-data-border'>
           <div class='Stock-data-frame-component' id='Twitter-component'>
             <div class='Stock-data-frame-component-name'>Total Sentiment Score</div>
-            <div class='Stock-data-frame-component-score'>6.8</div>
+            <div class='Stock-data-frame-component-score'>Loading...</div>
             <br></br>
             <div class='Stock-data-company-header'>Twitter Score</div>
-            <div class='Stock-data-company-score'>5.7</div>
+            <div class='Stock-data-company-score'>––</div>
             <div class='Stock-data-company-header'>Reddit Score</div>
-            <div class='Stock-data-company-score'>8.9</div>
+            <div class='Stock-data-company-score'>––</div>
             <div class='Stock-data-company-header'>Bloomberg Score</div>
-            <div class='Stock-data-company-score'>2.3</div>
+            <div class='Stock-data-company-score'>––</div>
             <br></br>
           </div>
           <div class='Stock-data-frame-component' id='Reddit-component'>
             <div class='Stock-data-frame-component-name'>Total Activity</div>
-            <div class='Stock-data-frame-component-score'>3.4</div>
+            <div class='Stock-data-frame-component-score'>–</div>
             <br></br>
             <div class='Stock-data-company-header'>Twitter Activity</div>
-            <div class='Stock-data-company-score'>5.7</div>
+            <div class='Stock-data-company-score'>––</div>
             <div class='Stock-data-company-header'>Reddit Activity</div>
-            <div class='Stock-data-company-score'>8.9</div>
+            <div class='Stock-data-company-score'>––</div>
             <div class='Stock-data-company-header'>Bloomberg Activity</div>
-            <div class='Stock-data-company-score'>2.3</div>
+            <div class='Stock-data-company-score'>––</div>
             <br></br>
           </div>
           <div class='Stock-data-frame-component' id='Bloomberg-component'>
@@ -126,11 +129,11 @@ export function Individual() {
             <div class='Stock-data-frame-component-score'>{stockData.quote}</div>
             <br></br>
             <div class='Stock-data-company-header'>Price Momentum</div>
-            <div class='Stock-data-company-score'>5.7</div>
+            <div class='Stock-data-company-score'>––</div>
             <div class='Stock-data-company-header'>Price Change %</div>
-            <div class='Stock-data-company-score'>8.9</div>
+            <div class='Stock-data-company-score'>––</div>
             <div class='Stock-data-company-header'>Trade Volume</div>
-            <div class='Stock-data-company-score'>2.3</div>
+            <div class='Stock-data-company-score'>––</div>
             <br></br>
           </div>
         </div>
@@ -149,13 +152,16 @@ export function Individual() {
 
       <div class='News-frame'>
         <div class='News-frame-header'>News Aggregation</div>
-        <div class='News-frame-comments'>Comments go here</div>
+        <div class='News-frame-comments'>
+          {/* {this.props.notifications.map(txt => <p>{txt}</p>)} */}
+          {stockData.news}
+        </div>
       </div>
 
       <br></br>
 
       <div class='Comments-frame'>
-        <div class='Comments-frame-header'>News Aggregation</div>
+        <div class='Comments-frame-header'>Comment Aggregation</div>
         <div class='Comments-frame-comments'>Comments</div>
       </div>
     </div>

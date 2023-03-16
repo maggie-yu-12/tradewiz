@@ -4,6 +4,8 @@
 
 import csv
 import itertools
+import os
+import sys
 
 import requests
 from flair.data import Sentence
@@ -12,8 +14,10 @@ from flask import Flask, abort, jsonify, request
 from flask_cors import CORS, cross_origin
 from main import app
 
-import sys
-sys.path.append("analysis/reddit_client.py")
+print('AAAAAAAAAAAAA \nGet current working directory : ', os.getcwd())
+
+sys.path.append("app/analysis")
+from reddit_client import RedditClient
 
 # session = requests.Session()
 # session.verify = False
@@ -34,6 +38,7 @@ sys.path.append("analysis/reddit_client.py")
 # response = {'result': label.value, 'polarity':label.score}
 # return jsonify(response), 200
 
+rclient = RedditClient()
 
 # example
 @app.route("/profile")
@@ -111,17 +116,13 @@ def get_stock_data():
     r = requests.get(url)
     response_body_quote = r.json()
 
+    print(rclient.get_posts(stock_abbreviation))
+
     return {
     "stock_overview": response_body_overview,
     "stock_quote": response_body_quote,
+    "stock_news": rclient.get_posts(stock_abbreviation)
     }
-
-@app.route('/stockdata', methods=['GET'])
-@cross_origin(origin='*') 
-def get_stock_comments():
-    d = dict()
-    stock_abbreviation = request.args.get('symbol')
-    url = 'hi'
 
 
 @app.route('/time')

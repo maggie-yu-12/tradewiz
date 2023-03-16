@@ -39,5 +39,5 @@ class Client:
     sentence = Sentence(post)
     classifier.predict(sentence)
     print(post)
-    print(sentence.labels[0].to_dict()['value'])
-    print(sentence.labels[0].to_dict()['confidence'])
+    print('value', sentence.labels[0].to_dict()['value'])
+    print('confidence', sentence.labels[0].to_dict()['confidence'])
