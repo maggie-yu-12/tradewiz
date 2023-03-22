@@ -118,6 +118,7 @@ if __name__ == "__main__":
 
     posts["sentiment"] = posts.apply(getSentiment, axis=1)
 
+    # plot stock data vs. time
     plt.plot(tsla_stock.Datetime, tsla_stock.Close)
     plt.show()
 
