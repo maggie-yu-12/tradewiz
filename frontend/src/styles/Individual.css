@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+@font-face {
+    font-family: montserrat;
+    src: url('https://fonts.googleapis.com/css?family=Montserrat');
+}
+
+.body {
+    font-family: 'Montsserat', serif;
+}
+
 .Individual {
     text-align: center;
 }
@@ -22,21 +33,77 @@
     color: white;
 }
 
-.Stock-data-frame {
-    padding-left: 30%;
-    padding-right: 30%;
-}
-
 #Stock-name {
+    padding-left: 25%;
+    padding-right: 25%;
     text-align: left;
 }
 
 #Stock-description {
+    padding-left: 25%;
+    padding-right: 25%;
     text-align: left;
 }
 
-#Stock-quote {
+.Stock-data-frame {
+    padding-left: 25%;
+    padding-right: 25%;
+    display: flex;
+    flex-direction: row;
+}
+
+.Stock-data-border {
+    padding-top: 3%;
+    padding-bottom: 2%;
+    padding-left: 10%;
+    padding-right: 10%;
+    background-color: rgb(224, 241, 198);
+    display: inline-flex;
+}
+
+.Stock-data-frame-component {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    text-align: center;
+}
+
+.Stock-data-frame-component-name {
+    font-weight: bold;
+    font-size: 1em;
     text-align: left;
+    padding-left: 5%;
+}
+
+.Stock-data-frame-component-score {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: rgb(256, 0, 0);
+    text-align: left;
+    padding-left: 5%;
+}
+
+.Stock-data-company-header {
+    font-size: .8em;
+    font-weight: 800;
+    color: gray;
+    text-align: left;
+    padding-left: 8%;
+}
+
+.Stock-data-company-score {
+    font-size: 0.8em;
+    font-weight: 700;
+    text-align: left;
+    padding-left: 8%;
+}
+
+.Sentiment-score-frame-component {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    border: solid 1px #000;
+    text-align: center;
 }
 
 .Sentiment-score-frame {
@@ -74,4 +141,23 @@
     border: solid 1px #000;
     height: 500px;
     width: 900px;
+}
+
+.News-frame {
+    background-color: rgb(220, 220, 220);
+    display: flex;
+    flex-direction: row;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.News-frame-header {
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.News-frame-comments {
+    padding-left: 50%;
 }

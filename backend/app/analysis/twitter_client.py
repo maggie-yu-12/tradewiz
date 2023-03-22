@@ -154,7 +154,12 @@ class TwitterClient(object):
         # else:
         #     result = -(text.to_dict()['labels'][0]['confidence'])
 
-        # return round(result, 3)
+        # try:
+        public_tweets = [
+            status
+            for status in tweepy.Cursor(self.api.search_tweets, q=query).items(100)
+        ]
+        return public_tweets
 
     # @staticmethod
     def clean(self, tweet_text):

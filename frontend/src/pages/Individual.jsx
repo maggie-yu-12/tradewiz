@@ -53,9 +53,32 @@ export function Individual() {
       });
   }
 
+  function getStockComments() {
+    console.log(window.location.pathname)
+    axios({
+      method: 'GET',
+      url: window.location.pathname,
+      params: { symbol: searchParams.get('symbol') },
+    })
+      .then(function (response) {
+        const res = response.data
+        setStockData(({
+          name: res.stock_overview.Name,
+          description: res.stock_overview.Description,
+          symbol: res.stock_overview.Symbol,
+          quote: res.stock_quote['Global Quote']['05. price']
+        }))
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   // Get stock information from Alpha Vantage API, third line makes it update with search query
   useEffect(() => {
     getStockData();
+    getStockComments();
   }, [searchParams]);
 
   //end of new line 
@@ -71,33 +94,53 @@ export function Individual() {
       </header>
 
       <body>
-        <div class='Stock-data-frame'>
-          <h3 id='Stock-name'>{stockData.name} ({stockData.symbol})</h3>
-          <div id='Stock-description'>{stockData.description}</div>
-          <br></br>
-          <h3 id='Stock-quote'>NASDAQ: {stockData.quote} (Other params here)</h3>
-        </div>
+        <br></br>
+        <h3 id='Stock-name'>{stockData.name} ({stockData.symbol})</h3>
+        <div id='Stock-description'>{stockData.description}</div>
 
         <br></br>
 
-        <div class='Sentiment-score-frame'>
-          <div class='Sentiment-score-frame-component' id='Twitter-component'>
-            <div class='Sentiment-score-frame-component-name'>Twitter</div>
-            <div class='Sentiment-score-frame-component-score'>10.0</div>
-          </div>
-          <div class='Sentiment-score-frame-component' id='Reddit-component'>
-            <div class='Sentiment-score-frame-component-name'>Reddit</div>
-            <div class='Sentiment-score-frame-component-score'>10.0</div>
-          </div>
-          <div class='Sentiment-score-frame-component' id='Bloomberg-component'>
-            <div class='Sentiment-score-frame-component-name'>Bloomberg</div>
-            <div class='Sentiment-score-frame-component-score'>10.0</div>
-          </div>
-          <div class='Sentiment-score-frame-component' id='Overall-component'>
-            <div class='Sentiment-score-frame-component-name'>Overall</div>
-            <div class='Sentiment-score-frame-component-score'>10.0</div>
+        <div class='Stock-data-frame'>
+          <div class='Stock-data-border'>
+            <div class='Stock-data-frame-component' id='Twitter-component'>
+              <div class='Stock-data-frame-component-name'>Total Sentiment Score</div>
+              <div class='Stock-data-frame-component-score'>6.8</div>
+              <br></br>
+              <div class='Stock-data-company-header'>Twitter Score</div>
+              <div class='Stock-data-company-score'>5.7</div>
+              <div class='Stock-data-company-header'>Reddit Score</div>
+              <div class='Stock-data-company-score'>8.9</div>
+              <div class='Stock-data-company-header'>Bloomberg Score</div>
+              <div class='Stock-data-company-score'>2.3</div>
+              <br></br>
+            </div>
+            <div class='Stock-data-frame-component' id='Reddit-component'>
+              <div class='Stock-data-frame-component-name'>Total Activity</div>
+              <div class='Stock-data-frame-component-score'>3.4</div>
+              <br></br>
+              <div class='Stock-data-company-header'>Twitter Activity</div>
+              <div class='Stock-data-company-score'>5.7</div>
+              <div class='Stock-data-company-header'>Reddit Activity</div>
+              <div class='Stock-data-company-score'>8.9</div>
+              <div class='Stock-data-company-header'>Bloomberg Activity</div>
+              <div class='Stock-data-company-score'>2.3</div>
+              <br></br>
+            </div>
+            <div class='Stock-data-frame-component' id='Bloomberg-component'>
+              <div class='Stock-data-frame-component-name'>Last Price</div>
+              <div class='Stock-data-frame-component-score'>{stockData.quote}</div>
+              <br></br>
+              <div class='Stock-data-company-header'>Price Momentum</div>
+              <div class='Stock-data-company-score'>5.7</div>
+              <div class='Stock-data-company-header'>Price Change %</div>
+              <div class='Stock-data-company-score'>8.9</div>
+              <div class='Stock-data-company-header'>Trade Volume</div>
+              <div class='Stock-data-company-score'>2.3</div>
+              <br></br>
+            </div>
           </div>
         </div>
+
 
         <br></br>
 
@@ -109,9 +152,16 @@ export function Individual() {
 
         <br></br>
 
+        <div class='News-frame'>
+          <div class='News-frame-header'>News Aggregation</div>
+          <div class='News-frame-comments'>Comments go here</div>
+        </div>
+
+        <br></br>
+
         <div class='Comments-frame'>
-          <div class='Comments-frame-child'>Trending on...</div>
-          <div class='Comments-frame-child'>Comments</div>
+          <div class='Comments-frame-header'>News Aggregation</div>
+          <div class='Comments-frame-comments'>Comments</div>
         </div>
       </body>
     </div>
