@@ -54,13 +54,14 @@ class RedditClient(Client):
       API call to get tweets based on query keyword(s)
     """
 
-    def get_posts(self):
-        query = "tesla"
+    def get_posts(self, stock):
+        query = stock
         response = []
         df = pd.DataFrame()
 
+        # retrieve up to 1000 reddit posts
         for submission in self.reddit_read_only.subreddit("all").search(
-            query, sort="top", time_filter="week"
+            query, sort="top", time_filter="month", limit=None
         ):
             # print(submission.selftext)
             df = df.append(self.get_data(submission), ignore_index=True)
@@ -87,30 +88,25 @@ class RedditClient(Client):
 
 if __name__ == "__main__":
     client = RedditClient()
-    posts = client.get_posts()
+    posts = client.get_posts("tesla")
+
+    # number of posts retrieved
     print(len(posts))
     print(posts.head())
-    # for i in range(2):
-    # print("sentiment score: ", client.get_sentiment(posts[i]), posts[i])
 
     print(dt.fromtimestamp(posts["created_at"].min()).strftime("%Y-%m-%d"))
+
     # get historical stock data
     tsla = yf.Ticker("TSLA")
     tsla_stock = tsla.history(
         start=dt.fromtimestamp(posts["created_at"].min()).strftime("%Y-%m-%d"),
         end=dt.fromtimestamp(posts["created_at"].max()).strftime("%Y-%m-%d"),
-        interval="60m",
+        interval="1d",
     ).reset_index()
-    # print(tsla_stock)
 
-    print(posts.dtypes)
-    date_times = tsla_stock["Datetime"]
-    print(date_times)
+    # retrieve dates & remove time zone
+    date_times = tsla_stock["Date"]
     date_times = [x.tz_convert(None) for x in date_times]
-
-    # date_bins = [d - timedelta(hours=0, minutes=30) for d in date_times]
-    # date_bins.append(date_times.iloc[-1] + timedelta(hours=0, minutes=30))
-    # print(date_bins)
 
     def getClosestDate(row):
         res = min(date_times, key=lambda sub: abs(sub - row["date"]))
@@ -127,13 +123,21 @@ if __name__ == "__main__":
     posts["sentiment"] = posts.apply(getSentiment, axis=1)
     print(posts.iloc[0])
     df = posts.groupby(["date_group"])["sentiment"].mean()
+
     print(df.head())
 
     # plot stock data vs. time
-    plt.plot(tsla_stock.Datetime, tsla_stock.Close)
+    plt.plot(tsla_stock.Date, tsla_stock.Close)
+    plt.xlabel("Time")
+    plt.ylabel("Stock Price")
+    plt.title("Stock Price vs. Time")
     plt.show()
 
-    plt.plot(df)
+    # plot sentiment vs. time
+    plt.plot(df, color="red")
+    plt.xlabel("Time")
+    plt.ylabel("Avg Sentiment Score")
+    plt.title("Avg Sentiment vs. Time")
     plt.show()
 
     print(df.head(20))
