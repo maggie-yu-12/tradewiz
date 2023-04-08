@@ -93,6 +93,7 @@ if __name__ == "__main__":
     # for i in range(2):
     # print("sentiment score: ", client.get_sentiment(posts[i]), posts[i])
 
+    print(dt.fromtimestamp(posts["created_at"].min()).strftime("%Y-%m-%d"))
     # get historical stock data
     tsla = yf.Ticker("TSLA")
     tsla_stock = tsla.history(
@@ -102,28 +103,40 @@ if __name__ == "__main__":
     ).reset_index()
     # print(tsla_stock)
 
+    print(posts.dtypes)
     date_times = tsla_stock["Datetime"]
     print(date_times)
+    date_times = [x.tz_convert(None) for x in date_times]
 
-    date_bins = [d - timedelta(hours=0, minutes=30) for d in date_times]
-    date_bins.append(date_times.iloc[-1] + timedelta(hours=0, minutes=30))
-    print(date_bins)
+    # date_bins = [d - timedelta(hours=0, minutes=30) for d in date_times]
+    # date_bins.append(date_times.iloc[-1] + timedelta(hours=0, minutes=30))
+    # print(date_bins)
 
-    posts["date_group"] = pd.cut(posts["date"], bins=date_bins, labels=date_times)
-    print(posts.head(100))
+    def getClosestDate(row):
+        res = min(date_times, key=lambda sub: abs(sub - row["date"]))
+        return res
+
+    # posts["date_group"] = pd.cut(posts["date"], bins=date_bins, labels=date_times)
+    # print(posts.head(100))
+    posts["date_group"] = posts.apply(getClosestDate, axis=1)
 
     def getSentiment(row):
         output = client.get_sentiment(row["text"])
         return output[0] if output[1] == "POSITIVE" else -1 * output[0]
 
     posts["sentiment"] = posts.apply(getSentiment, axis=1)
+    print(posts.iloc[0])
+    df = posts.groupby(["date_group"])["sentiment"].mean()
+    print(df.head())
 
     # plot stock data vs. time
     plt.plot(tsla_stock.Datetime, tsla_stock.Close)
     plt.show()
 
-    df = posts.groupby(["date_group"])["sentiment"].mean()
-    # print(df.head())
+    plt.plot(df)
+    plt.show()
+
+    print(df.head(20))
 
     # df.plot(x="date_group", y="unemployment_rate", kind="line")
 
