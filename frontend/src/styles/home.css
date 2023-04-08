@@ -21,7 +21,9 @@ html {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
 
   width: max-content;
+
+  margin-bottom: 20px;
 }

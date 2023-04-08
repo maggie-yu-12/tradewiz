@@ -1,0 +1,77 @@
+.Individual {
+    text-align: center;
+}
+
+.Individual-logo {
+    height: 4vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .Individual-logo {
+        animation: Individual-logo-spin infinite 20s linear;
+    }
+}
+
+.Individual-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.Stock-data-frame {
+    padding-left: 30%;
+    padding-right: 30%;
+}
+
+#Stock-name {
+    text-align: left;
+}
+
+#Stock-description {
+    text-align: left;
+}
+
+#Stock-quote {
+    text-align: left;
+}
+
+.Sentiment-score-frame {
+    display: flex;
+    flex-direction: row;
+
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+.Sentiment-score-frame-component {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    border: solid 1px #000;
+    text-align: center;
+}
+
+.Sentiment-score-frame-component-name {
+    border: solid 1px rgb(222, 19, 19);
+}
+
+.Sentiment-score-frame-component-score {
+    border: solid 1px rgb(19, 134, 222);
+}
+
+.Graph-frame {
+    height: 100%;
+    width: 100;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+.Graph-component {
+    border: solid 1px #000;
+    height: 500px;
+    width: 900px;
+}

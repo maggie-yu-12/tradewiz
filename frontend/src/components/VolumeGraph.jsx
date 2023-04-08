@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {Bar, Line} from 'react-chartjs-2';
+import React, { useEffect, useState } from 'react';
+import { Bar } from 'react-chartjs-2';
 
 const SentimentVolumeGraph = () => {
   const [data, setData] = useState([]);

@@ -35,5 +35,12 @@ backend/env
 # remove config - for security issues
 backend/config.ini
 
+<<<<<<< HEAD
 # don't include past tweets
 */*/*/past_tweets*
+=======
+# don't include past tweets data
+backend/app/analysis/past_tweets_*.txt
+backend/app/analysis/*queried_data/
+backend/app/analysis/*.csv
+>>>>>>> 21aac1f90caedffd2dfd277e1c04b048ad63f262
