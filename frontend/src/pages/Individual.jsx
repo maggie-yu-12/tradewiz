@@ -73,7 +73,7 @@ export function Individual() {
     <div class='Individual-outer-container'>
       <NavBar />
       <br></br>
-      <div class='Search-frame'><Search /></div>
+      <Search />
       <br></br>
       <br></br>
       <h3 id='Stock-name'>{stockData.name} ({stockData.symbol})</h3>
