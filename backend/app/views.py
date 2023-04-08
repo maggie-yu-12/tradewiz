@@ -14,8 +14,6 @@ from flask import Flask, abort, jsonify, request
 from flask_cors import CORS, cross_origin
 from main import app
 
-print('AAAAAAAAAAAAA \nGet current working directory : ', os.getcwd())
-
 sys.path.append("app/analysis")
 from reddit_client import RedditClient
 
@@ -108,11 +106,11 @@ def get_activity():
 def get_stock_data():
     d = dict()
     stock_abbreviation = request.args.get('symbol')
-    url = f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={stock_abbreviation}&apikey=KZQ08TK5X6QQQDOB'
+    url = f'https://www.alphavantage.co/query?function=OVERVIEW&symbol={stock_abbreviation}&apikey=1NW9S0JBPSFSTFIL'
     r = requests.get(url)
     response_body_overview = r.json()
 
-    url = f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={stock_abbreviation}&apikey=KZQ08TK5X6QQQDOB'
+    url = f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={stock_abbreviation}&apikey=1NW9S0JBPSFSTFIL'
     r = requests.get(url)
     response_body_quote = r.json()
 
