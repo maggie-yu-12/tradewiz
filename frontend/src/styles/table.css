@@ -1,0 +1,17 @@
+#table-header {
+  font-weight: 400;
+  font-size: 2em;
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+#question-popup {
+  margin-bottom: 10px;
+}

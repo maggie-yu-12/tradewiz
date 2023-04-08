@@ -9,7 +9,6 @@ import { BsQuestionCircle } from 'react-icons/bs';
 import { Popup } from 'semantic-ui-react';
 
 // Enums
-
 export const SENTIMENT = Object.freeze({
   POSITIVE: "▲",
   NEGATIVE: "▼",
@@ -19,29 +18,29 @@ export const COLUMN_NAMES = Object.freeze({
   COMPANY: "Company",
   WEEK: "1-Week Sentiment Score",
   MONTH: "1-Month Sentiment Score",
-  SENTIMENT: "Sentiment",
-  ACTIVITY: "Activity"
+  SENTIMENT: "Δ in Sentiment by Week",
+  ACTIVITY: "Weekly Activity"
 });
 
-export const getColumnAccessor = (originalRow, key) => {
+export const getColumnAccessor = (key) => {
   switch (key) {
     case "COMPANY":
-      return originalRow.company
+      return 'company';
     case "WEEK":
-      return originalRow.week
+      return 'week';
     case "MONTH":
-      return originalRow.month
+      return 'month'
     case "SENTIMENT":
-      return originalRow.sentiment
+      return 'sentiment'
     case "ACTIVITY":
-      return originalRow.activity
+      return 'activity'
   }
 }
 
 /**
  * Background for sentiment arrows: light green for positive, light red for negative
  */
-export const SentimentBackground = ({ change, symbol, isPositive }) => (
+export const SentimentBackground = ({ change, symbol, isPositive, prev }) => (
   <>
     {/* <p style={{ display: "inline" }}> {isPositive ? "Positive" : "Negative"}</p> */}
     <Box
@@ -52,14 +51,14 @@ export const SentimentBackground = ({ change, symbol, isPositive }) => (
         borderRadius: '10px',
         color: isPositive
           ? 'rgba(67, 157, 98, 1)' : 'rgba(241, 72, 110, 1)',
-        maxWidth: '5em', // setting the background box
+        maxWidth: '10em', // setting the background box
         maxHeight: '2em',
         textAlign: 'center', // centering arrow symbol
-        padding: '0',
+        padding: '7px',
         margin: '0'
       }}
     >
-      <p style={{ fontSize: '0.9em', margin: '0', padding: '0' }}>{change + "% " + symbol}</p>
+      <p style={{ fontSize: '0.9em', margin: '0', padding: '0' }}>{change + "% " + symbol + " from " + prev}</p>
     </Box >
   </>
 )
@@ -67,7 +66,7 @@ export const SentimentBackground = ({ change, symbol, isPositive }) => (
 /**
  * Generic Recommended Table component in Home page
  */
-export const RecommendedTable = ({ columns, data, title }) => {
+export const SentimentTable = ({ columns, data, title }) => {
   return (
     <>
 
@@ -99,7 +98,7 @@ export const RecommendedTable = ({ columns, data, title }) => {
                   minSize: 20, //allow columns to get smaller than default
                   maxSize: 9001, //allow columns to get larger than default
                   display: 'inline-flex',
-                  size: 'min-content'
+                  // size: 'min-content'
                 }}
                 muiTableHeadCellProps={{
                   sx: {
@@ -108,7 +107,8 @@ export const RecommendedTable = ({ columns, data, title }) => {
                     margin: 'auto',
                     backgroundColor: 'white',
                     textAlign: 'center',
-                    fontSize: '1.1rem',
+                    fontSize: '1.05rem',
+                    wordBreak: "break-all",
                   },
                 }}
                 muiTableBodyCellProps={{
@@ -121,17 +121,19 @@ export const RecommendedTable = ({ columns, data, title }) => {
                     paddingTop: '8px',
                     paddingBottom: '8px',
                     backgroundColor: 'white',
-                    fontSize: '1rem',
+                    fontSize: '1.05rem',
                   },
                 }}
                 // enableRowSelection //enable some features
+                enableSorting={false}
                 enableRowNumbers
-                // enableRowActions
-                muiSearchTextFieldProps={{
-                  placeholder: 'Search Stock',
-                  sx: { minWidth: '18rem' },
-                  variant: 'outlined',
-                }}
+
+              // enableRowActions
+              // muiSearchTextFieldProps={{
+              //   placeholder: 'Search Stock',
+              //   sx: { minWidth: '18rem' },
+              //   variant: 'filled',
+              // }}
               />
             </TableContainer>
           </div>
