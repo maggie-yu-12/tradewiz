@@ -36,6 +36,7 @@ backend/env
 backend/config.ini
 
 # don't include past tweets data
+backend/app/analysis/past_tweets.json
 backend/app/analysis/past_tweets_*.txt
 backend/app/analysis/*queried_data/
 backend/app/analysis/*.csv

@@ -1,0 +1,5 @@
+DynamoDB Tables:
+1. tweets
+  - HashKey: <Company> (String)
+  - SortKey: <Timestamp>-<Id> (String)
+    - Using a combined SortKey in case Company + Timestamp isn't unique to identify each tweet

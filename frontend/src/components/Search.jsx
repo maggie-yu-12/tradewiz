@@ -36,7 +36,6 @@ export const Search = () => {
           <button id="home-search-button" class="submit">
             <BiSearchAlt />
           </button>
-
         </div>
       </form>
     </div>
