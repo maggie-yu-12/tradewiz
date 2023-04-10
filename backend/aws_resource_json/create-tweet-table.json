@@ -1,0 +1,25 @@
+{
+  "TableName": "Tweets",
+  "BillingMode": "PAY_PER_REQUEST",
+  "DeletionProtectionEnabled": true,
+  "KeySchema": [
+    {
+      "AttributeName": "Company",
+      "KeyType": "HASH"
+    },
+    {
+      "AttributeName": "CreatedAndId",
+      "KeyType": "RANGE"
+    }
+  ],
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "Company",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "CreatedAndId",
+      "AttributeType": "S"
+    }
+  ]
+}

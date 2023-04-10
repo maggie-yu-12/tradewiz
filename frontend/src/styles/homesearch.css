@@ -1,0 +1,31 @@
+.search-container {
+  height: 40vh;
+  width: 100vw;
+  /* background-color: rgba(208, 233, 168, 0.35); */
+  background-image: linear-gradient(180deg, rgba(187, 226, 124, 0.35) 70%, white);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.h-greeting {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#h-main-greeting {
+  font-weight: 400;
+  font-size: 3em;
+
+  margin-bottom: 10px;
+}
+
+#h-sub-greeting {
+  font-weight: 400;
+  font-size: 2em;
+  color: #AFABAB;
+}
