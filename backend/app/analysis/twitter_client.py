@@ -167,6 +167,15 @@ class TwitterClient(object):
         }
 
         return activity_summary
+    
+    @classmethod
+    def get_news(stock_abbreviation):
+        query = stock_abbrevation
+        response = []
+        i = 0
+
+
+        return response
 
 
 # For all tweets beyond one week

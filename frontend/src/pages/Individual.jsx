@@ -24,6 +24,7 @@ export function Individual() {
     price_change_percent: 'Loading...',
     trade_volume: 'Loading...',
     news_reddit: 'Loading...',
+    news_twitter: 'Loading...',
   });
   const [graphData, setGraphData] = useState({
     img_path: 'Loading...',
@@ -54,6 +55,7 @@ export function Individual() {
           description: res.stock_overview.Description,
           symbol: res.stock_overview.Symbol,
           price: res.stock_quote['Global Quote']['05. price'],
+          news_twitter: res.stock_news_twitter,
           news_reddit: res.stock_news_reddit,
           price_momentum: res.stock_quote['Global Quote']['09. change'],
           price_change_percent: res.stock_quote['Global Quote']['10. change percent'],
@@ -161,17 +163,17 @@ export function Individual() {
         <div class='News-frame'>
           <div class='News-frame-header'>News Aggregation</div>
           <div class='News-frame-comments'>
-            <News site='Twitter' newsinfo={stockData.news_reddit} />
+            <News site='Twitter' newsinfo={stockData.news_twitter} />
             <News site='Reddit' newsinfo={stockData.news_reddit} />
           </div>
         </div>
 
         <br></br>
 
-        <div class='Comments-frame'>
+        {/* <div class='Comments-frame'>
           <div class='Comments-frame-header'>Comment Aggregation</div>
           <div class='Comments-frame-comments'>Comments</div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

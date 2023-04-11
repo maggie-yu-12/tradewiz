@@ -19,6 +19,7 @@ from main import app
 
 sys.path.append("app/analysis")
 from reddit_client import RedditClient
+from twitter_client import TwitterClient
 
 UPLOAD_FOLDER = "/path/to/the/uploads"
 ALLOWED_EXTENSIONS = set(["txt", "pdf", "png", "jpg", "jpeg", "gif"])
@@ -63,7 +64,7 @@ COMPANIES = [
 # return jsonify(response), 200
 
 rclient = RedditClient()
-
+# tclient = TwitterClient()
 
 # example
 @app.route("/profile")
@@ -136,11 +137,11 @@ def get_stock_data():
     r = requests.get(url)
     response_body_quote = r.json()
 
-    print(rclient.get_news(stock_abbreviation))
-
     return {
         "stock_overview": response_body_overview,
         "stock_quote": response_body_quote,
+        # "stock_news_twitter": [["a", "b", "c"], ["a", "b", "c"], ["a", "b", "c"]],
+        "stock_news_twitter": aws_q.get_tweets_by_company(stock_abbreviation),
         "stock_news_reddit": rclient.get_news(stock_abbreviation),
     }
 
