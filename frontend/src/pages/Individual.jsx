@@ -15,10 +15,12 @@ export function Individual() {
   // search result as a stock abbreviation
   const stockAbbreviation = useLocation();
   const [searchParams] = useSearchParams();
-  const [stockData, setStockData] = useState({
+  const [stockDataOverview, setStockDataOverview] = useState({
     name: 'Loading...',
     description: 'Loading...',
     symbol: 'Loading...',
+  })
+  const [stockData, setStockData] = useState({
     total_score: 'Loading...',
     twitter_score: 'Loading...',
     reddit_score: 'Loading...',
@@ -29,9 +31,11 @@ export function Individual() {
     price_momentum: 'Loading...',
     price_change_percent: 'Loading...',
     trade_volume: 'Loading...',
+  });
+  const [newsData, setNewsData] = useState({
     news_reddit: 'Loading...',
     news_twitter: 'Loading...',
-  });
+  })
   const [graphData, setGraphData] = useState({
     img_path: 'Loading...',
   });
@@ -57,9 +61,6 @@ export function Individual() {
       .then(function (response) {
         const res = response.data
         setStockData(({
-          name: res.stock_overview.Name,
-          description: res.stock_overview.Description,
-          symbol: res.stock_overview.Symbol,
           total_score: res.total_score,
           twitter_score: res.twitter_score,
           reddit_score: res.reddit_score,
@@ -67,13 +68,51 @@ export function Individual() {
           twitter_activity: res.twitter_activity,
           reddit_activity: res.reddit_activity,
           price: res.stock_quote['Global Quote']['05. price'],
-          news_twitter: res.stock_news_twitter,
-          news_reddit: res.stock_news_reddit,
           price_momentum: res.stock_quote['Global Quote']['09. change'],
           price_change_percent: res.stock_quote['Global Quote']['10. change percent'],
           trade_volume: res.stock_quote['Global Quote']['06. volume'],
         }))
-        console.log('RESPONSE');
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  function getStockDataOverview() {
+    console.log(window.location.pathname)
+    axios({
+      method: 'GET',
+      url: '/stockdataoverview',
+      params: { symbol: searchParams.get('symbol') },
+    })
+      .then(function (response) {
+        const res = response.data
+        setStockDataOverview(({
+          name: res.stock_overview.Name,
+          description: res.stock_overview.Description,
+          symbol: res.stock_overview.Symbol,
+        }))
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  function getNewsData() {
+    console.log(window.location.pathname)
+    axios({
+      method: 'GET',
+      url: '/newsdata',
+      params: { symbol: searchParams.get('symbol') },
+    })
+      .then(function (response) {
+        const res = response.data
+        setNewsData(({
+          news_twitter: res.stock_news_twitter,
+          news_reddit: res.stock_news_reddit,
+        }))
         console.log(response);
       })
       .catch(function (error) {
@@ -108,7 +147,9 @@ export function Individual() {
 
   // Get stock information from Alpha Vantage API, third line makes it update with search query
   useEffect(() => {
+    getStockDataOverview();
     getStockData();
+    getNewsData();
     // getStockGraph();
   }, [searchParams]);
 
@@ -121,8 +162,8 @@ export function Individual() {
       <div class='Individual-inner-container'>
         <Search />
         <div id="stock-label">
-          <h3 id='Stock-name'>{stockData.name} ({stockData.symbol})</h3>
-          <p id='Stock-description'>{stockData.description}</p>
+          <h3 id='Stock-name'>{stockDataOverview.name} ({stockDataOverview.symbol})</h3>
+          <p id='Stock-description'>{stockDataOverview.description}</p>
         </div>
 
         <div class='Stock-data-frame'>
@@ -175,8 +216,8 @@ export function Individual() {
         <div class='News-frame'>
           <div class='News-frame-header'>News Aggregation</div>
           <div class='News-frame-comments'>
-            <News site='Twitter' newsinfo={stockData.news_twitter} />
-            <News site='Reddit' newsinfo={stockData.news_reddit} />
+            <News site='Twitter' newsinfo={newsData.news_twitter} />
+            <News site='Reddit' newsinfo={newsData.news_reddit} />
           </div>
         </div>
 

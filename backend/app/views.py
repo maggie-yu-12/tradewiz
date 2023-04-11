@@ -122,6 +122,20 @@ def get_activity():
         }
     return res
 
+# Retrieves company overview based on stock abbreviation (ex. MSFT)
+@app.route("/stockdataoverview", methods=["GET"])
+@cross_origin(origin="*")
+def get_stock_dataoverview():
+    d = dict()
+    stock_abbreviation = request.args.get("symbol")
+    url = f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={stock_abbreviation}&apikey=1NW9S0JBPSFSTFIL"
+    r = requests.get(url)
+    response_body_overview = r.json()
+
+    return {
+        "stock_overview": response_body_overview,
+    }
+
 
 # Retrieves company information based on stock abbreviation (ex. MSFT)
 @app.route("/stockdata", methods=["GET"])
@@ -154,6 +168,15 @@ def get_stock_data():
         "total_activity": total_activity,
         "twitter_activity": twitter_activity,
         "reddit_activity": reddit_activity,
+    }
+
+# Retrieves company news based on stock abbreviation (ex. MSFT)
+@app.route("/newsdata", methods=["GET"])
+@cross_origin(origin="*")
+def get_news_data():
+    stock_abbreviation = request.args.get("symbol")
+
+    return {
         "stock_news_twitter": aws_q.get_tweets_by_company(stock_abbreviation),
         "stock_news_reddit": rclient.get_news(stock_abbreviation),
     }
