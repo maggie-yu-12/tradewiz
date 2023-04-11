@@ -3,8 +3,8 @@ import '../styles/News.css';
 
 // default site set to reddit
 export function News({ site, newsinfo }) {
-  console.log('NEWS NEWSINFO');
-  console.log(newsinfo);
+  // console.log('NEWS NEWSINFO');
+  // console.log(newsinfo);
   return (
     <div id='News-frame'>
       <div id='News-site-name'>
@@ -18,8 +18,6 @@ export function News({ site, newsinfo }) {
 }
 
 function Newsblock({ site, newsinfo: [title, description, date] }) {
-  // console.log('NEWSBLOCK NEWS');
-  // console.log(newsinfo);
   return (
     <div id='Newsblock-background'>
       <div id='Newsblock-title'>{title}</div>

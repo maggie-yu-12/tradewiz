@@ -32,7 +32,7 @@ export const Search = () => {
 
       <form onSubmit={onSubmitHandler} class="search-form">
         <div className="search">
-          <input id="home-search-input" class="text" value={searchInput} onChange={inputHandler} placeholder='Enter Stock Symbol (GOOG, MSFT)' />
+          <input id="home-search-input" class="text" value={searchInput} onChange={inputHandler} placeholder='Enter Stock Symbol (AAPL, MSFT)' />
           <button id="home-search-button" class="submit">
             <BiSearchAlt />
           </button>

@@ -38,6 +38,7 @@ def get_two_weeks_sentiment_score_by_company(company):
 
 
 def get_monthly_sentiment_score_by_company(company):
+    company = "#" + company.lower()
     res = tweet_analysis_table.query(
         KeyConditionExpression=Key("Company").eq(company),
     )
@@ -52,6 +53,7 @@ def get_monthly_sentiment_score_by_company(company):
     return obj["3_SentimentScore"]
 
 def get_activity_by_company(company):
+    company = "#" + company.lower()
     res = tweet_analysis_table.query(
         KeyConditionExpression=Key("Company").eq(company),
     )
@@ -71,7 +73,6 @@ def get_tweets_by_company(company):
     res = tweet_table.query(
         KeyConditionExpression=Key("Company").eq(company),
     )
-    print("THIS IS THE RES", res["Items"][:4])
 
     if len(res["Items"]) == 0:
         return -1.1
@@ -82,7 +83,6 @@ def get_tweets_by_company(company):
 
 
     res_sorted = sorted(res["Items"], key=lambda item:item["CreatedAndId"], reverse=True)
-    print("THIS IS SORTED RES", res_sorted[:4])
 
     # append the first tweet.
     date_arr = res_sorted[0]["CreatedAndId"].split(" ")

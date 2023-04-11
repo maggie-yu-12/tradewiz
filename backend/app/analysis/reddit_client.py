@@ -59,7 +59,7 @@ class RedditClient(Client):
         query = stock_abbreviation
         response = []
         i = 0
-        for submission in self.reddit_read_only.subreddit("wallstreetbets").search(query, sort='new', time_filter='month'):
+        for submission in self.reddit_read_only.subreddit("wallstreetbets").search(query, sort='new', time_filter='month', limit=3):
             if i > 3:
                 break
             if len(submission.selftext) > 0:
@@ -72,7 +72,13 @@ class RedditClient(Client):
                 i += 1
         
         return response
-
+    
+    def get_activity(self, stock_abbreviation):
+        query = stock_abbreviation
+        activity = 0
+        for submission in self.reddit_read_only.subreddit("all").search(query, time_filter='month', limit=1000):
+            activity += 1
+        return activity
     """
       API call to get tweets based on query keyword(s)
     """
@@ -107,6 +113,22 @@ class RedditClient(Client):
         x = self.sentiment_model.predict(sentence)
 
         return sentence.labels[0].score, sentence.labels[0].value
+
+    def get_sentiment_to_display(self, stockname):
+        query = stockname
+        num_submissions = 0
+        sentiment = 0
+
+        for submission in self.reddit_read_only.subreddit("all").search(query, sort="top", time_filter="month", limit=20):
+            confidence, score = self.get_sentiment(submission.title + submission.selftext)
+            num_submissions += 1
+            if score == "NEGATIVE":
+                confidence *= -1
+            sentiment += confidence
+            
+        sentiment = sentiment / num_submissions
+        return sentiment
+    
 
     def plottingfunction(x, y, name, show=True):
         # do something with fig and ax here, e.g.

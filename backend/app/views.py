@@ -137,10 +137,23 @@ def get_stock_data():
     r = requests.get(url)
     response_body_quote = r.json()
 
+    twitter_score = float(aws_q.get_monthly_sentiment_score_by_company(stock_abbreviation))
+    twitter_activity = float(aws_q.get_activity_by_company(stock_abbreviation))
+    reddit_score = float(rclient.get_sentiment_to_display(stock_abbreviation))
+    reddit_activity = rclient.get_activity(response_body_overview["Name"].split(" ")[0])
+
+    total_score = (twitter_score + reddit_score) / 2
+    total_activity = twitter_activity + reddit_activity
+
     return {
         "stock_overview": response_body_overview,
         "stock_quote": response_body_quote,
-        # "stock_news_twitter": [["a", "b", "c"], ["a", "b", "c"], ["a", "b", "c"]],
+        "total_score": round(total_score, 6),
+        "twitter_score": round(twitter_score, 6),
+        "reddit_score": round(reddit_score, 6),
+        "total_activity": total_activity,
+        "twitter_activity": twitter_activity,
+        "reddit_activity": reddit_activity,
         "stock_news_twitter": aws_q.get_tweets_by_company(stock_abbreviation),
         "stock_news_reddit": rclient.get_news(stock_abbreviation),
     }

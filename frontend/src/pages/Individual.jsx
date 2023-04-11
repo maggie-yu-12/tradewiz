@@ -19,6 +19,12 @@ export function Individual() {
     name: 'Loading...',
     description: 'Loading...',
     symbol: 'Loading...',
+    total_score: 'Loading...',
+    twitter_score: 'Loading...',
+    reddit_score: 'Loading...',
+    total_activity: 'Loading...',
+    twitter_activity: 'Loading...',
+    reddit_activity: 'Loading...',
     price: 'Loading...',
     price_momentum: 'Loading...',
     price_change_percent: 'Loading...',
@@ -54,6 +60,12 @@ export function Individual() {
           name: res.stock_overview.Name,
           description: res.stock_overview.Description,
           symbol: res.stock_overview.Symbol,
+          total_score: res.total_score,
+          twitter_score: res.twitter_score,
+          reddit_score: res.reddit_score,
+          total_activity: res.total_activity,
+          twitter_activity: res.twitter_activity,
+          reddit_activity: res.reddit_activity,
           price: res.stock_quote['Global Quote']['05. price'],
           news_twitter: res.stock_news_twitter,
           news_reddit: res.stock_news_reddit,
@@ -115,31 +127,31 @@ export function Individual() {
 
         <div class='Stock-data-frame'>
           <div class='Stock-data-border'>
-            <div class='Stock-data-frame-component' id='Twitter-component'>
+            <div class='Stock-data-frame-component'>
               <div class='Stock-data-frame-component-name'>Total Sentiment Score</div>
-              <div class='Stock-data-frame-component-score'>TODO</div>
+              <div class='Stock-data-frame-component-score'>{stockData.total_score}</div>
               <br></br>
               <div class='Stock-data-company-header'>Twitter Score</div>
-              <div class='Stock-data-company-score'>TODO</div>
+              <div class='Stock-data-company-score'>{stockData.twitter_score}</div>
               <div class='Stock-data-company-header'>Reddit Score</div>
-              <div class='Stock-data-company-score'>TODO</div>
-              <div class='Stock-data-company-header'>Bloomberg Score</div>
-              <div class='Stock-data-company-score'>TODO</div>
+              <div class='Stock-data-company-score'>{stockData.reddit_score}</div>
+              {/* <div class='Stock-data-company-header'>Bloomberg Score</div>
+              <div class='Stock-data-company-score'>TODO</div> */}
               <br></br>
             </div>
-            <div class='Stock-data-frame-component' id='Reddit-component'>
+            <div class='Stock-data-frame-component'>
               <div class='Stock-data-frame-component-name'>Total Activity</div>
-              <div class='Stock-data-frame-component-score'>TODO</div>
+              <div class='Stock-data-frame-component-score'>{stockData.total_activity}</div>
               <br></br>
               <div class='Stock-data-company-header'>Twitter Activity</div>
-              <div class='Stock-data-company-score'>TODO</div>
+              <div class='Stock-data-company-score'>{stockData.twitter_activity}</div>
               <div class='Stock-data-company-header'>Reddit Activity</div>
-              <div class='Stock-data-company-score'>TODO</div>
-              <div class='Stock-data-company-header'>Bloomberg Activity</div>
-              <div class='Stock-data-company-score'>TODO</div>
+              <div class='Stock-data-company-score'>{stockData.reddit_activity}</div>
+              {/* <div class='Stock-data-company-header'>Bloomberg Activity</div>
+              <div class='Stock-data-company-score'>TODO</div> */}
               <br></br>
             </div>
-            <div class='Stock-data-frame-component' id='Bloomberg-component'>
+            <div class='Stock-data-frame-component'>
               <div class='Stock-data-frame-component-name'>Last Price</div>
               <div class='Stock-data-frame-component-score'>{stockData.price}</div>
               <br></br>
