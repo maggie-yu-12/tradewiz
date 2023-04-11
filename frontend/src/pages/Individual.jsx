@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { NavBar } from '../components/NavBar';
 import { News } from '../components/News';
 import { Search } from '../components/Search';
@@ -8,29 +8,25 @@ import { Search } from '../components/Search';
 import '../styles/Individual.css';
 
 export function Individual() {
-
-  // new line start
-  // TODO: Get stock abbreviation from search enter.
-
-  // search result as a stock abbreviation
-  const stockAbbreviation = useLocation();
   const [searchParams] = useSearchParams();
   const [stockDataOverview, setStockDataOverview] = useState({
     name: 'Loading...',
     description: 'Loading...',
     symbol: 'Loading...',
-  })
-  const [stockData, setStockData] = useState({
-    total_score: 'Loading...',
-    twitter_score: 'Loading...',
-    reddit_score: 'Loading...',
-    total_activity: 'Loading...',
-    twitter_activity: 'Loading...',
-    reddit_activity: 'Loading...',
     price: 'Loading...',
     price_momentum: 'Loading...',
     price_change_percent: 'Loading...',
     trade_volume: 'Loading...',
+  })
+  const [stockDataScore, setStockDataScore] = useState({
+    total_score: 'Loading...',
+    twitter_score: 'Loading...',
+    reddit_score: 'Loading...',
+  });
+  const [stockDataActivity, setStockDataActivity] = useState({
+    total_activity: 'Loading...',
+    twitter_activity: 'Loading...',
+    reddit_activity: 'Loading...',
   });
   const [newsData, setNewsData] = useState({
     news_reddit: 'Loading...',
@@ -51,34 +47,6 @@ export function Individual() {
     return response
   })
 
-  function getStockData() {
-    console.log(window.location.pathname)
-    axios({
-      method: 'GET',
-      url: window.location.pathname,
-      params: { symbol: searchParams.get('symbol') },
-    })
-      .then(function (response) {
-        const res = response.data
-        setStockData(({
-          total_score: res.total_score,
-          twitter_score: res.twitter_score,
-          reddit_score: res.reddit_score,
-          total_activity: res.total_activity,
-          twitter_activity: res.twitter_activity,
-          reddit_activity: res.reddit_activity,
-          price: res.stock_quote['Global Quote']['05. price'],
-          price_momentum: res.stock_quote['Global Quote']['09. change'],
-          price_change_percent: res.stock_quote['Global Quote']['10. change percent'],
-          trade_volume: res.stock_quote['Global Quote']['06. volume'],
-        }))
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
   function getStockDataOverview() {
     console.log(window.location.pathname)
     axios({
@@ -92,6 +60,50 @@ export function Individual() {
           name: res.stock_overview.Name,
           description: res.stock_overview.Description,
           symbol: res.stock_overview.Symbol,
+          price: res.stock_quote['Global Quote']['05. price'],
+          price_momentum: res.stock_quote['Global Quote']['09. change'],
+          price_change_percent: res.stock_quote['Global Quote']['10. change percent'],
+          trade_volume: res.stock_quote['Global Quote']['06. volume'],
+        }))
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  function getStockDataScore() {
+    axios({
+      method: 'GET',
+      url: '/stockdatascore',
+      params: { symbol: searchParams.get('symbol') },
+    })
+      .then(function (response) {
+        const res = response.data
+        setStockDataScore(({
+          total_score: res.total_score,
+          twitter_score: res.twitter_score,
+          reddit_score: res.reddit_score,
+        }))
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  function getStockDataActivity() {
+    axios({
+      method: 'GET',
+      url: '/stockdataactivity',
+      params: { symbol: searchParams.get('symbol') },
+    })
+      .then(function (response) {
+        const res = response.data
+        setStockDataActivity(({
+          total_activity: res.total_activity,
+          twitter_activity: res.twitter_activity,
+          reddit_activity: res.reddit_activity,
         }))
         console.log(response);
       })
@@ -148,7 +160,8 @@ export function Individual() {
   // Get stock information from Alpha Vantage API, third line makes it update with search query
   useEffect(() => {
     getStockDataOverview();
-    getStockData();
+    getStockDataScore();
+    getStockDataActivity();
     getNewsData();
     // getStockGraph();
   }, [searchParams]);
@@ -170,38 +183,38 @@ export function Individual() {
           <div class='Stock-data-border'>
             <div class='Stock-data-frame-component'>
               <div class='Stock-data-frame-component-name'>Total Sentiment Score</div>
-              <div class='Stock-data-frame-component-score'>{stockData.total_score}</div>
+              <div class='Stock-data-frame-component-score'>{stockDataScore.total_score}</div>
               <br></br>
               <div class='Stock-data-company-header'>Twitter Score</div>
-              <div class='Stock-data-company-score'>{stockData.twitter_score}</div>
+              <div class='Stock-data-company-score'>{stockDataScore.twitter_score}</div>
               <div class='Stock-data-company-header'>Reddit Score</div>
-              <div class='Stock-data-company-score'>{stockData.reddit_score}</div>
+              <div class='Stock-data-company-score'>{stockDataScore.reddit_score}</div>
               {/* <div class='Stock-data-company-header'>Bloomberg Score</div>
               <div class='Stock-data-company-score'>TODO</div> */}
               <br></br>
             </div>
             <div class='Stock-data-frame-component'>
               <div class='Stock-data-frame-component-name'>Total Activity</div>
-              <div class='Stock-data-frame-component-score'>{stockData.total_activity}</div>
+              <div class='Stock-data-frame-component-score'>{stockDataActivity.total_activity}</div>
               <br></br>
               <div class='Stock-data-company-header'>Twitter Activity</div>
-              <div class='Stock-data-company-score'>{stockData.twitter_activity}</div>
+              <div class='Stock-data-company-score'>{stockDataActivity.twitter_activity}</div>
               <div class='Stock-data-company-header'>Reddit Activity</div>
-              <div class='Stock-data-company-score'>{stockData.reddit_activity}</div>
+              <div class='Stock-data-company-score'>{stockDataActivity.reddit_activity}</div>
               {/* <div class='Stock-data-company-header'>Bloomberg Activity</div>
               <div class='Stock-data-company-score'>TODO</div> */}
               <br></br>
             </div>
             <div class='Stock-data-frame-component'>
               <div class='Stock-data-frame-component-name'>Last Price</div>
-              <div class='Stock-data-frame-component-score'>{stockData.price}</div>
+              <div class='Stock-data-frame-component-score'>{stockDataOverview.price}</div>
               <br></br>
               <div class='Stock-data-company-header'>Price Momentum</div>
-              <div class='Stock-data-company-score'>{stockData.price_momentum}</div>
+              <div class='Stock-data-company-score'>{stockDataOverview.price_momentum}</div>
               <div class='Stock-data-company-header'>Price Change %</div>
-              <div class='Stock-data-company-score'>{stockData.price_change_percent}</div>
+              <div class='Stock-data-company-score'>{stockDataOverview.price_change_percent}</div>
               <div class='Stock-data-company-header'>Trade Volume</div>
-              <div class='Stock-data-company-score'>{stockData.trade_volume}</div>
+              <div class='Stock-data-company-score'>{stockDataOverview.trade_volume}</div>
               <br></br>
             </div>
           </div>
