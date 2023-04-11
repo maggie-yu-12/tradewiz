@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BiSearchAlt } from 'react-icons/bi';
 import { createSearchParams, useNavigate } from "react-router-dom";
-import '../styles/Search.css';
+// import '../styles/Search.css';
 
 /**
  * Component for greeting message and search on Home Page.

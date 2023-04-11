@@ -66,6 +66,7 @@ COMPANIES = [
 rclient = RedditClient()
 # tclient = TwitterClient()
 
+
 # example
 @app.route("/profile")
 @cross_origin(origin="*")
@@ -122,6 +123,7 @@ def get_activity():
         }
     return res
 
+
 # Retrieves company overview based on stock abbreviation (ex. MSFT)
 @app.route("/stockdataoverview", methods=["GET"])
 @cross_origin(origin="*")
@@ -145,10 +147,11 @@ def get_stock_data_overview():
 @app.route("/stockdatascore", methods=["GET"])
 @cross_origin(origin="*")
 def get_stock_data_score():
-
     stock_abbreviation = request.args.get("symbol")
 
-    twitter_score = float(aws_q.get_monthly_sentiment_score_by_company(stock_abbreviation))
+    twitter_score = float(
+        aws_q.get_monthly_sentiment_score_by_company(stock_abbreviation)
+    )
     reddit_score = float(rclient.get_sentiment_to_display(stock_abbreviation))
     total_score = (twitter_score + reddit_score) / 2
 
@@ -158,11 +161,11 @@ def get_stock_data_score():
         "reddit_score": round(reddit_score, 6),
     }
 
+
 # Retrieves company activity based on stock abbreviation (ex. MSFT)
 @app.route("/stockdataactivity", methods=["GET"])
 @cross_origin(origin="*")
 def get_stock_data_activity():
-    
     stock_abbreviation = request.args.get("symbol")
     url = f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={stock_abbreviation}&apikey=1NW9S0JBPSFSTFIL"
     r = requests.get(url)
@@ -177,6 +180,7 @@ def get_stock_data_activity():
         "twitter_activity": twitter_activity,
         "reddit_activity": reddit_activity,
     }
+
 
 # Retrieves company news based on stock abbreviation (ex. MSFT)
 @app.route("/newsdata", methods=["GET"])

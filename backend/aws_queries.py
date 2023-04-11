@@ -1,6 +1,7 @@
+from datetime import datetime as dt
+
 import boto3
 from boto3.dynamodb.conditions import Attr, Key
-from datetime import datetime as dt
 
 dynamo_client = boto3.resource("dynamodb")
 tweet_analysis_table = dynamo_client.Table("TweetAnalysis")
@@ -38,7 +39,7 @@ def get_two_weeks_sentiment_score_by_company(company):
 
 
 def get_monthly_sentiment_score_by_company(company):
-    company = "#" + company.lower()
+    # company = "#" + company.lower()
     res = tweet_analysis_table.query(
         KeyConditionExpression=Key("Company").eq(company),
     )
@@ -52,8 +53,9 @@ def get_monthly_sentiment_score_by_company(company):
 
     return obj["3_SentimentScore"]
 
+
 def get_activity_by_company(company):
-    company = "#" + company.lower()
+    # company = "#" + company.lower()
     res = tweet_analysis_table.query(
         KeyConditionExpression=Key("Company").eq(company),
     )
@@ -66,6 +68,7 @@ def get_activity_by_company(company):
         return -1.1
 
     return obj["WeeklyActivity"]
+
 
 def get_tweets_by_company(company):
     ret = []
@@ -81,8 +84,9 @@ def get_tweets_by_company(company):
     if "CreatedAndId" not in obj:
         return -1.1
 
-
-    res_sorted = sorted(res["Items"], key=lambda item:item["CreatedAndId"], reverse=True)
+    res_sorted = sorted(
+        res["Items"], key=lambda item: item["CreatedAndId"], reverse=True
+    )
 
     # append the first tweet.
     date_arr = res_sorted[0]["CreatedAndId"].split(" ")
@@ -90,7 +94,7 @@ def get_tweets_by_company(company):
     date = dt.strptime(date_arr[0], "%Y-%m-%d").strftime("%B %d, %Y")
     time = dt.strptime(date_arr[1], "%H:%M:%S").strftime("%I:%M %p")
     text_arr = res_sorted[0]["Text"].split(": ")
-    ret.append([text_arr[0], ''.join(text_arr[1:]), date + " at " + time])
+    ret.append([text_arr[0], "".join(text_arr[1:]), date + " at " + time])
 
     i = 0
     while len(ret) < 3:
@@ -102,6 +106,6 @@ def get_tweets_by_company(company):
         date = dt.strptime(date_arr[0], "%Y-%m-%d").strftime("%B %d, %Y")
         time = dt.strptime(date_arr[1], "%H:%M:%S").strftime("%I:%M %p")
         text_arr = res_sorted[i]["Text"].split(": ")
-        ret.append([text_arr[0], ''.join(text_arr[1:]), date + " at " + time])
-    
+        ret.append([text_arr[0], "".join(text_arr[1:]), date + " at " + time])
+
     return ret

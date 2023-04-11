@@ -48,19 +48,18 @@
 .Stock-data-border {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
     text-align: center;
 
-    width: 60%;
+    width: 60vw;
     padding-top: 30px;
     padding-bottom: 30px;
     background-color: rgb(224, 241, 198);
 }
 
-.Stock-data-frame-component {
-    width: 45%;
-    padding-left: 8%;
-    padding-right: 8%;
-}
+/* .Stock-data-frame-component {
+   
+} */
 
 .Stock-data-frame-component-name {
     font-weight: bold;
@@ -127,7 +126,6 @@
 /* .Graph-frame {
     height: 100%;
     width: 100;
-
     margin-bottom: 30px;
 } */
 
