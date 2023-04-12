@@ -4,6 +4,7 @@
 import base64
 import csv
 import itertools
+import json
 import os
 import sys
 from datetime import datetime as dt
@@ -68,6 +69,17 @@ rclient = RedditClient()
 # tclient = TwitterClient()
 
 
+@app.route("/update", methods=["POST"])
+@cross_origin(origin="*")
+def update_user_data():
+    data = request.get_json()
+    email = data["email"]
+    watch_list = json.loads(data["watchlist"])
+    print(watch_list)
+    users_con.update_user_data(email, watch_list)
+    return ""
+
+
 # example
 @app.route("/profile")
 @cross_origin(origin="*")
@@ -83,10 +95,10 @@ def index():
 @cross_origin(origin="*")
 def get_credentials():
     data = request.get_json()
-    print(data)
     email = data["email"]
     password = data["password"]
     res = aws_q.login_user(email, password)
+    print(res)
     return res
 
 

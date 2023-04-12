@@ -4,7 +4,6 @@ import { Search } from '../components/Search';
 import { Home } from './Home';
 import { Individual } from './Individual';
 import { Login } from './Login';
-import { Register } from './Register';
 
 export function App() {
   // localStorage.clear();
@@ -22,7 +21,7 @@ export function App() {
         <Route path="/home" element={<Home />} />
         <Route path="search" element={<Search />} />
         <Route path="stockdata" element={<Individual />} />
-        <Route path="register" element={<Register />} />
+        {/* <Route path="register" element={<Register />} /> */}
       </Routes>
     </div>
   )

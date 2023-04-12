@@ -127,7 +127,11 @@ def login_user(email, password):
             if user["HashedPassword"] != hashed_password:
                 return {"code": 401}
             else:
-                return {"code": 200}
+                return {
+                    "code": 200,
+                    "username": user["Username"],
+                    "watchlist": user["WatchList"],
+                }
     except ClientError as err:
         print("Couldn't add a new user. Here's why: ")
         print(err.response["Error"]["Code"])

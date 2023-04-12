@@ -1,3 +1,4 @@
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -8,6 +9,7 @@ import { Search } from '../components/Search';
 import '../styles/Individual.css';
 
 export function Individual() {
+  const [watchList, setWatchList] = useState(JSON.parse(JSON.parse(localStorage.getItem("user")).watchlist))
   const [searchParams] = useSearchParams();
   const [stockDataOverview, setStockDataOverview] = useState({
     name: 'Loading...',
@@ -35,6 +37,25 @@ export function Individual() {
   const [graphData, setGraphData] = useState({
     img_path: 'Loading...',
   });
+
+  function addToWatchList(company) {
+    arr = watchList
+    arr.push(company)
+    setWatchList(arr);
+    user = JSON.parse(localStorage.getItem("user"))
+    user.watchlist = JSON.stringify(arr);
+
+    localStorage.setItem("user", JSON.stringify(user))
+  }
+
+  function removeFromWatchList(company) {
+    arr = watchList.filter(e => e !== company);
+    setWatchList(arr);
+    user = JSON.parse(localStorage.getItem("user"))
+    user.watchlist = JSON.stringify(arr);
+
+    localStorage.setItem("user", JSON.stringify(user))
+  }
 
 
   axios.defaults.baseURL = 'http://localhost:8000';
@@ -169,13 +190,16 @@ export function Individual() {
   //end of new line 
 
   return (
-    <div class='Individual-outer-container'>
+    < div class='Individual-outer-container' >
       <NavBar />
 
       <div class='Individual-inner-container'>
         <Search />
         <div id="stock-label">
-          <h3 id='Stock-name'>{stockDataOverview.name} ({stockDataOverview.symbol})</h3>
+          <div id="stock-name-box">
+            <h3 id='Stock-name'>{stockDataOverview.name} ({stockDataOverview.symbol})</h3>
+            {watchList.includes(stockDataOverview.symbol.toLowerCase()) ? <FavoriteIcon color="secondary" onClick={() => removeFromWatchList(stockDataOverview.symbol.toLowerCase())} /> : <FavoriteIcon color="disabled" onClick={() => addToWatchList(stockDataOverview.symbol.toLowerCase())} />}
+          </div>
           <p id='Stock-description'>{stockDataOverview.description}</p>
         </div>
 
@@ -241,6 +265,6 @@ export function Individual() {
           <div class='Comments-frame-comments'>Comments</div>
         </div> */}
       </div>
-    </div>
+    </div >
   );
 }

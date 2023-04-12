@@ -43,7 +43,7 @@ export const Register = ({ login, setLogin }) => {
         if (data.code == 409) {
           setShowWrongPassError(true)
         } else {
-          localStorage.setItem('user', { email: email.current, password: password.current })
+          localStorage.setItem('user', JSON.stringify({ email: email.current, password: password.current, username: username.current, watchlist: JSON.stringify([]) }))
         }
         email.current = ""
         password.current = ""

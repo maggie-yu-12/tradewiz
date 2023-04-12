@@ -15,6 +15,12 @@
     display: inline-block;
 }
 
+#stock-name-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 #stock-label {
     display: flex;
     flex-direction: column;
@@ -26,6 +32,8 @@
 
 #Stock-name {
     text-align: left;
+    margin-right: 10px;
+    margin-bottom: 0;
 }
 
 #Stock-description {

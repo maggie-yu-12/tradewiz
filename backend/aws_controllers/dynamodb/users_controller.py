@@ -30,6 +30,7 @@ def register_user(username, password, email):
                 "Username": username,
                 "Email": email,
                 "HashedPassword": hashed_password,
+                "WatchList": [],
             },
             ConditionExpression="attribute_not_exists(Email)",
         )
@@ -37,6 +38,25 @@ def register_user(username, password, email):
         if err.response["Error"]["Code"] == "ConditionalCheckFailedException":
             return {"code": 409}
 
+        print("Couldn't add a new user. Here's why: ")
+        print(err.response["Error"]["Code"])
+        print(": " + err.response["Error"]["Message"])
+        raise
+    return ""
+
+
+def update_user_data(email, watch_list):
+    try:
+        users_table.update_item(
+            Key={"Email": email},
+            # UpdateExpression="SET Watchlist = list_append(Watchlist, :i)",
+            UpdateExpression="SET WatchList=:w",
+            ExpressionAttributeValues={
+                ":w": watch_list,
+            },
+            ReturnValues="UPDATED_NEW",
+        )
+    except ClientError as err:
         print("Couldn't add a new user. Here's why: ")
         print(err.response["Error"]["Code"])
         print(": " + err.response["Error"]["Message"])

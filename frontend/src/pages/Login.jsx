@@ -77,7 +77,7 @@ const LoginCard = ({ login, setLogin }) => {
         } else if (data.code == 401) {
           setShowWrongPassError(true)
         } else {
-          localStorage.setItem('user', { email: email.current, password: password.current })
+          localStorage.setItem('user', JSON.stringify({ email: email.current, password: password.current, username: data.username, watchlist: JSON.stringify(data.watchlist) }))
           navigate('/home')
         }
       })

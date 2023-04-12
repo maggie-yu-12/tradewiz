@@ -1,6 +1,6 @@
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import Logout from '@mui/icons-material/Logout';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
+import { Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -12,6 +12,8 @@ import Tooltip from '@mui/material/Tooltip';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import axios from "axios";
+
 export const ProfileMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -20,9 +22,32 @@ export const ProfileMenu = () => {
     setAnchorEl(event.currentTarget);
   };
   const handleLogoutClose = () => {
-    localStorage.clear()
-    navigate('../')
-    setAnchorEl(null);
+    const user = JSON.parse(localStorage.getItem("user"))
+    axios.defaults.baseURL = process.env.REACT_APP_DOMAIN;
+    axios({
+      method: "POST",
+      url: "/update",
+      data: { email: user.email, watchlist: user.watchlist }
+    })
+      .then((res) => {
+        data = res.data
+        if (data.code == 404) {
+          setShowNoAccountWarning(true)
+        } else if (data.code == 401) {
+          setShowWrongPassError(true)
+        } else {
+          localStorage.clear()
+          navigate('../')
+          setAnchorEl(null);
+        }
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
   };
 
   const handleClose = () => {
@@ -31,8 +56,8 @@ export const ProfileMenu = () => {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography>
-        <Typography sx={{ minWidth: 100 }}>Profile</Typography> */}
+        {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography> */}
+        <Typography>Hi {localStorage.getItem("user") !== null && JSON.parse(localStorage.getItem("user")).username}</Typography>
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -84,22 +109,22 @@ export const ProfileMenu = () => {
         <MenuItem onClick={handleClose}>
           <Avatar /> Profile
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <Avatar /> My account
-        </MenuItem>
+        </MenuItem> */}
         <Divider />
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <PersonAdd fontSize="small" />
+            <FavoriteIcon fontSize="small" />
           </ListItemIcon>
-          Add another account
+          Favorites
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Settings
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={handleLogoutClose}>
           <ListItemIcon>
             <Logout fontSize="small" />
