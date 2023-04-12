@@ -64,6 +64,8 @@ const LoginCard = ({ login, setLogin }) => {
 
 
   function handleLogin(e) {
+    setShowNoAccountWarning(false);
+    setShowWrongPassError(false);
     axios.defaults.baseURL = process.env.REACT_APP_DOMAIN;
     axios({
       method: "POST",
@@ -94,8 +96,10 @@ const LoginCard = ({ login, setLogin }) => {
   return (
     <div className="login-background">
       <p id="welcome-msg">Welcome back!</p>
-      {showWrongPassError && <Alert severity="error">This is an error alert — check it out!</Alert>}
-      {showNoAccountWarning && <Alert severity="warning">This is a warning alert — check it out!</Alert>}
+      <div id="login-alert-box">
+        {showWrongPassError && <Alert severity="error" sx={{ width: '400px' }} >Wrong password!</Alert>}
+        {showNoAccountWarning && <Alert severity="warning" sx={{ width: '400px' }}>Couldn't find an account asssociated with this email. Please register first.</Alert>}
+      </div>
       <div className="input-box">
         <input type="text" onChange={handleOnChangeEmail} placeholder="Email" />
         <br />

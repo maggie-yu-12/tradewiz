@@ -112,7 +112,7 @@ div.modal-content {
   width: 50%;
   height: 100vh;
 
-  background-color: rgba(40, 188, 0, 0.5);
+  background-color: #9ed38f;
 
   border-bottom-left-radius: 30px;
 
@@ -123,6 +123,8 @@ div.modal-content {
   font-weight: 700;
 
   margin-bottom: 50px;
+
+  color: black;
 }
 
 .login-background {
@@ -173,16 +175,16 @@ div.modal-content {
   height: 50px;
 
   font-size: 15px;
-  background-color: rgba(255, 255, 255, 0.0);
-  color: black;
-  border: 1px black solid !important;
+  background-color: rgb(92, 91, 91);
+  color: white;
+  border: 1px white solid !important;
   border-radius: 10px;
 
   margin: 0;
 }
 
 .login-card #login-btn:hover {
-  background-color: white;
+  background-color: rgb(56, 56, 56);
 }
 
 .login-btn-container {
@@ -202,6 +204,11 @@ div.modal-content {
 .tab-container button {
   border: 0;
   padding: 0;
+}
+
+#login-alert-box {
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 #login-tab-light {
