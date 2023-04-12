@@ -13,7 +13,7 @@ tweets_table = dynamo_client.Table("Tweets")
 tweet_analysis_table = dynamo_client.Table("TweetAnalysis")
 
 """
-    READ and WRITE functions to DynamoDB resources
+    READ and WRITE functions to DynamoDB resources related to Tweets
 """
 
 COMPANIES = [

@@ -21,6 +21,12 @@
 }
 
 .nav-right {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+
   margin-left: auto;
   margin-right: 20px;
 }
@@ -48,12 +54,15 @@
   align-items: center;
 
   width: 130px;
+  height: 80%;
 
   color: #28BC00;
   border: 1px solid #28BC00 !important;
   font-weight: 500;
 
   background-color: white;
+
+  margin-right: 10px;
 }
 
 #login-btn:hover {
@@ -61,8 +70,21 @@
   cursor: pointer;
 }
 
+#profile-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
 a {
 
   text-decoration: none !important;
   color: black !important;
+}
+
+.profile {
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
 }

@@ -1,11 +1,14 @@
+import hashlib
 from datetime import datetime as dt
 
 import boto3
 from boto3.dynamodb.conditions import Attr, Key
+from botocore.exceptions import ClientError
 
 dynamo_client = boto3.resource("dynamodb")
 tweet_analysis_table = dynamo_client.Table("TweetAnalysis")
 tweet_table = dynamo_client.Table("Tweets")
+users_table = dynamo_client.Table("Users")
 
 
 def get_weekly_sentiment_score_by_company(company):
@@ -109,3 +112,24 @@ def get_tweets_by_company(company):
         ret.append([text_arr[0], "".join(text_arr[1:]), date + " at " + time])
 
     return ret
+
+
+def login_user(email, password):
+    hashed_password = hashlib.sha512(password.encode("utf-8")).hexdigest()
+    try:
+        res = users_table.query(
+            KeyConditionExpression=Key("Email").eq(email),
+        )
+        if len(res["Items"]) == 0:
+            return {"code": 404}
+        else:
+            user = res["Items"][0]
+            if user["HashedPassword"] != hashed_password:
+                return {"code": 401}
+            else:
+                return {"code": 200}
+    except ClientError as err:
+        print("Couldn't add a new user. Here's why: ")
+        print(err.response["Error"]["Code"])
+        print(": " + err.response["Error"]["Message"])
+        raise

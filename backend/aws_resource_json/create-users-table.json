@@ -1,0 +1,17 @@
+{
+  "TableName": "Users",
+  "BillingMode": "PAY_PER_REQUEST",
+  "DeletionProtectionEnabled": true,
+  "KeySchema": [
+    {
+      "AttributeName": "Email",
+      "KeyType": "HASH"
+    }
+  ],
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "Email",
+      "AttributeType": "S"
+    }
+  ]
+}

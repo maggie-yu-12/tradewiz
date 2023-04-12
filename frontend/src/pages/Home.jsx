@@ -2,6 +2,7 @@ import axios from 'axios';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { NavBar } from '../components/NavBar';
 import { Search } from '../components/Search';
+import { Login } from './Login';
 
 // import Spinner from 'react-bootstrap/Spinner';
 // const RecommendedLongTable = lazy(() => import('../components/RecommendedLongTable'))
@@ -18,10 +19,9 @@ import '../styles/login.css';
 import '../styles/navbar.css';
 import '../styles/searchbar.css';
 import '../styles/table.css';
-import { Login } from './Login';
 
 
-export const Home = () => {
+const DefaultPage = () => {
   // const data = useMemo(() => getData(), [])
   const [data, setData] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -112,6 +112,12 @@ export const Home = () => {
         </Suspense>
       </div>
     </div>
+  )
+}
+
+export const Home = () => {
+  return (
+    <DefaultPage />
   )
 }
 

@@ -5,12 +5,14 @@ import '../styles/navbar.css';
 
 
 import { Link } from 'react-router-dom';
+import { ProfileMenu } from './ProfileMenu';
 
 
 /**
  * Component for Navigation Bar.
  */
 export const NavBar = ({ loginPage, showModal, setShowModal }) => {
+  // const [showProfileMenu, setShowProfileMenu] = useState(false)
   return (
     <div className="nav-container">
       <div className="nav-left">
@@ -31,17 +33,11 @@ export const NavBar = ({ loginPage, showModal, setShowModal }) => {
         </Link>
       </div>
       <div className="nav-right">
-        {/* {!loginPage && <Link to="/login">
-          <div id="login-btn">Login</div>
-        </Link>} */}
-
-        <button
-          type="button"
-          id="login-btn"
-          onClick={() => setShowModal(true)}
-        >
-          Log In
-        </button>
+        {/* <AccountCircleOutlinedIcon fontSize='large' onClick={() => setShowProfileMenu(!showProfileMenu)} /> */}
+        {/* <ListItemIcon>
+            <PersonAdd fontSize="small" onClick={() => setShowProfileMenu(!showProfileMenu)} />
+          </ListItemIcon> */}
+        <ProfileMenu />
       </div>
     </div>
   )

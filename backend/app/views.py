@@ -8,6 +8,7 @@ import os
 import sys
 from datetime import datetime as dt
 
+import aws_controllers.dynamodb.users_controller as users_con
 import aws_queries as aws_q
 import matplotlib.pyplot as plt
 import requests
@@ -76,6 +77,28 @@ def index():
         "about": "Hello! I'm a full stack developer that loves python and javascript",
     }
     return response_body
+
+
+@app.route("/login", methods=["POST"])
+@cross_origin(origin="*")
+def get_credentials():
+    data = request.get_json()
+    print(data)
+    email = data["email"]
+    password = data["password"]
+    res = aws_q.login_user(email, password)
+    return res
+
+
+@app.route("/register", methods=["POST"])
+@cross_origin(origin="*")
+def register():
+    data = request.get_json()
+    email = data["email"]
+    password = data["password"]
+    username = data["username"]
+    res = users_con.register_user(username, password, email)
+    return res
 
 
 @app.route("/weekly_sentiment")
