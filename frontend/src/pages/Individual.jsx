@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { NavBar } from '../components/NavBar';
 import { News } from '../components/News';
-import { Search } from '../components/Search';
 
 import '../styles/Individual.css';
 
@@ -192,18 +191,29 @@ export function Individual() {
   return (
     < div class='Individual-outer-container' >
       <NavBar />
-
       <div class='Individual-inner-container'>
-        <Search />
-        <div id="stock-label">
-          <div id="stock-name-box">
-            <h3 id='Stock-name'>{stockDataOverview.name} ({stockDataOverview.symbol})</h3>
-            {watchList.includes(stockDataOverview.symbol.toLowerCase()) ? <FavoriteIcon color="secondary" onClick={() => removeFromWatchList(stockDataOverview.symbol.toLowerCase())} /> : <FavoriteIcon color="disabled" onClick={() => addToWatchList(stockDataOverview.symbol.toLowerCase())} />}
+        <div className="individual-group-one">
+          <div id="stock-label">
+            <div id="stock-name-box">
+              <div id='Stock-name'>
+                <p>{stockDataOverview.name} ({stockDataOverview.symbol})</p>
+                {watchList.includes(stockDataOverview.symbol.toLowerCase()) ? <FavoriteIcon color="secondary" onClick={() => removeFromWatchList(stockDataOverview.symbol.toLowerCase())} /> : <FavoriteIcon color="action" onClick={() => addToWatchList(stockDataOverview.symbol.toLowerCase())} />}
+              </div>
+            </div>
+            <div id="stock-desc-box">
+              {stockDataOverview.description}
+            </div>
           </div>
-          <p id='Stock-description'>{stockDataOverview.description}</p>
-        </div>
 
+        </div>
         <div class='Stock-data-frame'>
+          <div id="summary-title-box">
+            <p id="summary-title">Summary</p>
+          </div>
+          <div id="summary-desc-box">
+            <p id="summary-body">This is summary of the activity regarding {stockDataOverview.name} past week in Twitter and Reddit. Sentiment score ranges from -1 to 1, where -1
+              means negative and 1 positive. Activity indicates the number of tweets/posts on these platforms.</p>
+          </div>
           <div class='Stock-data-border'>
             <div class='Stock-data-frame-component'>
               <div class='Stock-data-frame-component-name'>Total Sentiment Score</div>

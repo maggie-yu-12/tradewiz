@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
 
-div {
+div,
+html {
   scroll-behavior: smooth;
   font-family: 'Montserrat', sans-serif;
 }
@@ -12,7 +13,7 @@ div {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  background-image: linear-gradient(180deg, white, 40%, rgba(89, 89, 89, 0.35));
+  background-image: linear-gradient(180deg, white, #65bc4f13 50%);
 }
 
 .header-container {

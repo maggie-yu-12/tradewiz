@@ -1,6 +1,7 @@
 .Individual-outer-container {
     /* background-color: rgb(245, 245, 245); */
-    background-image: linear-gradient(180deg, #2759b032 20%, #a5d05f35);
+    /* background-image: linear-gradient(180deg, #2759b032 20%, #a5d05f35); */
+    background-image: linear-gradient(180deg, white, #fff 90%);
 }
 
 .Individual-inner-container {
@@ -9,15 +10,40 @@
     justify-content: center;
     align-items: center;
 
-    padding-top: 30px;
-
     padding-bottom: 0;
 }
 
+.individual-group-one {
+    background-color: rgb(36, 36, 36);
+    width: 100%;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding-bottom: 30px;
+
+    margin-bottom: 40px;
+}
+
 .Search-frame {
-    width: 50%;
-    height: 200%;
+    width: 90%;
+    height: 100%;
     display: inline-block;
+}
+
+.individual-search {
+    width: 100%;
+    background-color: black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding-bottom: 21px;
 }
 
 #stock-name-box {
@@ -35,10 +61,23 @@
     margin-bottom: 30px;
 }
 
+#Stock-name p {
+    margin: 0;
+    margin-right: 10px;
+}
+
 #Stock-name {
     text-align: left;
     margin-right: 10px;
     margin-bottom: 0;
+
+    font-size: 2em;
+    font-weight: 500;
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 #Stock-description {
@@ -47,12 +86,65 @@
     margin: 0;
 }
 
+#stock-desc-box {
+    width: 70vw;
+    background-color: rgba(255, 255, 255, 0.298);
+    padding: 20px;
+
+    border-radius: 10px;
+}
+
+#summary-desc-box {
+    width: 70vw;
+    /* background-color: rgba(140, 140, 140, 0.714); */
+    background-color: #28BC00;
+    padding: 20px;
+
+    border-radius: 10px;
+
+    margin-bottom: 15px;
+}
+
+.company-data #summary-desc-box {
+    width: 100%;
+    /* background-color: rgba(140, 140, 140, 0.714); */
+    background-color: #28BC00;
+    padding: 20px;
+
+    border-radius: 10px;
+
+    margin-bottom: 15px;
+}
+
+#summary-title {
+    font-weight: 600;
+    font-size: 1.7em;
+
+    text-align: left;
+}
+
+#summary-body {
+    color: white;
+    font-weight: 500;
+}
+
+#summary-title-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    width: 70vw;
+
+    margin-bottom: 10px;
+}
+
 .Stock-data-frame {
     /* padding-left: 25%;
     padding-right: 25%; */
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 100%;
 
     margin-bottom: 30px;
@@ -65,13 +157,17 @@
     align-items: flex-start;
     text-align: center;
 
-    width: 60vw;
+    width: 70vw;
     padding-top: 40px;
     padding-bottom: 30px;
     background-color: rgba(233, 233, 233, 0.723);
 
     border-radius: 10px;
     border: 1px solid rgb(211, 211, 211);
+}
+
+.company-data .Stock-data-border {
+    width: 100%;
 }
 
 .Stock-data-frame-component {

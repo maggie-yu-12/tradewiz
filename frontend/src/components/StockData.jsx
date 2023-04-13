@@ -117,7 +117,10 @@ export const StockData = ({ company, companyData }) => {
       <Link to={"/stockdata?symbol=" + JSON.parse(companyData).Company.substring(1)}>
         <p id="favorite-stock-name">{stockDataOverview.name}&nbsp;({JSON.parse(companyData).Company})</p>
       </Link>
-
+      <div id="summary-desc-box">
+        <p id="summary-body">This is summary of the activity regarding {stockDataOverview.name} past week in Twitter and Reddit. Sentiment score ranges from -1 to 1, where -1
+          means negative and 1 positive. Activity indicates the number of tweets/posts on these platforms.</p>
+      </div>
 
       <div class='Stock-data-frame'>
         <div class='Stock-data-border'>

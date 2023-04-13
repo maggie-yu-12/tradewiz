@@ -29,12 +29,19 @@ const DefaultPage = () => {
     if (isMounted) {
       getData(isMounted)
     }
+    let runCount = 0;
+    runCount++;
+    if (runCount > 3) clearInterval(timerId);
+
+    const timerId = setInterval(getData(isMounted), 30000);
 
     return () => { isMounted = false };
   }, []);
 
   function getData(isMounted) {
     axios.defaults.baseURL = "http://localhost:8000";
+    // wait(7000)
+
     axios({
       method: "GET",
       url: "/weekly_sentiment",
@@ -88,7 +95,7 @@ const DefaultPage = () => {
   return (
     <div className='home-outer-container'>
       {/* <img src="https://tweetwordcloud.s3.amazonaws.com/%23googl.png?AWSAccessKeyId=AKIA4MVBRATKCMDQMUU3&Signature=NZU923dX3KbMKnN8oTXFOrWZPUo%3D&Expires=1681935162" /> */}
-      <NavBar />
+      <NavBar home />
       <div className="search-container">
         <div className="h-greeting">
           <p id="h-main-greeting">Never miss a big stock movement</p>

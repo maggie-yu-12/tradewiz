@@ -2,7 +2,7 @@
   height: 40vh;
   width: 100vw;
   /* background-color: rgba(208, 233, 168, 0.35); */
-  background-image: linear-gradient(180deg, rgba(187, 226, 124, 0.35) 70%, white);
+  background-color: rgb(36, 36, 36);
 
   display: flex;
   flex-direction: column;
@@ -18,14 +18,17 @@
 }
 
 #h-main-greeting {
-  font-weight: 400;
+  font-weight: 600;
   font-size: 3em;
+  letter-spacing: 2px;
 
   margin-bottom: 10px;
+
+  color: white;
 }
 
 #h-sub-greeting {
   font-weight: 400;
   font-size: 2em;
-  color: #AFABAB;
+  color: #bebebe;
 }

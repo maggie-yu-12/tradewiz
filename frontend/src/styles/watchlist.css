@@ -8,7 +8,7 @@ body {
   height: 100%;
   /* background-color: rgb(245, 245, 245); */
   /* background-image: linear-gradient(180deg, #9b27b01a 20%, #a5d05f35); */
-  background-image: linear-gradient(180deg, #9815af18 20%, #a5d05f35);
+  /* background-image: linear-gradient(180deg, #9815af18 20%, #a5d05f35); */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,12 +17,13 @@ body {
 .watchlist-background {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 
   height: 100%;
 
   margin-bottom: 50px;
+  background-color: rgb(36, 36, 36);
 
 }
 
@@ -33,7 +34,6 @@ body {
 }
 
 .my-favorites {
-  padding: 50px;
 
   display: flex;
   flex-direction: column;
@@ -41,13 +41,16 @@ body {
   align-items: center;
 
   min-height: 100vh;
-  height: 100vh;
+  height: 100%;
 
   width: 35vw;
 
+  /* background-image: linear-gradient(180deg, white, #65bc4f13 50%); */
+  /* background-color: rgb(36, 36, 36); */
+
   /* background-image: linear-gradient(180deg, #b995c0 50%, white); */
   /* background-image: linear-gradient(180deg, #a4d05f59 40%, #9b27b03a); */
-  /* border-right: 1px solid #8dc43559; */
+  border-right: 1px solid #c6c6c6d0;
 }
 
 .company-data {
@@ -59,12 +62,15 @@ body {
   padding-right: 50px;
 
   /* background-color: rgb(141, 141, 141); */
+  background-color: rgb(36, 36, 36);
+
+  color: white !important;
 }
 
 .my-favorites-bg {
   /* border: 1px solid #5e940759; */
   border: 1px solid rgb(211, 211, 211);
-  background-color: rgba(255, 255, 255, 0.402);
+  background-color: rgba(255, 255, 255, 0.92);
   border-radius: 10px;
 
   display: flex;
@@ -100,6 +106,8 @@ body {
   font-weight: 500;
 
   margin-bottom: 20px;
+
+  color: white;
 }
 
 #favorite-week {

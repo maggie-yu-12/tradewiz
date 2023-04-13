@@ -6,12 +6,13 @@ import '../styles/navbar.css';
 
 import { Link } from 'react-router-dom';
 import { ProfileMenu } from './ProfileMenu';
+import { SearchNavBar } from './SearchNavBar';
 
 
 /**
  * Component for Navigation Bar.
  */
-export const NavBar = ({ loginPage, showModal, setShowModal }) => {
+export const NavBar = ({ home }) => {
   // const [showProfileMenu, setShowProfileMenu] = useState(false)
   return (
     <div className="nav-container">
@@ -31,13 +32,18 @@ export const NavBar = ({ loginPage, showModal, setShowModal }) => {
         <Link to="/support">
           <div id="support-tab">Support</div>
         </Link>
+
+
+        {!home && <SearchNavBar />}
       </div>
       <div className="nav-right">
         {/* <AccountCircleOutlinedIcon fontSize='large' onClick={() => setShowProfileMenu(!showProfileMenu)} /> */}
         {/* <ListItemIcon>
             <PersonAdd fontSize="small" onClick={() => setShowProfileMenu(!showProfileMenu)} />
           </ListItemIcon> */}
-        <ProfileMenu />
+        <div id="navbar-profile">
+          <ProfileMenu />
+        </div>
       </div>
     </div>
   )

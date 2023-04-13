@@ -6,7 +6,7 @@ import { createSearchParams, useNavigate } from "react-router-dom";
 /**
  * Component for greeting message and search on Home Page.
  */
-export const Search = () => {
+export const SearchNavBar = () => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
   // const [searchParams, setSearchParams] = useSearchParams();
@@ -28,10 +28,10 @@ export const Search = () => {
 
   return (
 
-    <div class="search-frame">
+    <div class="search-nav-bar-frame">
 
       <form onSubmit={onSubmitHandler} class="search-form">
-        <div className="search">
+        <div className="search-nav-bar">
           <input id="home-search-input" class="text" value={searchInput} onChange={inputHandler} placeholder='Enter Stock Symbol (AAPL, MSFT)' />
           <button id="home-search-button" class="submit">
             <BiSearchAlt fontSize={25} />
