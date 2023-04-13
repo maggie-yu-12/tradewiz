@@ -6,19 +6,23 @@ body {
 .watchlist {
   width: 100%;
   height: 100%;
-  background-color: rgb(245, 245, 245);
+  /* background-color: rgb(245, 245, 245); */
+  background-image: linear-gradient(180deg, #9b27b023 20%, #a5d05f35);
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .watchlist-background {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
 
   height: 100%;
 
   margin-bottom: 50px;
+
 }
 
 .stock-data {
@@ -35,12 +39,14 @@ body {
   justify-content: center;
   align-items: center;
 
+  min-height: 100vh;
   height: 100vh;
+
   width: 35vw;
 
   /* background-image: linear-gradient(180deg, #b995c0 50%, white); */
-  background-image: linear-gradient(180deg, #a4d05f59 40%, #9b27b03a);
-  border-right: 1px solid #8dc43559;
+  /* background-image: linear-gradient(180deg, #a4d05f59 40%, #9b27b03a); */
+  /* border-right: 1px solid #8dc43559; */
 }
 
 .company-data {
@@ -55,14 +61,15 @@ body {
 }
 
 .my-favorites-bg {
-  border: 1px solid #5e940759;
+  /* border: 1px solid #5e940759; */
+  border: 1px solid rgb(211, 211, 211);
+  background-color: rgba(255, 255, 255, 0.402);
   border-radius: 10px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  height: 100%;
 }
 
 #my-favorites-label {
@@ -71,7 +78,7 @@ body {
   color: rgb(77, 77, 77);
 
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.872);
+  background-color: rgba(255, 255, 255, 0.766);
   width: 100%;
 
   text-align: center;
@@ -107,9 +114,10 @@ body {
   justify-content: flex-end;
   height: 100%;
 
-  background-color: rgb(255, 255, 255);
+  /* background-color: rgb(255, 255, 255); */
   padding: 40px;
   border-radius: 10px;
+  border: 1px solid rgb(211, 211, 211);
 }
 
 #favorite-graph {
@@ -122,6 +130,8 @@ body {
 #favorite-graph p {
   font-size: 1.1em;
   font-weight: 500;
+
+  margin-right: 40px;
 }
 
 #favorite-wordcloud {

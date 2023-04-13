@@ -44,7 +44,7 @@ const BiggestSentimentMoversTable = ({ data }) => {
     }
   )
 
-  const props = { columns: columns, data: data, title: "The Biggest Sentiment Movers" }
+  const props = { columns: columns, data: data, title: "The Biggest Sentiment Movers 📈" }
   return <SentimentTable {...props} />;
 }
 

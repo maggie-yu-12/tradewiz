@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import '../styles/Individual.css';
 
 export const StockData = ({ company, companyData }) => {
-  const [watchList, setWatchList] = useState(JSON.parse(JSON.parse(localStorage.getItem("user")).watchlist))
   const [stockDataOverview, setStockDataOverview] = useState({
     name: 'Loading...',
     description: 'Loading...',
@@ -26,26 +25,6 @@ export const StockData = ({ company, companyData }) => {
     twitter_activity: 'Loading...',
     reddit_activity: 'Loading...',
   });
-
-
-  function addToWatchList(company) {
-    arr = watchList
-    arr.push(company)
-    setWatchList(arr);
-    user = JSON.parse(localStorage.getItem("user"))
-    user.watchlist = JSON.stringify(arr);
-
-    localStorage.setItem("user", JSON.stringify(user))
-  }
-
-  function removeFromWatchList(company) {
-    arr = watchList.filter(e => e !== company);
-    setWatchList(arr);
-    user = JSON.parse(localStorage.getItem("user"))
-    user.watchlist = JSON.stringify(arr);
-
-    localStorage.setItem("user", JSON.stringify(user))
-  }
 
 
   axios.defaults.baseURL = 'http://localhost:8000';
@@ -129,7 +108,7 @@ export const StockData = ({ company, companyData }) => {
     getStockDataScore();
     getStockDataActivity();
     // getStockGraph();
-  }, []);
+  }, [company]);
 
   //end of new line 
 

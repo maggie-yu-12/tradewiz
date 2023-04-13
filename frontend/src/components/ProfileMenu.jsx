@@ -61,7 +61,7 @@ export const ProfileMenu = () => {
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography> */}
-        <Typography>Hi {localStorage.getItem("user") !== null && JSON.parse(localStorage.getItem("user")).username}</Typography>
+        <Typography sx={{ fontSize: '1.1em', marginRight: '7px', color: '#393939' }}>Hello, {localStorage.getItem("user") !== null && JSON.parse(localStorage.getItem("user")).username} 👋🏼</Typography>
         <Tooltip title="">
           <IconButton
             onClick={handleClick}
@@ -71,7 +71,7 @@ export const ProfileMenu = () => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>{JSON.parse(localStorage.getItem("user")).username.substring(0, 1)}</Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -136,6 +136,6 @@ export const ProfileMenu = () => {
           Logout
         </MenuItem>
       </Menu>
-    </React.Fragment>
+    </React.Fragment >
   );
 }

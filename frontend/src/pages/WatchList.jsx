@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { FavoritesList } from "../components/FavoritesList";
 import { NavBar } from "../components/NavBar";
 import { StockData } from "../components/StockData";
@@ -47,8 +48,8 @@ export const WatchList = () => {
       <div className="watchlist-background">
         <div className="my-favorites">
           <div className="my-favorites-bg">
-            <p id="my-favorites-label">My favorites</p>
-            <FavoritesList favorites={favorites} />
+            <p id="my-favorites-label">💟 My favorites</p>
+            <FavoritesList favorites={favorites} setSelectedCompany={setSelectedCompany} />
           </div>
         </div>
         <div className="company-data">
@@ -60,7 +61,11 @@ export const WatchList = () => {
             <div id="favorite-graphs-group">
               <div id="favorite-graph">
                 <p>WordCloud</p>
-                <img id="favorite-wordcloud" src={JSON.parse(companyData)['WordCloud']} />
+                <TransformWrapper>
+                  <TransformComponent>
+                    <img id="favorite-wordcloud" src={JSON.parse(companyData)['WordCloud']} />
+                  </TransformComponent>
+                </TransformWrapper>
               </div>
             </div>
 
