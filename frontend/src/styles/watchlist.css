@@ -7,7 +7,8 @@ body {
   width: 100%;
   height: 100%;
   /* background-color: rgb(245, 245, 245); */
-  background-image: linear-gradient(180deg, #9b27b023 20%, #a5d05f35);
+  /* background-image: linear-gradient(180deg, #9b27b01a 20%, #a5d05f35); */
+  background-image: linear-gradient(180deg, #9815af18 20%, #a5d05f35);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -117,7 +118,7 @@ body {
   /* background-color: rgb(255, 255, 255); */
   padding: 40px;
   border-radius: 10px;
-  border: 1px solid rgb(211, 211, 211);
+  /* border: 1px solid rgb(211, 211, 211); */
 }
 
 #favorite-graph {

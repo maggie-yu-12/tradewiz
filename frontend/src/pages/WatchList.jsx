@@ -55,7 +55,7 @@ export const WatchList = () => {
         <div className="company-data">
           {companyData !== "" && (<>
             <StockData company={JSON.parse(companyData).Company.substring(1)} companyData={companyData} />
-            <p id="favorite-week">Visuals for Week of {(new Date(JSON.parse(companyData)['1_StartDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)} ~
+            <p id="favorite-week">Visuals for Week of {(new Date(JSON.parse(companyData)['1_StartDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)} &nbsp;~&nbsp;
               {(new Date(JSON.parse(companyData)['1_EndDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)}
             </p>
             <div id="favorite-graphs-group">

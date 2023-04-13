@@ -41,7 +41,8 @@
   margin-left: 20px;
   margin-right: 20px;
 
-  color: #28BC00;
+  /* color: #28BC00; */
+  color: rgb(66, 66, 66);
   font-weight: 500 !important;
 }
 
