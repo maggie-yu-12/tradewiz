@@ -13,6 +13,7 @@ import aws_controllers.dynamodb.users_controller as users_con
 import aws_queries as aws_q
 import matplotlib.pyplot as plt
 import requests
+import yfinance as yf
 from flair.data import Sentence
 from flair.models import TextClassifier
 from flask import Flask, abort, jsonify, render_template, request, send_file

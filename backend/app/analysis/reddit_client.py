@@ -51,34 +51,41 @@ class RedditClient(Client):
         )
         return data
 
-    '''
+    """
         Retrieves news object [title, description, date] as a map
-    '''
-    
+    """
+
     def get_news(self, stock_abbreviation):
         query = stock_abbreviation
         response = []
         i = 0
-        for submission in self.reddit_read_only.subreddit("wallstreetbets").search(query, sort='new', time_filter='month', limit=3):
+        for submission in self.reddit_read_only.subreddit("wallstreetbets").search(
+            query, sort="new", time_filter="month", limit=3
+        ):
             if i > 3:
                 break
             if len(submission.selftext) > 0:
                 title = submission.title
                 description = submission.selftext[:180] + "..."
-                description = ''.join(description.split("\n"))
+                description = "".join(description.split("\n"))
                 # convert to May 01, 2023 at 05:15 PM
-                date = dt.utcfromtimestamp(submission.created_utc).strftime('%B %d, %Y at %I:%M %p')
+                date = dt.utcfromtimestamp(submission.created_utc).strftime(
+                    "%B %d, %Y at %I:%M %p"
+                )
                 response.append([title, description, date])
                 i += 1
-        
+
         return response
-    
+
     def get_activity(self, stock_abbreviation):
         query = stock_abbreviation
         activity = 0
-        for submission in self.reddit_read_only.subreddit("all").search(query, time_filter='month', limit=1000):
+        for submission in self.reddit_read_only.subreddit("all").search(
+            query, time_filter="month", limit=1000
+        ):
             activity += 1
         return activity
+
     """
       API call to get tweets based on query keyword(s)
     """
@@ -119,16 +126,19 @@ class RedditClient(Client):
         num_submissions = 0
         sentiment = 0
 
-        for submission in self.reddit_read_only.subreddit("all").search(query, sort="top", time_filter="month", limit=20):
-            confidence, score = self.get_sentiment(submission.title + submission.selftext)
+        for submission in self.reddit_read_only.subreddit("all").search(
+            query, sort="top", time_filter="month", limit=20
+        ):
+            confidence, score = self.get_sentiment(
+                submission.title + submission.selftext
+            )
             num_submissions += 1
             if score == "NEGATIVE":
                 confidence *= -1
             sentiment += confidence
-            
+
         sentiment = sentiment / num_submissions
         return sentiment
-    
 
     def plottingfunction(x, y, name, show=True):
         # do something with fig and ax here, e.g.

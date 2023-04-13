@@ -34,7 +34,7 @@ export const SearchNavBar = () => {
         <div className="search-nav-bar">
           <input id="home-search-input" class="text" value={searchInput} onChange={inputHandler} placeholder='Enter Stock Symbol (AAPL, MSFT)' />
           <button id="home-search-button" class="submit">
-            <BiSearchAlt fontSize={25} />
+            <BiSearchAlt fontSize={22} />
           </button>
         </div>
       </form>

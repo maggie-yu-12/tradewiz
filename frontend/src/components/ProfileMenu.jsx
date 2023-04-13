@@ -61,7 +61,7 @@ export const ProfileMenu = () => {
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography> */}
-        <Typography sx={{ fontSize: '1.1em', marginRight: '7px', color: '#393939' }}>Hello, {localStorage.getItem("user") !== null && JSON.parse(localStorage.getItem("user")).username} 👋🏼</Typography>
+        <Typography sx={{ fontSize: '1.2em', marginRight: '7px', color: '#393939' }}>Hello, {localStorage.getItem("user") !== null && JSON.parse(localStorage.getItem("user")).username} 👋🏼</Typography>
         <Tooltip title="">
           <IconButton
             onClick={handleClick}

@@ -105,6 +105,10 @@
     margin-bottom: 15px;
 }
 
+.Individual-inner-container #summary-desc-box {
+    box-shadow: 0 0 10px #65bc4f;
+}
+
 .company-data #summary-desc-box {
     width: 100%;
     /* background-color: rgba(140, 140, 140, 0.714); */

@@ -32,8 +32,6 @@ export const NavBar = ({ home }) => {
         <Link to="/support">
           <div id="support-tab">Support</div>
         </Link>
-
-
         {!home && <SearchNavBar />}
       </div>
       <div className="nav-right">
