@@ -46,6 +46,10 @@ div.modal-content {
 
   margin-top: 50px;
 
+  color: white;
+
+  font-size: 1em;
+  letter-spacing: 2px;
 }
 
 #register-link {
@@ -109,22 +113,24 @@ div.modal-content {
   justify-content: center;
   align-items: center;
 
-  width: 50%;
+  width: 65%;
   height: 100vh;
 
-  background-color: #9ed38f;
+  background-color: rgb(36, 36, 36);
 
   border-bottom-left-radius: 30px;
 
 }
 
 #welcome-msg {
-  font-size: 20px;
+  font-size: 2.5em;
   font-weight: 700;
 
   margin-bottom: 50px;
 
-  color: black;
+  color: white;
+
+  letter-spacing: 3px;
 }
 
 .login-background {
@@ -147,7 +153,7 @@ div.modal-content {
   /* border-top-left-radius: 7px;
   border-bottom-left-radius: 7px; */
 
-  padding: 7px;
+  padding: 0px;
   height: 35px;
 }
 
@@ -155,7 +161,7 @@ div.modal-content {
 
   /* border: 1px solid #E5E5E5; */
   border: 0;
-  padding: 10px;
+  padding: 20px;
 
   height: 50px;
 

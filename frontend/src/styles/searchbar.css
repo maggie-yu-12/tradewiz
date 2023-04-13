@@ -6,7 +6,7 @@
   border-radius: 30px;
 
   /* backgrsound-color: rgb(252, 252, 252); */
-  background-color: rgba(255, 255, 255, 0.791);
+  background-color: rgba(97, 97, 97, 0.757);
   border: 1.5px solid #dedede;
   width: 30vw;
   height: 39px;
@@ -23,7 +23,7 @@
   background-color: transparent;
 
   height: 32px;
-  color: rgb(74, 74, 74);
+  color: white;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -61,7 +61,7 @@
   /* border-top-right-radius: 7px;
   border-bottom-right-radius: 7px; */
   width: 50px;
-  height: 39px;
+  height: 35px;
 
   margin: 0;
 
