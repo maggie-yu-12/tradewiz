@@ -50,6 +50,10 @@ export const ProfileMenu = () => {
       });
   };
 
+  const handleFavoriteClose = () => {
+    navigate('/favorites')
+  }
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -58,7 +62,7 @@ export const ProfileMenu = () => {
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography> */}
         <Typography>Hi {localStorage.getItem("user") !== null && JSON.parse(localStorage.getItem("user")).username}</Typography>
-        <Tooltip title="Account settings">
+        <Tooltip title="">
           <IconButton
             onClick={handleClick}
             size="small"
@@ -113,7 +117,7 @@ export const ProfileMenu = () => {
           <Avatar /> My account
         </MenuItem> */}
         <Divider />
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleFavoriteClose}>
           <ListItemIcon>
             <FavoriteIcon fontSize="small" />
           </ListItemIcon>

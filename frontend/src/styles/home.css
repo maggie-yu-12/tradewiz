@@ -12,6 +12,7 @@ div {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  background-image: linear-gradient(180deg, white, 40%, rgba(89, 89, 89, 0.35));
 }
 
 .header-container {

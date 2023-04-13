@@ -137,3 +137,18 @@ def login_user(email, password):
         print(err.response["Error"]["Code"])
         print(": " + err.response["Error"]["Message"])
         raise
+
+
+def get_company_analytics(company):
+    company = "#" + company.lower()
+    print(company)
+    try:
+        res = tweet_analysis_table.query(
+            KeyConditionExpression=Key("Company").eq(company),
+        )
+        return res["Items"][0]
+    except ClientError as err:
+        print("Couldn't add a new user. Here's why: ")
+        print(err.response["Error"]["Code"])
+        print(": " + err.response["Error"]["Message"])
+        raise

@@ -2,7 +2,6 @@ import axios from 'axios';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { NavBar } from '../components/NavBar';
 import { Search } from '../components/Search';
-import { Login } from './Login';
 
 // import Spinner from 'react-bootstrap/Spinner';
 // const RecommendedLongTable = lazy(() => import('../components/RecommendedLongTable'))
@@ -24,7 +23,6 @@ import '../styles/table.css';
 const DefaultPage = () => {
   // const data = useMemo(() => getData(), [])
   const [data, setData] = useState([]);
-  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -89,8 +87,8 @@ const DefaultPage = () => {
 
   return (
     <div className='home-outer-container'>
-      <NavBar show={showModal} setShowModal={setShowModal} />
-      {showModal && <Login showModal={showModal} setShowModal={setShowModal} />}
+      {/* <img src="https://tweetwordcloud.s3.amazonaws.com/%23googl.png?AWSAccessKeyId=AKIA4MVBRATKCMDQMUU3&Signature=NZU923dX3KbMKnN8oTXFOrWZPUo%3D&Expires=1681935162" /> */}
+      <NavBar />
       <div className="search-container">
         <div className="h-greeting">
           <p id="h-main-greeting">Never miss a big stock movement</p>

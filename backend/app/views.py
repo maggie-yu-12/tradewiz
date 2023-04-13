@@ -91,6 +91,15 @@ def index():
     return response_body
 
 
+@app.route("/get_company_data")
+@cross_origin(origin="*")
+def get_company_data():
+    company = request.args.get("company")
+    res = aws_q.get_company_analytics(company)
+    print(res)
+    return res
+
+
 @app.route("/login", methods=["POST"])
 @cross_origin(origin="*")
 def get_credentials():

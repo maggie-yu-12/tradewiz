@@ -45,3 +45,6 @@ backend/app/analysis/*.csv
 # don't include practice data
 backend/batch-write.json
 backend/create-table.json
+
+# don't include wordcloud images
+*png

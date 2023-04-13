@@ -4,6 +4,7 @@ import { Search } from '../components/Search';
 import { Home } from './Home';
 import { Individual } from './Individual';
 import { Login } from './Login';
+import { WatchList } from './WatchList';
 
 export function App() {
   // localStorage.clear();
@@ -21,6 +22,7 @@ export function App() {
         <Route path="/home" element={<Home />} />
         <Route path="search" element={<Search />} />
         <Route path="stockdata" element={<Individual />} />
+        <Route path="favorites" element={<WatchList />} />
         {/* <Route path="register" element={<Register />} /> */}
       </Routes>
     </div>

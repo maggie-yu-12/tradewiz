@@ -7,6 +7,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    padding-top: 30px;
 }
 
 .Search-frame {
@@ -57,23 +59,35 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: flex-start;
     text-align: center;
 
     width: 60vw;
-    padding-top: 30px;
+    padding-top: 40px;
     padding-bottom: 30px;
-    background-color: rgb(224, 241, 198);
+    background-color: rgb(217, 217, 217);
+
+    border-radius: 10px;
 }
 
-/* .Stock-data-frame-component {
-   
-} */
+.Stock-data-frame-component {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: 100%;
+}
 
 .Stock-data-frame-component-name {
     font-weight: bold;
     font-size: 1em;
-    text-align: left;
+    text-align: center;
     padding-left: 5%;
+
+    margin-bottom: 10px;
+
+    color: black;
 }
 
 .Stock-data-frame-component-score {
@@ -85,18 +99,20 @@
 }
 
 .Stock-data-company-header {
-    font-size: .8em;
+    font-size: 1em;
     font-weight: 800;
-    color: gray;
+    color: rgb(98, 98, 98);
     text-align: left;
     padding-left: 8%;
+    margin-bottom: 5px;
 }
 
 .Stock-data-company-score {
-    font-size: 0.8em;
+    font-size: 0.9em;
     font-weight: 700;
     text-align: left;
     padding-left: 8%;
+    margin-bottom: 5px;
 }
 
 .Sentiment-score-frame-component {
