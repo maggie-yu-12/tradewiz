@@ -48,3 +48,5 @@ backend/create-table.json
 
 # don't include wordcloud images
 *png
+
+*.elasticbeanstalk*

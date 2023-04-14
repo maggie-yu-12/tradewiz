@@ -114,7 +114,7 @@ const LoginCard = ({ login, setLogin }) => {
         </div>
       </div>
       <div id="register-link">
-        <p>Don't have an account yet?</p>
+        <p>Don't have an account yet? &nbsp;</p>
         <p id="register-click" onClick={() => setLogin(false)}> Register here!</p>
       </div>
     </div>

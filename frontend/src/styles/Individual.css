@@ -14,9 +14,9 @@
 }
 
 .individual-group-one {
-    background-color: rgb(36, 36, 36);
+    background-image: linear-gradient(180deg, rgba(187, 226, 124, 0.35) 70%, white);
     width: 100%;
-    color: white;
+    color: black;
 
     display: flex;
     flex-direction: column;
@@ -69,15 +69,15 @@
 #Stock-name {
     text-align: left;
     margin-right: 10px;
-    margin-bottom: 0;
+    margin-bottom: 20px;
 
     font-size: 2em;
     font-weight: 500;
-    margin-bottom: 20px;
 
     display: flex;
     flex-direction: row;
     align-items: center;
+
 }
 
 #Stock-description {
@@ -88,8 +88,11 @@
 
 #stock-desc-box {
     width: 70vw;
-    background-color: rgba(255, 255, 255, 0.298);
-    padding: 20px;
+
+    /* border: 1px solid #28BC00;
+    box-shadow: 0 0 10px #65bc4f; */
+    /* padding-left: 20px; */
+    /* font-weight: 500; */
 
     border-radius: 10px;
 }
@@ -97,22 +100,22 @@
 #summary-desc-box {
     width: 70vw;
     /* background-color: rgba(140, 140, 140, 0.714); */
-    background-color: #28BC00;
-    padding: 20px;
+    background-color: rgba(156, 156, 156, 0.124);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
 
     border-radius: 10px;
 
     margin-bottom: 15px;
 }
 
-.Individual-inner-container #summary-desc-box {
-    box-shadow: 0 0 10px #65bc4f;
-}
 
 .company-data #summary-desc-box {
     width: 100%;
     /* background-color: rgba(140, 140, 140, 0.714); */
-    background-color: #28BC00;
+    background-color: rgba(156, 156, 156, 0.124);
     padding: 20px;
 
     border-radius: 10px;
@@ -128,8 +131,9 @@
 }
 
 #summary-body {
-    color: white;
-    font-weight: 500;
+    color: rgb(111, 111, 111);
+    font-weight: 300;
+    font-size: 0.9em;
 }
 
 #summary-title-box {
@@ -197,7 +201,7 @@
 .Stock-data-frame-component-score {
     font-weight: bold;
     font-size: 1.5em;
-    color: rgb(256, 0, 0);
+    color: rgb(87, 87, 87);
     text-align: left;
     padding-left: 5%;
 }

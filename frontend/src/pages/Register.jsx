@@ -60,7 +60,7 @@ export const Register = ({ login, setLogin }) => {
 
   return (
     <div className="login-background">
-      <p id="welcome-msg">Welcome back!</p>
+      <p id="welcome-msg">Welcome!</p>
       {showWrongPassError && <Alert severity="error">This is an error alert — check it out!</Alert>}
       {showNoAccountWarning && <Alert severity="warning">This is a warning alert — check it out!</Alert>}
       <div className="input-box">
@@ -81,7 +81,7 @@ export const Register = ({ login, setLogin }) => {
       </div>
       <div id="register-link">
         <p>Have an account already?</p>
-        <p id="register-click" onClick={() => setLogin(false)}> Log in here!</p>
+        <p id="register-click" onClick={() => setLogin(true)}> Log in here!</p>
       </div>
     </div>
   )

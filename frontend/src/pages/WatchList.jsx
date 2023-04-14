@@ -48,7 +48,7 @@ export const WatchList = () => {
       <div className="watchlist-background">
         <div className="my-favorites">
           <div className="my-favorites-bg">
-            <p id="my-favorites-label">💟 My favorites</p>
+            <p id="my-favorites-label">My favorites</p>
             <FavoritesList favorites={favorites} setSelectedCompany={setSelectedCompany} />
           </div>
         </div>

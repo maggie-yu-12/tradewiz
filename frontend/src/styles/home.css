@@ -13,7 +13,7 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  background-image: linear-gradient(180deg, white, #65bc4f13 50%);
+  background-image: linear-gradient(180deg, white, #65bc4f08 20%);
 }
 
 .header-container {

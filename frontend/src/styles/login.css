@@ -46,10 +46,10 @@ div.modal-content {
 
   margin-top: 50px;
 
-  color: white;
+  color: rgb(36, 36, 36);
 
   font-size: 1em;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 #register-link {
@@ -116,7 +116,7 @@ div.modal-content {
   width: 65%;
   height: 100vh;
 
-  background-color: rgb(36, 36, 36);
+  background-color: rgba(187, 226, 124, 0.153);
 
   border-bottom-left-radius: 30px;
 
@@ -128,7 +128,7 @@ div.modal-content {
 
   margin-bottom: 50px;
 
-  color: white;
+  color: rgb(36, 36, 36);
 
   letter-spacing: 3px;
 }
@@ -166,13 +166,15 @@ div.modal-content {
   height: 50px;
 
   background-color: rgba(255, 255, 255, 0.9);
+
+  border: 1px solid rgb(36, 36, 36);
   border-radius: 10px;
 }
 
 .input-box input[type=text]:focus,
 .input-box input[type=password]:focus {
-  outline: 1px solid #28BC00;
-  /* oranges! yey */
+  outline: none;
+  box-shadow: 0 0 10px #bbbbbb;
 }
 
 .login-card #login-btn,
