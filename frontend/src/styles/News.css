@@ -3,30 +3,39 @@
   background-color: white;
   margin-left: 10px;
   margin-right: 10px;
-  padding-top: 2%;
+  padding-top: 20px;
+  padding-bottom: 30px;
+
   border-radius: 10;
-  height: 900px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 #News-site-name {
   color: #00890E;
   font-size: 1.5em;
   font-weight: bold;
+
+  margin-bottom: 30px;
 }
 
 #Newsblock-background {
   filter: drop-shadow(0 1px 1px #00000040);
   background-color: rgb(232, 238, 240);
-  padding: 5% 10%;
+  padding: 30px;
   border-radius: 10;
-  height: 28%;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 5%;
-  margin-bottom: 5%;
   text-align: left;
+  min-height: 40vh;
   display: flex;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 40vh;
 }
 
 #Newsblock-title {

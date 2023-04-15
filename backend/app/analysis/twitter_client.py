@@ -220,7 +220,7 @@ def get_sentiment(tweet):
     # sentence = Sentence(tweet)
     sent_analyzer = SentimentIntensityAnalyzer()
 
-    sentence = " ".join(tweet)
+    sentence = tweet  # " ".join(tweet)
     sent_dict = sent_analyzer.polarity_scores(sentence)
 
     return sent_dict["compound"]

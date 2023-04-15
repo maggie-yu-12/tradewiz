@@ -1,11 +1,13 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { NavBar } from '../components/NavBar';
-import { News } from '../components/News';
+// import { News } from '../components/News';
 
 import '../styles/Individual.css';
+
+const News = lazy(() => import('../components/News'))
 
 export function Individual() {
   const [watchList, setWatchList] = useState(JSON.parse(JSON.parse(localStorage.getItem("user")).watchlist))
@@ -132,25 +134,25 @@ export function Individual() {
       });
   }
 
-  function getNewsData() {
-    console.log(window.location.pathname)
-    axios({
-      method: 'GET',
-      url: '/newsdata',
-      params: { symbol: searchParams.get('symbol') },
-    })
-      .then(function (response) {
-        const res = response.data
-        setNewsData(({
-          news_twitter: res.stock_news_twitter,
-          news_reddit: res.stock_news_reddit,
-        }))
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
+  // function getNewsData() {
+  //   console.log(window.location.pathname)
+  //   axios({
+  //     method: 'GET',
+  //     url: '/newsdata',
+  //     params: { symbol: searchParams.get('symbol') },
+  //   })
+  //     .then(function (response) {
+  //       const res = response.data
+  //       setNewsData(({
+  //         news_twitter: res.stock_news_twitter,
+  //         news_reddit: res.stock_news_reddit,
+  //       }))
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }
 
   function getStockGraph() {
     axios({
@@ -182,7 +184,7 @@ export function Individual() {
     getStockDataOverview();
     getStockDataScore();
     getStockDataActivity();
-    getNewsData();
+    // getNewsData();
     // getStockGraph();
   }, [searchParams]);
 
@@ -257,16 +259,19 @@ export function Individual() {
 
         {/* <div> < img src={graphData.img_path} alt="Graph"> </img></div> */}
 
-        <div class='Graph-component'>
+        {/* <div class='Graph-component'>
 
-        </div>
-        <div class='News-frame'>
+        </div> */}
+        {/* <div class='News-frame'>
           <div class='News-frame-header'>News Aggregation</div>
           <div class='News-frame-comments'>
             <News site='Twitter' newsinfo={newsData.news_twitter} />
             <News site='Reddit' newsinfo={newsData.news_reddit} />
           </div>
-        </div>
+        </div> */}
+        <Suspense>
+          <News searchParams={searchParams} />
+        </Suspense>
 
         <br></br>
 

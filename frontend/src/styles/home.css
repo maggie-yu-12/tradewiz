@@ -26,3 +26,17 @@ html {
 
   margin-bottom: 20px;
 }
+
+#big-table-cell {
+  width: 7vw;
+  margin-right: 0 !important;
+  text-align: right;
+}
+
+#big-table-header {
+  text-align: center;
+}
+
+.sentiment-table a {
+  margin: 0;
+}

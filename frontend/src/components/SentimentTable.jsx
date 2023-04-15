@@ -8,6 +8,8 @@ import MaterialReactTable from 'material-react-table';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { Popup } from 'semantic-ui-react';
 
+import '../styles/table.css';
+
 // Enums
 export const SENTIMENT = Object.freeze({
   POSITIVE: "▲",
@@ -69,7 +71,7 @@ export const SentimentBackground = ({ change, symbol, isPositive, prev }) => {
  */
 export const SentimentTable = ({ columns, data, title }) => {
   return (
-    <>
+    <div className='sentiment-table'>
 
       {data.length == 0 ? <CircularProgress /> :
         <Fade in={true} timeout={1000}>
@@ -105,7 +107,26 @@ export const SentimentTable = ({ columns, data, title }) => {
                   sx: {
                     paddingLeft: '1rem',
                     paddingRight: '1rem',
-                    margin: 'auto',
+                    backgroundColor: 'white',
+                    textAlign: 'center',
+                    fontSize: '1.05rem',
+                    wordBreak: "break-all",
+                  },
+                }}
+                muiTableHeadRowProps={{
+                  sx: {
+                    paddingLeft: '1rem',
+                    paddingRight: '1rem',
+                    backgroundColor: 'white',
+                    textAlign: 'center',
+                    fontSize: '1.05rem',
+                    wordBreak: "break-all",
+                  },
+                }}
+                muiTableHeadProps={{
+                  sx: {
+                    paddingLeft: '1rem',
+                    paddingRight: '1rem',
                     backgroundColor: 'white',
                     textAlign: 'center',
                     fontSize: '1.05rem',
@@ -140,6 +161,6 @@ export const SentimentTable = ({ columns, data, title }) => {
           </div>
         </Fade>
       }
-    </>
+    </div>
   )
 }

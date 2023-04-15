@@ -26,7 +26,7 @@ const BiggestSentimentMoversTable = ({ data }) => {
       return (Object.entries(COLUMN_NAMES)).map(([header_key, header_value]) => ({
         accessorKey: getColumnAccessor(header_key),
         id: header_value,
-        Header: <b style={{ color: 'black', fontSize: '1.05rem', wordBreak: 'normal', whiteSpace: 'normal' }}>{header_value}</b>,
+        Header: <b id="big-table-header" style={{ color: 'black', fontSize: '1.05rem', wordBreak: 'normal', whiteSpace: 'normal' }}>{header_value}</b>,
         Cell: ({ cell }) => {
           if (header_value === "Δ in Sentiment by Week") {
             const res_obj = cell.getValue()
@@ -37,8 +37,10 @@ const BiggestSentimentMoversTable = ({ data }) => {
               <SentimentBackground change={res_obj.change} symbol={symbol} isPositive={isPositive} prev={res_obj.prev} />);
           } else if (header_value === "Company") {
             path = "/stockdata?symbol=" + cell.getValue().toLowerCase()
-            return (<Link to={path}>{cell.getValue()} </Link>)
-          } else return (<div>{cell.getValue()}</div>);
+            return (<Link to={path}><div id="big-table-cell">{cell.getValue()}</div></Link>)
+          } else if (header_value === "Weekly Activity") {
+            return (<div id="big-table-cell">{cell.getValue() / 1000000}M</div>)
+          } else return (<div id="big-table-cell">{cell.getValue()}</div>);
         }
       }))
     }

@@ -38,7 +38,7 @@ body {
   justify-content: flex-start;
   align-items: center;
 
-  min-height: 130vh;
+  min-height: 180vh;
 
   padding-top: 150px;
 
@@ -124,7 +124,7 @@ body {
 
 #favorite-graphs-group {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-end;
   height: 100%;
 
@@ -137,8 +137,12 @@ body {
 #favorite-graph {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
+
+  margin-bottom: 50px;
+
+  text-align: left;
 }
 
 #favorite-graph p {

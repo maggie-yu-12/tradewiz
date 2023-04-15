@@ -59,21 +59,24 @@ class RedditClient(Client):
         query = stock_abbreviation
         response = []
         i = 0
-        for submission in self.reddit_read_only.subreddit("wallstreetbets").search(
-            query, sort="new", time_filter="month", limit=3
-        ):
-            if i > 3:
-                break
-            if len(submission.selftext) > 0:
-                title = submission.title
-                description = submission.selftext[:180] + "..."
-                description = "".join(description.split("\n"))
-                # convert to May 01, 2023 at 05:15 PM
-                date = dt.utcfromtimestamp(submission.created_utc).strftime(
-                    "%B %d, %Y at %I:%M %p"
-                )
-                response.append([title, description, date])
-                i += 1
+        try:
+            for submission in self.reddit_read_only.subreddit("wallstreetbets").search(
+                query, sort="new", time_filter="month", limit=3
+            ):
+                if i > 3:
+                    break
+                if len(submission.selftext) > 0:
+                    title = submission.title
+                    description = submission.selftext[:180] + "..."
+                    description = "".join(description.split("\n"))
+                    # convert to May 01, 2023 at 05:15 PM
+                    date = dt.utcfromtimestamp(submission.created_utc).strftime(
+                        "%B %d, %Y at %I:%M %p"
+                    )
+                    response.append([title, description, date])
+                    i += 1
+        except Exception as e:
+            return []
 
         return response
 

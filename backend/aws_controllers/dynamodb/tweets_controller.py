@@ -2,6 +2,7 @@ import sys
 from decimal import Decimal
 
 sys.path.append("../../")
+import collections
 import io
 import re
 
@@ -12,6 +13,8 @@ import emoji
 import matplotlib.pyplot as plt
 from boto3.dynamodb.conditions import Attr, Key
 from botocore.exceptions import ClientError
+from dateutil import parser
+from langdetect import detect
 from wordcloud import WordCloud
 
 dynamo_client = boto3.resource("dynamodb")
@@ -21,6 +24,8 @@ tweet_analysis_table = dynamo_client.Table("TweetAnalysis")
 s3_source = boto3.resource("s3")
 s3_client = boto3.client("s3")
 bucket = s3_source.Bucket("tweetwordcloud")
+tweet_sentiment_freq_bucket = s3_source.Bucket("tweetsentimentfreq")
+tweet_sentiment_change_bucket = s3_source.Bucket("tweetsentimentchange")
 
 """
     READ and WRITE functions to DynamoDB resources related to Tweets
@@ -120,11 +125,24 @@ def get_tweets_texts_by_company(company, type):
         FilterExpression=Attr("TimeRange").eq(type),
     )
 
-    return [
-        re.sub(r"\s*http(.*)", "", tw.clean(emoji.replace_emoji(i["Text"], replace="")))
-        for i in res["Items"]
-        if "Text" in i
-    ]
+    texts = []
+    for i in res["Items"]:
+        if "Text" in i:
+            text = i["Text"]
+            try:
+                en = detect(text) == "en"
+                if en:
+                    texts.append(
+                        re.sub(
+                            r"\s*http(.*)",
+                            "",
+                            tw.clean(emoji.replace_emoji(text, replace="")),
+                        )
+                    )
+            except:
+                language = "error"
+                print("This row throws an error")
+    return texts
 
 
 def batch_write_analytics_to_tweet_analysis_table(entries):
@@ -233,6 +251,227 @@ def store_data_analysis_for_all_companies():
     return entries
 
 
+def store_change_in_sentiment_score_for_past_week():
+    companies = [
+        "#amc",
+        "#muln",
+        "#googl",
+        "#meta",
+        "#tsla",
+        "#aapl",
+        "#nflx",
+        "#amzn",
+        "#msft",
+        "#spy",
+        "#dis",
+        "#mmat",
+        "#gme",
+        "#ai",
+        "#bbby",
+        "#qqq",
+        "#lyft",
+        "#dte",
+    ]
+
+    expiration = 604800
+    for company in companies:
+        res = tweet_analysis_table.query(
+            KeyConditionExpression=Key("Company").eq(company),
+        )
+
+        item = res["Items"][0]
+
+        x_axis = []
+        y_axis = []
+        if "1_StartDate" in item:
+            date_1_start = parser.parse(item["1_StartDate"].split("#")[0]).strftime(
+                "%Y-%m-%d"
+            )
+            date_1_end = parser.parse(item["1_EndDate"].split("#")[0]).strftime(
+                "%Y-%m-%d"
+            )
+            x_axis.append(date_1_start + " ~ " + date_1_end)
+            y_axis.append(float(item["1_SentimentScore"]) * 100)
+
+        if "2_StartDate" in item:
+            date_1_start = parser.parse(item["2_StartDate"].split("#")[0]).strftime(
+                "%Y-%m-%d"
+            )
+            date_1_end = parser.parse(item["2_EndDate"].split("#")[0]).strftime(
+                "%Y-%m-%d"
+            )
+            x_axis.append(date_1_start + " ~ " + date_1_end)
+            y_axis.append(float(item["2_SentimentScore"]) * 100)
+
+        if "3_StartDate" in item:
+            date_1_start = parser.parse(item["3_StartDate"].split("#")[0]).strftime(
+                "%Y-%m-%d"
+            )
+            date_1_end = parser.parse(item["3_EndDate"].split("#")[0]).strftime(
+                "%Y-%m-%d"
+            )
+            x_axis.append(date_1_start + " ~ " + date_1_end)
+            y_axis.append(float(item["3_SentimentScore"]) * 100)
+
+        key = company + "_sentiment_change.png"
+
+        plt.plot(x_axis, y_axis)
+        plt.title("Change in Sentiment Score")
+        plt.xlabel("Date Range")
+        plt.ylabel("Sentiment Score")
+
+        fig1 = plt.gcf()
+        plt.show()
+        fig1.savefig(key, bbox_inches="tight")
+        plt.close()
+
+        img_data = io.BytesIO()
+        fig1.savefig(img_data, format="png")
+        img_data.seek(0)
+
+        tweet_sentiment_change_bucket.put_object(
+            Body=img_data, ContentType="image/png", Key=key
+        )
+
+        try:
+            url = s3_client.generate_presigned_url(
+                "get_object",
+                Params={"Bucket": "tweetsentimentchange", "Key": key},
+                ExpiresIn=expiration,
+            )
+
+            try:
+                tweet_analysis_table.update_item(
+                    Key={"Company": company},
+                    # UpdateExpression="SET Watchlist = list_append(Watchlist, :i)",
+                    UpdateExpression="SET SentimentScoreChangeGraph=:w",
+                    ExpressionAttributeValues={
+                        ":w": url,
+                    },
+                    ReturnValues="UPDATED_NEW",
+                )
+            except ClientError as err:
+                print("Couldn't add a new user. Here's why: ")
+                print(err.response["Error"]["Code"])
+                print(": " + err.response["Error"]["Message"])
+                raise
+
+        except ClientError as e:
+            print(e)
+            return None
+
+
+def store_sentiment_frequency_for_past_week():
+    companies = [
+        "#amc",
+        "#muln",
+        "#googl",
+        "#meta",
+        "#tsla",
+        "#aapl",
+        "#nflx",
+        "#amzn",
+        "#msft",
+        "#spy",
+        "#dis",
+        "#mmat",
+        "#gme",
+        "#ai",
+        "#bbby",
+        "#qqq",
+        "#lyft",
+        "#dte",
+    ]
+
+    expiration = 604800
+    for company in companies:
+        sentiments = []
+        tweet_texts = get_tweets_texts_by_company(company, 1)
+        if len(tweet_texts) == 0:
+            continue
+        for tweet in tweet_texts:
+            sentiments.append(round(tw.get_sentiment(tw.clean(tweet)), 1))
+
+        c = collections.Counter(sentiments)
+        c = sorted(c.items())
+        scores = [
+            -1.0,
+            -0.9,
+            -0.8,
+            -0.7,
+            -0.6,
+            -0.5,
+            -0.4,
+            -0.3,
+            -0.2,
+            -0.1,
+            0,
+            0.1,
+            0.2,
+            0.3,
+            0.4,
+            0.5,
+            0.6,
+            0.7,
+            0.8,
+            0.9,
+            1,
+        ]
+
+        key = company + "_sentiment_freq.png"
+
+        freq = [i[1] for i in c]
+        freq_num = [i[0] for i in c]
+        f, ax = plt.subplots()
+
+        plt.bar(freq_num, freq, width=0.05, facecolor="black", edgecolor="black")
+        plt.title("Sentiment Score Distribution")
+        plt.xlabel("Scores")
+        plt.ylabel("Frequency")
+        ax.set_xticks(scores)
+        ax.set_xticklabels([str(label) for label in scores])
+
+        fig1 = plt.gcf()
+        plt.show()
+        fig1.savefig(key, bbox_inches="tight")
+        plt.close()
+
+        img_data = io.BytesIO()
+        fig1.savefig(img_data, format="png")
+        img_data.seek(0)
+
+        tweet_sentiment_freq_bucket.put_object(
+            Body=img_data, ContentType="image/png", Key=key
+        )
+
+        try:
+            url = s3_client.generate_presigned_url(
+                "get_object",
+                Params={"Bucket": "tweetsentimentfreq", "Key": key},
+                ExpiresIn=expiration,
+            )
+
+            try:
+                tweet_analysis_table.update_item(
+                    Key={"Company": company},
+                    # UpdateExpression="SET Watchlist = list_append(Watchlist, :i)",
+                    UpdateExpression="SET SentimentFreqBarChart=:w",
+                    ExpressionAttributeValues={
+                        ":w": url,
+                    },
+                    ReturnValues="UPDATED_NEW",
+                )
+            except ClientError as err:
+                print("Couldn't add a new user. Here's why: ")
+                print(err.response["Error"]["Code"])
+                print(": " + err.response["Error"]["Message"])
+                raise
+
+        except ClientError as e:
+            print(e)
+            return None
+
+
 def store_word_cloud_for_past_week():
     companies = [
         "#amc",
@@ -277,7 +516,6 @@ def store_word_cloud_for_past_week():
 
         bucket.put_object(Body=img_data, ContentType="image/png", Key=key)
 
-        key = company + ".png"
         try:
             url = s3_client.generate_presigned_url(
                 "get_object",
@@ -310,4 +548,6 @@ if __name__ == "__main__":
     # batch_write_tweets_to_tweets_table()
     # entries = store_data_analysis_for_all_companies()
     # batch_write_analytics_to_tweet_analysis_table(entries)
-    store_word_cloud_for_past_week()
+    # store_word_cloud_for_past_week()
+    # store_sentiment_frequency_for_past_week()
+    store_change_in_sentiment_score_for_past_week()
