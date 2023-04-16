@@ -64,7 +64,7 @@ export const Register = ({ login, setLogin }) => {
       {showWrongPassError && <Alert severity="error">This is an error alert — check it out!</Alert>}
       {showNoAccountWarning && <Alert severity="warning">This is a warning alert — check it out!</Alert>}
       <div className="input-box">
-        <input type="text" onChange={handleOnChangeEmail} placeholder="Email" />
+        <input type="email" pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" onChange={handleOnChangeEmail} placeholder="Email" />
         <br />
         <br />
         <input type="text" onChange={handleOnChangeUsername} placeholder="Username" />

@@ -76,8 +76,9 @@ def update_user_data():
     data = request.get_json()
     email = data["email"]
     watch_list = json.loads(data["watchlist"])
-    print(watch_list)
-    users_con.update_user_data(email, watch_list)
+    username = data["username"]
+    password = data["password"]
+    users_con.update_user_data(email, watch_list, username, password)
     return ""
 
 
