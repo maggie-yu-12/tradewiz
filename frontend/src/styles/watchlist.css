@@ -20,6 +20,7 @@ body {
   align-items: flex-start;
   justify-content: center;
 
+  min-height: 100vh;
   height: 100%;
   /* background-color: whitesmoke; */
   background-color: rgba(187, 226, 124, 0.35);
@@ -54,6 +55,7 @@ body {
 }
 
 .company-data {
+  min-height: 100vh;
   height: 100%;
   width: 65vw;
 
@@ -78,6 +80,14 @@ body {
   align-items: center;
 
   box-shadow: 0 0 10px rgb(211, 211, 211);
+}
+
+#no-favorite-note {
+  font-size: 1.5em;
+  font-weight: 500;
+  width: 70%;
+
+  margin-top: 100px;
 }
 
 #my-favorites-label {

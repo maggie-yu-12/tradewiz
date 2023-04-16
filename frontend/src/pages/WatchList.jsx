@@ -1,3 +1,4 @@
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useEffect, useState } from "react";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -48,6 +49,8 @@ export const WatchList = () => {
     <div className="watchlist">
       <NavBar />
       <div className="watchlist-background">
+
+
         <div className="my-favorites">
           <div className="my-favorites-bg">
             <p id="my-favorites-label">My favorites</p>
@@ -55,7 +58,7 @@ export const WatchList = () => {
           </div>
         </div>
         <div className="company-data">
-          {companyData !== "" && (<>
+          {companyData === "" ? <p id="no-favorite-note">No favorites yet! Favorite a company by clicking on the heart icon (<FavoriteIcon color="action" />) next to the company name on the company page!</p> : (<>
 
             <StockData company={JSON.parse(companyData).Company.substring(1)} companyData={companyData} />
             <p id="favorite-week">Sentiment Visualizations (Updated for {(new Date(JSON.parse(companyData)['1_StartDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#') == -1 ? JSON.parse(companyData)['1_StartDate'].length : JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)} &nbsp;~&nbsp;
@@ -71,8 +74,8 @@ export const WatchList = () => {
                 </TransformWrapper>
               </div>
               {/* <p id="favorite-week">Visuals for Week of {(new Date(JSON.parse(companyData)['1_StartDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)} &nbsp;~&nbsp;
-                {(new Date(JSON.parse(companyData)['1_EndDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)}
-              </p> */}
+               {(new Date(JSON.parse(companyData)['1_EndDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)}
+             </p> */}
               {/* <div id="favorite-graphs-group"> */}
               <div id="favorite-graph">
                 <p>WordCloud</p>
@@ -96,6 +99,8 @@ export const WatchList = () => {
 
 
         </div>
+
+
       </div>
     </div >
   )
