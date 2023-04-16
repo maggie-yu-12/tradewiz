@@ -1,0 +1,86 @@
+Individual.js TODO
+
+Create header element. Since it's on both pages consider inheritance? but if we're lazy just copy paste
+- div for header
+- div for logo
+- div for search engine
+
+Do we want to lock it at the top?
+
+Maggie's AlphaVantage API Key: KZQ08TK5X6QQQDOB
+
+- Assume individual page has a const "stockAbbreviation" which is what is input in the search engine
+- Retrieve company information from AlphaVantage accordingly
+
+good guide on routing
+https://www.freecodecamp.org/news/how-to-use-react-router-version-6/#:~:text=To%20install%20React%20Router%2C%20all,%2Drouter%2Ddom%406%20.
+
+routing regex
+https://stackoverflow.com/questions/48723370/react-router-4-regex-paths-match-doesnt-find-parameters
+
+
+
+
+
+PROGRESS
+---------------------------------------------------------------------------------------------------------
+3/31 Oh boy gotta cram.
+- TODO: check in w acelyn again. idk how she retrieves scores.
+- TODO: prio is getting all of the scores up. aka figure out how acelyn is getting these sentiment scores, we just need
+a demo done.
+- TODO: clean up the news UI. Maybe don't use reddit because there's a lot of swear words?
+- TODO: Comment section
+---------------------------------------------------------------------------------------------------------
+3/9 finished incorporating search bar into ui, working on news section while I wait for Acelyn response
+- Currently working on News UI
+- ISSUE: unable to access Twitter sentiment scores? Need to ask Acelyn. Ngl need to do for Reddit and Bloomberg as well
+- TODO: Retrieve comments from Twitter (?) and Reddit (Is there an issue with querying too many times for Twitter)
+- TODO: Comment section
+
+---------------------------------------------------------------------------------------------------------
+3/9 merge
+- HomeSearch component in ../components/HomeSearch and NavBar from ../components/NavBar instead of Search.jsx?
+
+---------------------------------------------------------------------------------------------------------
+2/6 commit Reddit sentiment complete
+Date: Mon Feb 06
+
+- Created parent class Client.py which twitter_client.py and reddit_client.py inherit from.
+- Calculated sentiment from r/all top posts about a stock abbreviation on Reddit in reddit.py
+- TODO: Create a Header Component that includes the search bar and logo
+- TODO: Dropdown search suggestion and stockname validation
+- TODO: Implement sentiment score onto second-page
+- TODO: Improve UI
+
+1/12 Meeting
+- TODO: Get Sentiment analaysis for Reddit and Bloomberg
+- Hold off on graph bc Helen is making one
+
+commit 7d4830cab829b2906bb54920903d8b4e2490802d added NASDAQ score
+Date: Thu Jan 12 12:20:06 2023 -0800
+
+- Retrieves Quote through another Alpha Vantage API Call. Modified useEffect response json.
+- TODO: Create a Header Component that includes the search bar and logo
+- TODO: Retrieving sentiment scores from social media
+- TODO: Dropdown search suggestion and stockname validation
+
+
+commit ef8d91f3df909021bff226edd3ddae45570d6035 re-render component when search query updates
+Date: Wed Jan 11 23:37:36 2023 -0800
+
+- this was such a struggle. But now the format for second page pathname is /stockdata?symbol={stockAbbreviation}, (ex.
+/stockdata?symbol=IBM)
+- updates every time you use the search bar!
+- TODO: Create a Header Component that includes the search bar and logo
+- TODO: Fleshing out the rest of second page. At least the difficult part of retrieving data from AV API is done
+- TODO: Dropdown search suggestion and stockname validation
+
+
+commit 06e4a7bdc8da77d8070ba0903dbe5fd24145d474 retrieve company data from search engine
+Date: Wed Jan 11 22:17:45 2023 -0800
+
+- added cors 2.8.5 as a package
+- If you search a stock correctly from Home.jsx such as MSFT, the company info will pop up.
+- TODO: add the company abbreviation to pathname. Currently only /stockname but would ideally want it to be
+/stockdata/{name}
+- TODO: Doesn't work when you try to search from the search bar on /stockname. Thus need to change the path

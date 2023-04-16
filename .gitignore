@@ -1,7 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+.parcel-cache
+node_modules
+dist
+venv
 
 # dependencies
-frontend/node_modules
 frontend/.pnp
 frontend/.pnp.js
 
@@ -24,7 +27,26 @@ frontend/yarn-error.log*
 
 # backend
 backend/env
-backend/__pycache__
+*.pyc
+*/*/*/__pycache__/
+*/*/__pycache__/
+*/__pycache__/
 
 # remove config - for security issues
 backend/config.ini
+
+# don't include past tweets data
+backend/app/analysis/past_tweets.json
+backend/app/analysis/past_tweets_aws.json
+backend/app/analysis/past_tweets_*.txt
+backend/app/analysis/*queried_data/
+backend/app/analysis/*.csv
+
+# don't include practice data
+backend/batch-write.json
+backend/create-table.json
+
+# don't include wordcloud images
+*png
+
+*.elasticbeanstalk*

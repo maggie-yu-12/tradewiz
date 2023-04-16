@@ -1,0 +1,112 @@
+.nav-container {
+  height: 55px;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  /* background-color: rgba(224, 224, 224, 0.693); */
+  background-color: white;
+
+  font-size: 15px;
+
+  box-shadow: 0 0 5px #8d9397;
+}
+
+.nav-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  margin-left: 20px;
+}
+
+
+.nav-middle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.nav-right {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+
+  margin-left: auto;
+  margin-right: 20px;
+
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+#features-tab,
+#pricing-tab,
+#community-tab,
+#support-tab {
+  margin-left: 20px;
+  margin-right: 20px;
+
+  /* color: #28BC00; */
+  color: rgb(66, 66, 66);
+  font-weight: 500 !important;
+}
+
+
+#login-btn {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 130px;
+  height: 80%;
+
+  color: #28BC00;
+  border: 1px solid #28BC00 !important;
+  font-weight: 500;
+
+  background-color: white;
+
+  margin-right: 10px;
+}
+
+#login-btn:hover {
+  background-color: rgba(40, 188, 0, 20%);
+  cursor: pointer;
+}
+
+#profile-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+#navbar-profile {
+  margin-left: 30px;
+}
+
+a {
+
+  text-decoration: none !important;
+  color: black !important;
+}
+
+.profile {
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+}

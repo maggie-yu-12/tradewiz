@@ -1,0 +1,98 @@
+[
+  {
+    "company": "Tesla",
+    "symbol": "TSLA",
+    "activity": 300,
+    "week": -15,
+    "month": -5,
+    "sentiment": -30
+  },
+  {
+    "company": "Apple",
+    "symbol": "AAPL",
+    "activity": 300,
+    "week": -10,
+    "month": 1,
+    "sentiment": 30
+  },
+  {
+    "company": "Nvidia",
+    "symbol": "NVDA",
+    "activity": 300,
+    "week": 3,
+    "month": 7,
+    "sentiment": 20
+  },
+  {
+    "company": "Tesla",
+    "symbol": "TSLA",
+    "activity": 300,
+    "week": -15,
+    "month": -5,
+    "sentiment": -30
+  },
+  {
+    "company": "Apple",
+    "symbol": "AAPL",
+    "activity": 300,
+    "week": -10,
+    "month": 1,
+    "sentiment": 30
+  },
+  {
+    "company": "Nvidia",
+    "symbol": "NVDA",
+    "activity": 300,
+    "week": 3,
+    "month": 7,
+    "sentiment": 20
+  },
+  {
+    "company": "Tesla",
+    "symbol": "TSLA",
+    "activity": 300,
+    "week": -15,
+    "month": -5,
+    "sentiment": -30
+  },
+  {
+    "company": "Apple",
+    "symbol": "AAPL",
+    "activity": 300,
+    "week": -10,
+    "month": 1,
+    "sentiment": 30
+  },
+  {
+    "company": "Nvidia",
+    "symbol": "NVDA",
+    "activity": 300,
+    "week": 3,
+    "month": 7,
+    "sentiment": 20
+  },
+  {
+    "company": "Tesla",
+    "symbol": "TSLA",
+    "activity": 300,
+    "week": -15,
+    "month": -5,
+    "sentiment": -30
+  },
+  {
+    "company": "Apple",
+    "symbol": "AAPL",
+    "activity": 300,
+    "week": -10,
+    "month": 1,
+    "sentiment": 30
+  },
+  {
+    "company": "Nvidia",
+    "symbol": "NVDA",
+    "activity": 300,
+    "week": 3,
+    "month": 7,
+    "sentiment": 20
+  }
+]

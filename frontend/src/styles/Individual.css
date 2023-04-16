@@ -1,0 +1,302 @@
+.Individual-outer-container {
+    /* background-color: rgb(245, 245, 245); */
+    /* background-image: linear-gradient(180deg, #2759b032 20%, #a5d05f35); */
+    background-image: linear-gradient(180deg, white, #fff 90%);
+}
+
+.Individual-inner-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding-bottom: 0;
+}
+
+.individual-group-one {
+    background-image: linear-gradient(180deg, rgba(187, 226, 124, 0.35) 70%, white);
+    width: 100%;
+    color: black;
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding-bottom: 70px;
+
+    margin-bottom: 0px;
+}
+
+.Search-frame {
+    width: 90%;
+    height: 100%;
+    display: inline-block;
+}
+
+.individual-search {
+    width: 100%;
+    background-color: black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding-bottom: 21px;
+}
+
+#stock-name-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#stock-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#Stock-name p {
+    margin: 0;
+    margin-right: 10px;
+}
+
+#Stock-name {
+    text-align: left;
+    margin-right: 10px;
+    margin-bottom: 20px;
+
+    font-size: 2em;
+    font-weight: 500;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+#Stock-description {
+    text-align: left;
+    width: 60vw;
+    margin: 0;
+}
+
+#stock-desc-box {
+    width: 70vw;
+
+    /* border: 1px solid #28BC00;
+    box-shadow: 0 0 10px #65bc4f; */
+    /* padding-left: 20px; */
+    /* font-weight: 500; */
+
+    border-radius: 10px;
+}
+
+#summary-desc-box {
+    width: 70vw;
+    /* background-color: rgba(140, 140, 140, 0.714); */
+    background-color: rgba(156, 156, 156, 0.124);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    border-radius: 10px;
+
+    margin-bottom: 15px;
+}
+
+
+.company-data #summary-desc-box {
+    width: 100%;
+    /* background-color: rgba(140, 140, 140, 0.714); */
+    background-color: rgba(156, 156, 156, 0.124);
+    padding: 20px;
+
+    border-radius: 10px;
+
+    margin-bottom: 15px;
+}
+
+#summary-title {
+    font-weight: 600;
+    font-size: 1.7em;
+
+    text-align: left;
+}
+
+#summary-body {
+    color: rgb(111, 111, 111);
+    font-weight: 300;
+    font-size: 0.9em;
+}
+
+#summary-title-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    width: 70vw;
+
+    margin-bottom: 10px;
+}
+
+.Stock-data-frame {
+    /* padding-left: 25%;
+    padding-right: 25%; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    margin-bottom: 30px;
+}
+
+.Stock-data-border {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    text-align: center;
+
+    width: 70vw;
+    padding-top: 40px;
+    padding-bottom: 30px;
+    background-color: rgba(233, 233, 233, 0.723);
+
+    border-radius: 10px;
+    border: 1px solid rgb(211, 211, 211);
+}
+
+.company-data .Stock-data-border {
+    width: 100%;
+}
+
+.Stock-data-frame-component {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: 100%;
+}
+
+.Stock-data-frame-component-name {
+    font-weight: bold;
+    font-size: 1em;
+    text-align: center;
+    padding-left: 5%;
+
+    margin-bottom: 10px;
+
+    color: black;
+}
+
+.Stock-data-frame-component-score {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: rgb(87, 87, 87);
+    text-align: left;
+    padding-left: 5%;
+}
+
+.Stock-data-company-header {
+    font-size: 1em;
+    font-weight: 800;
+    color: rgb(98, 98, 98);
+    text-align: left;
+    padding-left: 8%;
+    margin-bottom: 5px;
+}
+
+.Stock-data-company-score {
+    font-size: 0.9em;
+    font-weight: 700;
+    text-align: left;
+    padding-left: 8%;
+    margin-bottom: 5px;
+}
+
+.Sentiment-score-frame-component {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    border: solid 1px #000;
+    text-align: center;
+}
+
+.Sentiment-score-frame {
+    display: flex;
+    flex-direction: row;
+
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+.Sentiment-score-frame-component {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    border: solid 1px #000;
+    text-align: center;
+}
+
+.Sentiment-score-frame-component-name {
+    border: solid 1px rgb(222, 19, 19);
+}
+
+.Sentiment-score-frame-component-score {
+    border: solid 1px rgb(19, 134, 222);
+}
+
+/* .Graph-frame {
+    height: 100%;
+    width: 100;
+    margin-bottom: 30px;
+} */
+
+.Graph-component {
+    border: solid 1px #000;
+    height: 500px;
+    width: 900px;
+    margin-bottom: 30px;
+}
+
+.News-frame {
+    background-color: rgba(220, 220, 220, 0.533);
+    display: flex;
+    flex-direction: row;
+    padding-left: 10%;
+    padding-right: 10%;
+
+    height: 100%;
+    width: 100%;
+
+    margin-top: 70px;
+}
+
+.News-frame-comments {
+    filter: drop-shadow(0 2px 2px #00000040);
+    display: flex;
+    flex-direction: row;
+    padding-left: 20%;
+    width: 100%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align: center;
+}
+
+
+.News-frame-header {
+    padding-top: 30%;
+    font-size: 2em;
+    font-weight: 700;
+
+    line-height: 1.5;
+}

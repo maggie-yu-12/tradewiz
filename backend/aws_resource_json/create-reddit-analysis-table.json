@@ -1,0 +1,17 @@
+{
+  "TableName": "RedditAnalysis",
+  "BillingMode": "PAY_PER_REQUEST",
+  "DeletionProtectionEnabled": true,
+  "KeySchema": [
+    {
+      "AttributeName": "Company",
+      "KeyType": "HASH"
+    }
+  ],
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "Company",
+      "AttributeType": "S"
+    }
+  ]
+}
