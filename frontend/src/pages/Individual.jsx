@@ -42,12 +42,15 @@ export function Individual() {
 
   function addToWatchList(company) {
     arr = watchList
-    arr.push(company)
-    setWatchList(arr);
-    user = JSON.parse(localStorage.getItem("user"))
-    user.watchlist = JSON.stringify(arr);
+    // Take care of any accidental double-clicks
+    if (!arr.includes(company)) {
+      arr.push(company)
+      setWatchList(arr);
+      user = JSON.parse(localStorage.getItem("user"))
+      user.watchlist = JSON.stringify(arr);
 
-    localStorage.setItem("user", JSON.stringify(user))
+      localStorage.setItem("user", JSON.stringify(user))
+    }
   }
 
   function removeFromWatchList(company) {
