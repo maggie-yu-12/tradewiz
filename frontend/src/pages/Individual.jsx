@@ -1,4 +1,5 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { pink } from '@mui/material/colors';
 import axios from 'axios';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -199,7 +200,7 @@ export function Individual() {
             <div id="stock-name-box">
               <div id='Stock-name'>
                 <p>{stockDataOverview.name} ({stockDataOverview.symbol})</p>
-                {watchList.includes(stockDataOverview.symbol.toLowerCase()) ? <FavoriteIcon color="secondary" onClick={() => removeFromWatchList(stockDataOverview.symbol.toLowerCase())} /> : <FavoriteIcon color="action" onClick={() => addToWatchList(stockDataOverview.symbol.toLowerCase())} />}
+                {watchList.includes(stockDataOverview.symbol.toLowerCase()) ? <FavoriteIcon sx={{ color: pink[500] }} onClick={() => removeFromWatchList(stockDataOverview.symbol.toLowerCase())} /> : <FavoriteIcon color="action" onClick={() => addToWatchList(stockDataOverview.symbol.toLowerCase())} />}
               </div>
             </div>
             <div id="stock-desc-box">

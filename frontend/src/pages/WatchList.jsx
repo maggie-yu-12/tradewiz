@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 import { FavoritesList } from "../components/FavoritesList";
 import { NavBar } from "../components/NavBar";
@@ -54,22 +56,24 @@ export const WatchList = () => {
         </div>
         <div className="company-data">
           {companyData !== "" && (<>
+
             <StockData company={JSON.parse(companyData).Company.substring(1)} companyData={companyData} />
-            <p id="favorite-week">Sentiment Change from {(new Date(JSON.parse(companyData)['3_StartDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)} &nbsp;~&nbsp;
-              {(new Date(JSON.parse(companyData)['1_EndDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)}
+            <p id="favorite-week">Sentiment Visualizations (Updated for {(new Date(JSON.parse(companyData)['1_StartDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#') == -1 ? JSON.parse(companyData)['1_StartDate'].length : JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)} &nbsp;~&nbsp;
+              {(new Date(JSON.parse(companyData)['1_EndDate'].substring(0, JSON.parse(companyData)['1_EndDate'].indexOf('#') == -1 ? JSON.parse(companyData)['1_EndDate'].length : JSON.parse(companyData)['1_EndDate'].indexOf('#')))).toString().slice(0, 15)})
             </p>
-            <div id="favorite-graph">
-              <p>Sentiment Score Change</p>
-              <TransformWrapper>
-                <TransformComponent>
-                  <img id="favorite-wordcloud" src={JSON.parse(companyData)['SentimentScoreChangeGraph']} />
-                </TransformComponent>
-              </TransformWrapper>
-            </div>
-            <p id="favorite-week">Visuals for Week of {(new Date(JSON.parse(companyData)['1_StartDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)} &nbsp;~&nbsp;
-              {(new Date(JSON.parse(companyData)['1_EndDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)}
-            </p>
-            <div id="favorite-graphs-group">
+            <Carousel>
+              <div id="favorite-graph">
+                <p>Sentiment Score Change</p>
+                <TransformWrapper>
+                  <TransformComponent>
+                    <img id="favorite-wordcloud" src={JSON.parse(companyData)['SentimentScoreChangeGraph']} />
+                  </TransformComponent>
+                </TransformWrapper>
+              </div>
+              {/* <p id="favorite-week">Visuals for Week of {(new Date(JSON.parse(companyData)['1_StartDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)} &nbsp;~&nbsp;
+                {(new Date(JSON.parse(companyData)['1_EndDate'].substring(0, JSON.parse(companyData)['1_StartDate'].indexOf('#')))).toString().slice(0, 15)}
+              </p> */}
+              {/* <div id="favorite-graphs-group"> */}
               <div id="favorite-graph">
                 <p>WordCloud</p>
                 <TransformWrapper>
@@ -86,8 +90,8 @@ export const WatchList = () => {
                   </TransformComponent>
                 </TransformWrapper>
               </div>
-            </div>
-
+              {/* </div> */}
+            </Carousel>
           </>)}
 
 

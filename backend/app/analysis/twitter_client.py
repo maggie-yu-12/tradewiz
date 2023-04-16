@@ -48,7 +48,7 @@ class TwitterClient(object):
 
         config = configparser.ConfigParser()
         config.read(
-            "../config.ini"
+            "../../config.ini"
         )  # If aws_controller is running, change this to "../config.ini". Otherwise, "../../config.ini"
 
         cls.ESSENTIAL_KEYS = {
@@ -112,7 +112,7 @@ class TwitterClient(object):
             label="thirtyDayEnv",
             fromDate=date_since,
             toDate=date_until,
-        ).items(limit=10)
+        ).items(limit=200)
 
         extracted_tweets = []
         for tweet in tweets:

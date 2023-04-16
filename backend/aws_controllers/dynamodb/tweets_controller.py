@@ -64,11 +64,11 @@ def batch_write_tweets_to_tweets_table():
     last_week = time.get_week_ago_range()
     last_two_weeks = time.get_two_weeks_ago_range()
 
-    date_since_arr = last_two_weeks["dates_since"]
-    date_until_arr = last_two_weeks["dates_until"] * len(date_since_arr)
+    date_since_arr = last_week["dates_since"]
+    date_until_arr = last_week["dates_until"] * len(date_since_arr)
     # type = 1 for last week and type = 2 for last month, type = 3 for two weeks
     # Eventually, data in last week would become part of last month so that we avoid querying for the same data multiple times
-    type = 3
+    type = 1
 
     for company in COMPANIES:
         table_data = tw.aggregate_all_tweets(
@@ -227,12 +227,10 @@ def store_data_analysis_for_all_companies():
 
     entries = []
     for company in COMPANIES:
-        print(company)
         entry = {}
         entry["Company"] = company[0]
         for i in [1, 2, 3]:
             tweets = get_tweets_by_company(company[0], i)
-            print(i)
             if len(tweets) > 0:
                 res = calculate_sentiment_score(company[0], i, tweets)
                 start_date_label = str(i) + "_StartDate"
@@ -544,10 +542,34 @@ def store_word_cloud_for_past_week():
             return None
 
 
+def update_outdated_tweets_table():
+    response = tweets_table.scan()
+    data = response["Items"]
+    for item in data:
+        company = item["Company"]
+        createdAndId = item["CreatedAndId"]
+        if not hasattr(item, "TimeRange"):
+            continue
+        prev_timerange = item["TimeRange"]
+        tweets_table.update_item(
+            Key={"Company": company, "CreatedAndId": createdAndId},
+            # UpdateExpression="SET Watchlist = list_append(Watchlist, :i)",
+            UpdateExpression="SET TimeRange=:tr",
+            ExpressionAttributeValues={
+                ":tr": prev_timerange + 1,
+            },
+            ReturnValues="UPDATED_NEW",
+        )
+
+
 if __name__ == "__main__":
     # batch_write_tweets_to_tweets_table()
+
     # entries = store_data_analysis_for_all_companies()
     # batch_write_analytics_to_tweet_analysis_table(entries)
+
     # store_word_cloud_for_past_week()
     # store_sentiment_frequency_for_past_week()
     store_change_in_sentiment_score_for_past_week()
+
+    # update_outdated_tweets_table()
