@@ -54,7 +54,16 @@ export const Profile = () => {
       <NavBar />
       <div className="profile-background">
         <div className="profile-card">
-          <Avatar sx={{ width: 250, height: 250, fontSize: 100 }}>{username.substring(0, 1)}</Avatar>
+          <div className="left-profile-side">
+            <Avatar sx={{ width: 250, height: 250, fontSize: 100 }}>{username.substring(0, 1)}</Avatar>
+
+            {!update && <div id="update-profile-button" onClick={() => setUpdate(!update)}>
+              Update information
+            </div>}
+            {update && <div id="confirm-update-profile-button" onClick={handleConfirmUpdate}>
+              Confirm update
+            </div>}
+          </div>
           <div className="user-info">
             <div id="info-container">
               <p id="update-label">Email</p>
@@ -69,12 +78,7 @@ export const Profile = () => {
               <p>{update ? <input type="password" onChange={handleOnChangePass} placeholder="Password" /> : "*".repeat(password.length)}</p>
             </div>
           </div>
-          {!update && <div id="update-profile-button" onClick={() => setUpdate(!update)}>
-            Update information
-          </div>}
-          {update && <div id="confirm-update-profile-button" onClick={handleConfirmUpdate}>
-            Confirm update
-          </div>}
+
           {/* {update && <>
             <div className="user-update-input-box">
               <input type="text" onChange={handleOnChangeUsername} placeholder="Username" />
