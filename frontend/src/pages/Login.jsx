@@ -101,7 +101,7 @@ const LoginCard = ({ login, setLogin }) => {
         {showNoAccountWarning && <Alert severity="warning" sx={{ width: '400px' }}>Couldn't find an account asssociated with this email. Please register first.</Alert>}
       </div>
       <div className="input-box">
-        <input type="text" onChange={handleOnChangeEmail} placeholder="Email" />
+        <input type="email" onChange={handleOnChangeEmail} placeholder="Email" />
         <br />
         <br />
         <input type="password" onChange={handleOnChangePass} placeholder="Password" />

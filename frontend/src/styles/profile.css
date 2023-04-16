@@ -1,0 +1,89 @@
+.profile-background {
+  background-color: rgba(187, 226, 124, 0.35);
+  height: 92vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-card {
+  background-color: rgb(248, 248, 248);
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 70px;
+  padding-right: 70px;
+
+  border-radius: 30px;
+
+  box-shadow: 0 0 5px #8d9397;
+}
+
+.user-info {
+  margin-top: 50px;
+}
+
+#info-container {
+  margin-bottom: 10px;
+
+}
+
+#update-label {
+  margin-bottom: 5px;
+  font-weight: 600;
+
+  color: #28BC00;
+}
+
+#update-profile-button {
+  padding: 10px;
+  width: 100%;
+  background-color: rgb(221, 221, 221);
+  border-radius: 20px;
+  color: black;
+
+  text-align: center;
+
+  margin-top: 20px;
+}
+
+#confirm-update-profile-button {
+  padding: 10px;
+  width: 100%;
+  background-color: rgb(99, 99, 99);
+  border-radius: 20px;
+  color: white;
+
+  text-align: center;
+
+  margin-top: 20px;
+}
+
+/* .user-update-input-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */
+
+.user-info input[type=text]:focus,
+input[type=password]:focus {
+  outline: none;
+}
+
+.user-info input {
+
+  border: 0;
+  padding: 15px;
+
+  height: 10px;
+  width: 100%;
+
+  background-color: rgba(255, 255, 255, 0.9);
+
+  border: 1px solid rgb(36, 36, 36);
+  border-radius: 10px;
+
+  margin: 0;
+}

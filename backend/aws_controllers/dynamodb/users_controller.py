@@ -45,14 +45,16 @@ def register_user(username, password, email):
     return ""
 
 
-def update_user_data(email, watch_list):
+def update_user_data(email, watch_list, username, password):
     try:
         users_table.update_item(
             Key={"Email": email},
             # UpdateExpression="SET Watchlist = list_append(Watchlist, :i)",
-            UpdateExpression="SET WatchList=:w",
+            UpdateExpression="SET WatchList=:w, Username=:u, Password=:p",
             ExpressionAttributeValues={
                 ":w": watch_list,
+                ":u": username,
+                ":p": password,
             },
             ReturnValues="UPDATED_NEW",
         )

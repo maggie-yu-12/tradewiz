@@ -27,7 +27,7 @@ export const ProfileMenu = () => {
     axios({
       method: "POST",
       url: "/update",
-      data: { email: user.email, watchlist: user.watchlist }
+      data: { email: user.email, watchlist: user.watchlist, username: user.username, password: user.password }
     })
       .then((res) => {
         data = res.data
@@ -52,6 +52,10 @@ export const ProfileMenu = () => {
 
   const handleFavoriteClose = () => {
     navigate('/favorites')
+  }
+
+  const handleProfileClick = () => {
+    navigate('/profile')
   }
 
   const handleClose = () => {
@@ -110,9 +114,9 @@ export const ProfileMenu = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {/* <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleProfileClick}>
           <Avatar /> Profile
-        </MenuItem> */}
+        </MenuItem>
         {/* <MenuItem onClick={handleClose}>
           <Avatar /> My account
         </MenuItem> */}
