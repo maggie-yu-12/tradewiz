@@ -80,7 +80,7 @@ export const SentimentTable = ({ columns, data, title }) => {
               <p id="table-header">{title}</p>
               <div id="question-popup">
                 <Popup
-                  content='This table is currently based on Tweets. 1-week sentiment score shows the averaged sentiment score of tweets about the company past 7 days, similarly for 1-moonth sentiment score. Sentiment shows the change in sentiment compared to the previous week. Activity shows the number of tweets past 24 hours.'
+                  content='This table is currently based on activity in social media. 1-week sentiment score shows the averaged sentiment score of posts about the company past 7 days, similarly for 1-moonth sentiment score. Sentiment shows the change in sentiment compared to the previous week. Activity shows the number of posts past week.'
                   on='click'
                   pinned
                   trigger={<BsQuestionCircle />}
