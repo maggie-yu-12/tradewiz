@@ -71,11 +71,11 @@ export const Profile = () => {
             </div>
             <div id="info-container">
               <p id="update-label">Username</p>
-              <p>{update ? <input type="text" onChange={handleOnChangeUsername} placeholder="Username" /> : username}</p>
+              <p>{update ? <input type="text" value={username} onChange={handleOnChangeUsername} placeholder="Username" /> : username}</p>
             </div>
             <div id="info-container">
               <p id="update-label">Password</p>
-              <p>{update ? <input type="password" onChange={handleOnChangePass} placeholder="Password" /> : "*".repeat(password.length)}</p>
+              <p>{update ? <input type="password" value={password} onChange={handleOnChangePass} placeholder="Password" /> : "*".repeat(password.length)}</p>
             </div>
           </div>
 
